@@ -1,0 +1,68 @@
+html {
+  font-size: 10px;
+}
+
+body {
+  @extend %font;
+  @include font($size: 1.6rem, $height: 2.6rem);
+  background-color: $color-dark-primary;
+}
+
+main {
+  margin: auto;
+  width: 120rem;
+  padding: 5rem 0 5rem 9rem;
+  box-sizing: border-box;
+  @media (max-width: $desctop-width) {
+    width: 100%;
+    padding: 3rem 2rem 3rem 11rem;
+  }
+  @media (max-width: $tablet-width) {
+    padding: 3rem 2rem 6rem 2rem;
+  }
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+h1 {
+  @extend %font;
+  @include font($height: 4rem, $size: 3.6rem, $weight: bold);
+  color: $color-text-bright;
+  @include media-tablet {
+    @include font($height: 3.6rem, $size: 3.2rem, $weight: bold);
+  }
+  @include media-mobile {
+    @include font($height: 3.2rem, $size: 2.8rem, $weight: bold);
+  }
+}
+
+h2 {
+  @extend %font;
+  @include font($height: 2.8rem, $size: 2.8rem, $weight: bold);
+  color: $color-text-bright;
+  @include media-tablet {
+    @include font($height: 2.4rem, $size: 2.4rem, $weight: bold);
+  }
+}
+
+p {
+  @extend %font;
+  @include font($height: 2.2rem, $size: 1.8rem);
+  color: $color-text-dim;
+  @include media-tablet {
+    @include font($height: 1.8rem, $size: 1.6rem);
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}

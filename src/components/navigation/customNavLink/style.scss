@@ -1,0 +1,98 @@
+@import 'assets/styles/index.scss';
+
+.nav__link {
+  width: 100%;
+  padding: 1rem 3rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  @include font($size: 2.8rem, $height: 3.4rem, $weight: normal);
+  color: $color-text-dim;
+  text-decoration: none;
+  position: relative;
+
+  &.active {
+    color: $color-text-bright;
+  }
+
+  &.active &__icon {
+    fill: $color-text-bright;
+  }
+
+  &:hover {
+    background-color: $color-nav-link-hover;
+    color: $color-dark-secondary;
+  }
+
+  &:hover &__icon {
+    fill: $color-dark-secondary;
+  }
+
+  &:hover &__notification {
+    background-color: $color-red-dim;
+    color: $color-dark-secondary;
+  }
+
+  &__icon {
+    width: 3rem;
+    height: auto;
+    padding: 0.5rem 0;
+    fill: $color-text-dim;
+    @extend %nav-transition;
+
+    @include media-tablet {
+      height: 3rem;
+      width: auto;
+      padding: 0 0.5rem;
+    }
+
+    @include media-mobile {
+      height: 2.5rem;
+      padding: 0 0.25rem;
+    }
+  }
+
+  &__text {
+    padding-left: 0;
+    text-indent: -20rem;
+    opacity: 0;
+    transition: text-indent 0s linear 0s, padding 0s linear 0, opacity 0s linear 0s;
+    @include media-tablet {
+      display: none;
+    }
+  }
+
+  &__notification {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
+  }
+
+  @include media-tablet {
+    padding: 0 1rem;
+    &:hover {
+      background-color: $color-dark-secondary;
+      color: $color-text-dim;
+      &__icon {
+        fill: $color-text-dim;
+      }
+    }
+    &:hover &__icon {
+      fill: $color-text-bright;
+    }
+    &__notification {
+      top: 0;
+      left: 0.5rem;
+    }
+  }
+}
+
+.nav:hover .nav__link__text {
+  padding-left: 3rem;
+  text-indent: 0;
+  opacity: 1;
+  transition: text-indent 0s linear 600ms, padding 0s linear 600ms, opacity 600ms linear 400ms;
+  @include media-tablet {
+    display: none;
+  }
+}
