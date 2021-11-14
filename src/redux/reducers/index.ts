@@ -4,6 +4,7 @@ import { loaderReducer } from 'redux/reducers/loader';
 import { projectsReducer } from 'redux/reducers/projects';
 import { scopesReducer } from 'redux/reducers/scopes';
 import { technologiesReducer } from 'redux/reducers/technologies';
+import { levelsReducer } from 'redux/reducers/levels';
 
 const rootReducer = combineReducers({
   authorizedUser: authorizedUserReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   projects: projectsReducer,
   scopes: scopesReducer,
   technologies: technologiesReducer,
+  levels: levelsReducer,
 });
 
 export default rootReducer;

@@ -36,6 +36,22 @@ export interface ITechnology {
   updatedAt?: Date;
 }
 
+export interface ILevel {
+  id: string;
+  value: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface ISkill {
+  id: string;
+  level: ILevel;
+  technology: ITechnology;
+  profileId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface IProject {
   id: string;
   name: string;
@@ -46,6 +62,37 @@ export interface IProject {
   contact: string;
   scopes: IScope[];
   technologies: ITechnology[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IDepartment {
+  id: string;
+  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IJobFunction {
+  id: string;
+  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IProfile {
+  id: string;
+  name: string;
+  surname: string;
+  email: string;
+  mobilePhone: string;
+  photoLink?: string;
+  carrierStartDate?: Date;
+  companyStartDate?: Date;
+  account: IAccount;
+  department: IDepartment;
+  jobFunction: IJobFunction;
+  skills: ISkill[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -61,12 +108,25 @@ export interface IProjectsState {
   project: IProject;
 }
 
+export interface IProfilesState {
+  profiles: IProfile[];
+  profile: IProfile;
+}
+
 export interface IScopesState {
   data: IScope[];
 }
 
 export interface ITechnologiesState {
   data: ITechnology[];
+}
+
+export interface ILevelsState {
+  data: ITechnology[];
+}
+
+export interface IDepartmentsState {
+  data: IDepartment[];
 }
 
 export interface IRootState {
@@ -81,4 +141,7 @@ export interface IRootState {
   projects: IProjectsState;
   scopes: IScopesState;
   technologies: ITechnologiesState;
+  levels: ILevelsState;
+  profiles: IProfilesState;
+  departments: IDepartmentsState;
 }

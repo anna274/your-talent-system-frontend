@@ -4,3 +4,6 @@ export * from './accounts';
 export * from './projects';
 export * from './scopes';
 export * from './technologies';
+export * from './departments';
+export * from './levels';
+export * from './profiles';
