@@ -46,10 +46,25 @@ export const theme = createTheme({
           backgroundColor: '#5ACBA2',
         },
       },
+      containedSecondary: {
+        backgroundColor: '#EEB34E',
+        color: '#2E3B44',
+        '&:hover': {
+          backgroundColor: '#F3C473',
+        },
+      },
       root: {
         fontSize: 18,
         textTransform: 'none',
         height: 36,
+
+        '&.danger': {
+          backgroundColor: '#C65942',
+          color: '#2E3B44',
+          '&:hover': {
+            backgroundColor: '#D67560',
+          },
+        },
       },
     },
     MuiFilledInput: {
@@ -68,10 +83,31 @@ export const theme = createTheme({
           color: '#1D2A31',
         },
       },
-
       underline: {
         '&:after': {
           display: 'none',
+        },
+      },
+    },
+    MuiButtonBase: {
+      root: {
+        '&.MuiPickersDay-day': {
+          color: '#82929B',
+        },
+        '&.MuiPickersDay-daySelected': {
+          color: '#E5E5E5',
+        },
+      },
+    },
+    MuiChip: {
+      root: {
+        fontSize: 16,
+      },
+    },
+    MuiFab: {
+      root: {
+        '&.MuiFab-primary:hover': {
+          backgroundColor: '#52B792',
         },
       },
     },

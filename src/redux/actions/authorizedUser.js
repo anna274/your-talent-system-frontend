@@ -19,13 +19,13 @@ function loginUser(userData) {
     });
     try {
       const response = await loginUserInfo(userData);
-      const { token, refreshToken, user } = response.data;
+      const { token, refreshToken, account } = response.data;
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('refreshToken', refreshToken);
       setAuthToken(token);
       dispatch({
         type: authorizedUserTypes.LOGIN_USER_SUCCESS,
-        payload: user,
+        payload: account,
       });
     } catch (e) {
       dispatch({
@@ -102,10 +102,4 @@ const setAuthUserError = (error) => ({
   payload: error,
 });
 
-export {
-  loginUser,
-  logoutUser,
-  authenticateUser,
-  updateAuthUserPassword,
-  setAuthUserError,
-};
+export { loginUser, logoutUser, authenticateUser, updateAuthUserPassword, setAuthUserError };

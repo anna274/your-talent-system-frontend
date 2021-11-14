@@ -14,13 +14,15 @@ export const Loader: React.FC<Props> = ({ classes = '', isRelative }) => {
     loader_relative: isRelative,
   });
   return (
-    <div className={loaderClasses}>
-      <div className="loader__dot"></div>
-      <div className="loader__dot"></div>
-      <div className="loader__dot"></div>
-      <div className="loader__dot"></div>
-      <div className="loader__dot"></div>
-      <div className="loader__dot"></div>
+    <div className="loader_container">
+      <div className={loaderClasses}>
+        <div className="loader__dot"></div>
+        <div className="loader__dot"></div>
+        <div className="loader__dot"></div>
+        <div className="loader__dot"></div>
+        <div className="loader__dot"></div>
+        <div className="loader__dot"></div>
+      </div>
     </div>
   );
 };

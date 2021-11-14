@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { authenticateUser } from 'redux/actions';
 import { addAxiosResponseInterceptor } from 'services';
 import { Loader } from 'components/shared';
-// import Modal from 'components/shared/modals/modal';
 import Routes from 'routes';
 
 class App extends React.Component {
@@ -16,22 +15,18 @@ class App extends React.Component {
   }
 
   render() {
-    const { isAuthenticated, authenticating } = this.props;
-    if (authenticating) {
-      return <Loader />;
-    }
-    // return localStorage.getItem('jwtToken') && !isAuthenticated ? null : (
-    //   <ThemeProvider theme={theme}>
-    //     <Routes />
-    //     {/* <Modal /> */}
-    //   </ThemeProvider>
-    // );
-    return localStorage.getItem('jwtToken') && !isAuthenticated ? null : <Routes />
+    const { isAuthenticated, loading } = this.props;
+    return localStorage.getItem('jwtToken') && !isAuthenticated ? null : (
+      <>
+        <Routes />
+        {loading && <Loader />}
+      </>
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
-  authenticating: state.loader.loading,
+  loading: state.loader.loading,
   isAuthenticated: state.authorizedUser.isAuthenticated,
 });
 

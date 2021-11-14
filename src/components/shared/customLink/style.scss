@@ -1,0 +1,59 @@
+@import 'assets/styles/index.scss';
+
+.link {
+  display: flex;
+  align-items: center;
+  color: $color-text-dim;
+  font-size: 2rem;
+  transition: 300ms;
+
+  &__icon {
+    height: 2rem;
+    width: auto;
+    fill: $color-text-dim;
+    margin-left: 0.5rem;
+  }
+
+  &:hover {
+    color: $color-text-bright;
+
+    &__icon {
+      fill: $color-text-bright;
+    }
+  }
+
+  @include media-mobile {
+    font-size: 1.6rem;
+  }
+
+  &_btn {
+    @include font($size: 1.8rem, $height: 2.6rem);
+    padding: 0.8rem 2rem;
+    background-color: $color-tag;
+    border-radius: 2rem;
+    color: $color-text-bright;
+    transition: 0.3s;
+    text-align: center;
+    box-sizing: border-box;
+    &:hover {
+      background-color: $color-nav-link-hover;
+    }
+    span {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+.view_details {
+  position: absolute;
+  right: 3rem;
+  bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.inline_link {
+  display: inline-block;
+  margin-left: 1rem;
+  font-size: 1.8rem;
+}
