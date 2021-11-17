@@ -123,7 +123,6 @@ export const CreateProjectPage: React.FC = () => {
           Вернуться назад
         </Button>
       </ControllersContainer>
-      {/* @ts-ignore */}
       <GeneralForm
         initialValues={initialValues}
         fields={fields}

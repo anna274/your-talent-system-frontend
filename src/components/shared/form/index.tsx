@@ -2,7 +2,14 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { Formik } from 'formik';
 import { PageTitle, ControllersGroup } from 'components/shared/page';
-import { TextField, TextBox, DatePicker, AddInstanceField } from 'components/formikWrappers';
+import {
+  TextField,
+  TextBox,
+  DatePicker,
+  AddInstanceField,
+  SelectField,
+  SkillsInputField,
+} from 'components/formikWrappers';
 import { goBack } from 'customHistory';
 import { Form } from './styled';
 
@@ -14,9 +21,9 @@ interface IField {
 
 interface IProps {
   fields: IField[];
-  onSubmit: (values: object) => void;
+  onSubmit: (values: any) => void;
   formTitle: string;
-  validate: (values: object) => void;
+  validate: (values: any) => void;
   initialValues: object;
 }
 
@@ -25,6 +32,8 @@ const FIELDS_MAPPING = {
   textBox: TextBox,
   datePicker: DatePicker,
   addInstance: AddInstanceField,
+  select: SelectField,
+  skillsInput: SkillsInputField,
 };
 
 const getField = ({ id, type, props }: IField) => {

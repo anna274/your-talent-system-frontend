@@ -11,6 +11,10 @@ import {
   CreateProjectPage,
   ProjectPage,
   EditProjectPage,
+  ProfilesPage,
+  CreateProfilePage,
+  ProfilePage,
+  EditProfilePage,
 } from 'containers';
 
 function Routes() {
@@ -25,6 +29,10 @@ function Routes() {
         <PrivateRoute path={PATHS.projects_new} exact component={CreateProjectPage} />
         <PrivateRoute path={PATHS.projects_view} exact component={ProjectPage} />
         <PrivateRoute path={PATHS.projects_edit} exact component={EditProjectPage} />
+        <PrivateRoute path={PATHS.profiles} exact component={ProfilesPage} />
+        <PrivateRoute path={PATHS.profiles_new} exact component={CreateProfilePage} />
+        <PrivateRoute path={PATHS.profiles_view} exact component={ProfilePage} />
+        <PrivateRoute path={PATHS.profiles_edit} exact component={EditProfilePage} />
       </Switch>
     </Router>
   );

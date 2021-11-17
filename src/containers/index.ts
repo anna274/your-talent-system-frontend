@@ -5,3 +5,7 @@ export * from './projects/list';
 export * from './projects/create';
 export * from './projects/view';
 export * from './projects/edit';
+export * from './profiles/list';
+export * from './profiles/create';
+export * from './profiles/view';
+export * from './profiles/edit';

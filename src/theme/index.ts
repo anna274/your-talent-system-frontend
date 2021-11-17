@@ -111,5 +111,10 @@ export const theme = createTheme({
         },
       },
     },
+    MuiList: {
+      root: {
+        color: '#82929B',
+      },
+    },
   },
 });

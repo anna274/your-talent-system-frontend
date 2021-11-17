@@ -6,3 +6,4 @@ export * from './technologies';
 export * from './levels';
 export * from './departments';
 export * from './profiles';
+export * from './jobFunctions';

@@ -27,4 +27,9 @@ export const Form = styled(LibraryForm)`
     margin-right: 1rem;
     width: 20rem;
   }
+
+  .MuiFormControl-root.custom {
+    width: 30rem;
+    margin-bottom: 2rem;
+  }
 `;

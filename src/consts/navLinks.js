@@ -27,7 +27,7 @@ const NAV_LINKS_ADMIN = [
   },
   {
     id: 3,
-    to: '/specialists/',
+    to: '/profiles/',
     text: 'Specialists',
     Icon: UsersIcon,
   },

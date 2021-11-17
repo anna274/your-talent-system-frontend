@@ -87,14 +87,15 @@ export interface IProfile {
   email: string;
   mobilePhone: string;
   photoLink?: string;
-  carrierStartDate?: Date;
-  companyStartDate?: Date;
+  carrierStartDate: Date | string;
+  companyStartDate: Date | string;
   account: IAccount;
   department: IDepartment;
-  jobFunction: IJobFunction;
+  job_function: IJobFunction;
   skills: ISkill[];
   createdAt?: Date;
   updatedAt?: Date;
+  summary: string;
 }
 
 // states
@@ -129,6 +130,10 @@ export interface IDepartmentsState {
   data: IDepartment[];
 }
 
+export interface IJobFunctionsState {
+  data: IJobFunction[];
+}
+
 export interface IRootState {
   authorizedUser: {
     data: IUser;
@@ -144,4 +149,5 @@ export interface IRootState {
   levels: ILevelsState;
   profiles: IProfilesState;
   departments: IDepartmentsState;
+  jobFunctions: IJobFunctionsState;
 }
