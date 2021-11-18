@@ -8,3 +8,6 @@ export * from './departments';
 export * from './levels';
 export * from './profiles';
 export * from './jobFunctions';
+export * from './positionsStatuses';
+export * from './priorities';
+export * from './positions';

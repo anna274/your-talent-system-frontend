@@ -8,6 +8,9 @@ import { levelsReducer } from 'redux/reducers/levels';
 import { departmentsReducer } from 'redux/reducers/departments';
 import { profilesReducer } from 'redux/reducers/profiles';
 import { jobFunctionsReducer } from 'redux/reducers/jobFunctions';
+import { positionStatusesReducer } from 'redux/reducers/positionStatuses';
+import { prioritiesReducer } from 'redux/reducers/priorities';
+import { positionsReducer } from 'redux/reducers/positions';
 
 const rootReducer = combineReducers({
   authorizedUser: authorizedUserReducer,
@@ -19,6 +22,9 @@ const rootReducer = combineReducers({
   departments: departmentsReducer,
   profiles: profilesReducer,
   jobFunctions: jobFunctionsReducer,
+  positionStatuses: positionStatusesReducer,
+  priorities: prioritiesReducer,
+  positions: positionsReducer,
 });
 
 export default rootReducer;

@@ -80,6 +80,41 @@ export interface IJobFunction {
   updatedAt?: Date;
 }
 
+export interface IPriority {
+  id: string;
+  value: number;
+  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IRequirement {
+  id: string;
+  level: ILevel;
+  technology: ITechnology;
+  priority: IPriority;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IPositionStatus {
+  id: string;
+  name: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface IPosition {
+  id: string;
+  project: IProject;
+  status: IPositionStatus;
+  job_function: IJobFunction;
+  profile: IProfile;
+  requirements: IRequirement[];
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface IProfile {
   id: string;
   name: string;
@@ -132,6 +167,19 @@ export interface IDepartmentsState {
 
 export interface IJobFunctionsState {
   data: IJobFunction[];
+}
+
+export interface IPositionStatusesState {
+  data: IPositionStatus[];
+}
+
+export interface IPrioritiesState {
+  data: IPriority[];
+}
+
+export interface IPositionsState {
+  positions: IPosition[];
+  position: IPosition;
 }
 
 export interface IRootState {
