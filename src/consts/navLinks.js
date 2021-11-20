@@ -10,31 +10,31 @@ const NAV_LINKS_ADMIN = [
   {
     id: 0,
     to: '/projects/',
-    text: 'Projects',
+    text: 'Проекты',
     Icon: ProjectsIcon,
   },
   {
     id: 1,
     to: '/positions/',
-    text: 'Positions',
+    text: 'Позиции',
     Icon: PositionsIcon,
-  },
-  {
-    id: 2,
-    to: '/statistics/',
-    text: 'Statistics',
-    Icon: StatisticsIcon,
   },
   {
     id: 3,
     to: '/profiles/',
-    text: 'Specialists',
+    text: 'Специалисты',
     Icon: UsersIcon,
+  },
+  {
+    id: 2,
+    to: '/statistics/',
+    text: 'Статистика',
+    Icon: StatisticsIcon,
   },
   {
     id: 6,
     to: '/logout/',
-    text: 'Logout',
+    text: 'Выход',
     Icon: LogoutIcon,
   },
 ];

@@ -6,3 +6,6 @@ export * from './levels';
 export * from './departments';
 export * from './profiles';
 export * from './jobFunctions';
+export * from './positions';
+export * from './priorities';
+export * from './positionStatuses';

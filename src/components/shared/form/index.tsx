@@ -9,6 +9,8 @@ import {
   AddInstanceField,
   SelectField,
   SkillsInputField,
+  RequirementsInputField,
+  TextAddInstanceField,
 } from 'components/formikWrappers';
 import { goBack } from 'customHistory';
 import { Form } from './styled';
@@ -34,6 +36,8 @@ const FIELDS_MAPPING = {
   addInstance: AddInstanceField,
   select: SelectField,
   skillsInput: SkillsInputField,
+  requirementInput: RequirementsInputField,
+  textAddInstance: TextAddInstanceField,
 };
 
 const getField = ({ id, type, props }: IField) => {

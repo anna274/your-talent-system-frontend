@@ -9,3 +9,7 @@ export * from './profiles/list';
 export * from './profiles/create';
 export * from './profiles/view';
 export * from './profiles/edit';
+export * from './positions/list';
+export * from './positions/create';
+export * from './positions/view';
+export * from './positions/edit';

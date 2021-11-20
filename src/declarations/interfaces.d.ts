@@ -88,6 +88,13 @@ export interface IPriority {
   updatedAt?: Date;
 }
 
+export interface IDuty {
+  id: string;
+  text: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface IRequirement {
   id: string;
   level: ILevel;
@@ -107,10 +114,14 @@ export interface IPositionStatus {
 export interface IPosition {
   id: string;
   project: IProject;
-  status: IPositionStatus;
   job_function: IJobFunction;
   profile: IProfile;
   requirements: IRequirement[];
+  applicationDate: Date;
+  duties: IDuty[];
+  closeDate: Date;
+  profiles: IProfile[];
+  isOpen: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -198,4 +209,7 @@ export interface IRootState {
   profiles: IProfilesState;
   departments: IDepartmentsState;
   jobFunctions: IJobFunctionsState;
+  positions: IPositionsState;
+  positionStatuses: IPositionStatusesState;
+  priorities: IPrioritiesState;
 }

@@ -6,7 +6,13 @@ import { getProject, deleteProject } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup } from 'components/shared/page';
 import { CustomLink } from 'components/shared';
-import { formatDateString, getReturnToUrl, getProjectsLink, getEditProjectLink } from 'helpers';
+import {
+  formatDateString,
+  getReturnToUrl,
+  getProjectsLink,
+  getEditProjectLink,
+  getCreatePositionLink,
+} from 'helpers';
 import { goTo } from 'customHistory';
 import {
   Container,
@@ -70,7 +76,10 @@ export const ProjectPage: React.FC = () => {
           >
             Изменить описание проекта
           </Button>
-          <Button variant="contained" onClick={() => goTo('#')}>
+          <Button
+            variant="contained"
+            onClick={() => goTo(`${getCreatePositionLink(userId)}?projectId=${projectId}`)}
+          >
             Добавить позицию
           </Button>
         </ControllersGroup>

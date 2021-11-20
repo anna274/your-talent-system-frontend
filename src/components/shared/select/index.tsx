@@ -34,7 +34,13 @@ export const Select: React.FC<IProps> = ({
       <InputLabel id={label} error={error}>
         {label}
       </InputLabel>
-      <MuiSelect labelId={label} id={id} value={value} onChange={onChange}>
+      <MuiSelect
+        labelId={label}
+        id={id}
+        value={value}
+        onChange={onChange}
+        renderValue={(value: any) => getOptionLabel(value)}
+      >
         {options.map((option) => (
           <MenuItem key={option.id} value={option}>
             {getOptionLabel(option)}

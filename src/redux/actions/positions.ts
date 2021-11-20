@@ -82,13 +82,13 @@ export const createPosition = (positionData: any, userId: string) => {
   };
 };
 
-export const updatePosition = (id: string, updatedData: any, userId: string) => {
+export const updatePosition = (positionId: string, updatedData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const updatedPosition = await updatePositionInfo(id, updatedData);
+      const updatedPosition = await updatePositionInfo(positionId, updatedData);
       dispatch({
         type: positionsTypes.UPDATE_POSITION_SUCCESS,
         payload: updatedPosition.data,

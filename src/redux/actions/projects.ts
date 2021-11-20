@@ -58,7 +58,7 @@ export const getProject = (id: string) => {
   };
 };
 
-export const createProject = (projectData: IProject, userId: string) => {
+export const createProject = (projectData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,

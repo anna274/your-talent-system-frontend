@@ -9,6 +9,10 @@ const PATHS = {
   profiles_new: '/profiles/:userId/new',
   profiles_view: '/profiles/:userId/:profileId',
   profiles_edit: '/profiles/:userId/:profileId/edit',
+  positions: '/positions/:userId',
+  positions_new: '/positions/:userId/new',
+  positions_view: '/positions/:userId/:positionId',
+  positions_edit: '/positions/:userId/:positionId/edit',
 };
 
 export default PATHS;
