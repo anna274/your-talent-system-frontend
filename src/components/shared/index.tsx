@@ -10,3 +10,4 @@ export * from './textAddInstance';
 export * from './requirementView';
 export * from './priorityArrow';
 export * from './rating';
+export * from './skillView';

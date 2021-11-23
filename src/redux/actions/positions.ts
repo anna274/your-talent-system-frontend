@@ -5,6 +5,9 @@ import {
   createPositionInfo,
   updatePositionInfo,
   deletePositionInfo,
+  addCandidateInfo,
+  deleteCandidateInfo,
+  setSpecialistInfo,
 } from 'services';
 import { getViewPositionLink, getPositionsLink } from 'helpers';
 import { goTo } from 'customHistory';
@@ -126,6 +129,67 @@ export const deletePosition = (id: string, userId: string) => {
     } finally {
       dispatch({
         type: loaderTypes.HIDE_LOADER,
+      });
+    }
+  };
+};
+
+export const addCandidate = (positionId: string, profileId: string, koef: number) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: positionsTypes.ADD_CANDIDATE_REQUEST,
+    });
+    try {
+      const { data: updatedPosition } = await addCandidateInfo(positionId, profileId, koef);
+      dispatch({
+        type: positionsTypes.ADD_CANDIDATE_SUCCESS,
+        payload: updatedPosition,
+      });
+    } catch (e) {
+      dispatch({
+        type: positionsTypes.ADD_CANDIDATE_FAILURE,
+        payload: e,
+      });
+    }
+  };
+};
+
+export const deleteCandidate = (positionId: string, profileId: string) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: positionsTypes.DELETE_CANDIDATE_REQUEST,
+    });
+    try {
+      const { data: updatedPosition } = await deleteCandidateInfo(positionId, profileId);
+      dispatch({
+        type: positionsTypes.DELETE_CANDIDATE_SUCCESS,
+        payload: updatedPosition,
+      });
+    } catch (e) {
+      dispatch({
+        type: positionsTypes.DELETE_CANDIDATE_FAILURE,
+        payload: e,
+      });
+    }
+  };
+};
+
+export const setSpecialist = (positionId: string, profileId: string, userId: string) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: positionsTypes.SET_SPECIALIST_REQUEST,
+    });
+    try {
+      const { data: updatedPosition } = await setSpecialistInfo(positionId, profileId);
+      dispatch({
+        type: positionsTypes.SET_SPECIALIST_SUCCESS,
+        payload: updatedPosition,
+      });
+      goTo(getViewPositionLink(userId, positionId));
+    } catch (e) {
+      dispatch({
+        type: positionsTypes.SET_SPECIALIST_FAILURE,
+        payload: e,
       });
     }
   };

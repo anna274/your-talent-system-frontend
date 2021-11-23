@@ -61,6 +61,7 @@ export interface IProject {
   headOffice: string;
   contact: string;
   scopes: IScope[];
+  positions: IPosition[];
   technologies: ITechnology[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -144,6 +145,13 @@ export interface IProfile {
   summary: string;
 }
 
+export interface ICandidate {
+  id: string;
+  profile: IProfile;
+  koef: number;
+  positionId: string;
+}
+
 // states
 
 interface ILoaderState {
@@ -184,6 +192,11 @@ export interface IPositionStatusesState {
   data: IPositionStatus[];
 }
 
+export interface ICandidatesState {
+  data: ICandidate[];
+  requested: boolean;
+}
+
 export interface IPrioritiesState {
   data: IPriority[];
 }
@@ -212,4 +225,5 @@ export interface IRootState {
   positions: IPositionsState;
   positionStatuses: IPositionStatusesState;
   priorities: IPrioritiesState;
+  candidates: ICandidatesState;
 }

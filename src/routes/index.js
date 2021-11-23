@@ -19,6 +19,8 @@ import {
   CreatePositionPage,
   PositionPage,
   EditPositionPage,
+  PossibleCandidatesPage,
+  CandidatesPage,
 } from 'containers';
 
 function Routes() {
@@ -41,6 +43,12 @@ function Routes() {
         <PrivateRoute path={PATHS.positions_new} exact component={CreatePositionPage} />
         <PrivateRoute path={PATHS.positions_view} exact component={PositionPage} />
         <PrivateRoute path={PATHS.positions_edit} exact component={EditPositionPage} />
+        <PrivateRoute
+          path={PATHS.positions_possible_candidates}
+          exact
+          component={PossibleCandidatesPage}
+        />
+        <PrivateRoute path={PATHS.positions_candidates} exact component={CandidatesPage} />
       </Switch>
     </Router>
   );

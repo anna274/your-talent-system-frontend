@@ -38,6 +38,7 @@ export const ProjectPage: React.FC = () => {
     headOffice,
     contact,
     description,
+    positions,
   } = useSelector((state: IRootState) => state.projects.project);
   const { loading } = useSelector((state: IRootState) => state.loader);
 
@@ -101,7 +102,7 @@ export const ProjectPage: React.FC = () => {
             </p>
           )}
           <p>
-            <strong>Количество позиций: </strong> 3
+            <strong>Количество позиций: </strong> {`${positions.length}`}
             <CustomLink to="#" classes="inline_link">
               Посмотреть позиции
             </CustomLink>

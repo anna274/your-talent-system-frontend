@@ -67,6 +67,26 @@ interface IActionDeleteFailure {
   payload: Error;
 }
 
+interface IActionAddCandidateSuccess {
+  type: positionsTypes.ADD_CANDIDATE_SUCCESS;
+  payload: IPosition;
+}
+
+interface IActionDeleteCandidateSuccess {
+  type: positionsTypes.DELETE_CANDIDATE_SUCCESS;
+  payload: IPosition;
+}
+
+interface IActionDeleteCAndidateFailure {
+  type: positionsTypes.DELETE_CANDIDATE_FAILURE;
+  payload: Error;
+}
+
+interface IActionAddCAndidateFailure {
+  type: positionsTypes.ADD_CANDIDATE_FAILURE;
+  payload: Error;
+}
+
 type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
@@ -81,7 +101,11 @@ type UnreadChatActionsType =
   | IActionUpdateFailure
   | IActionDeleteRequest
   | IActionDeleteSuccess
-  | IActionDeleteFailure;
+  | IActionDeleteFailure
+  | IActionAddCandidateSuccess
+  | IActionAddCAndidateFailure
+  | IActionDeleteCandidateSuccess
+  | IActionDeleteCAndidateFailure;
 
 const initialState: IPositionsState = {
   positions: [],
@@ -118,6 +142,18 @@ export const positionsReducer = (state = initialState, action: UnreadChatActions
       return { ...state, position: {} };
     }
     case positionsTypes.DELETE_POSITION_FAILURE:
+      return { ...state, error: action.payload };
+
+    case positionsTypes.ADD_CANDIDATE_SUCCESS: {
+      return { ...state, position: action.payload };
+    }
+    case positionsTypes.ADD_CANDIDATE_FAILURE:
+      return { ...state, error: action.payload };
+
+    case positionsTypes.DELETE_CANDIDATE_SUCCESS: {
+      return { ...state, position: action.payload };
+    }
+    case positionsTypes.DELETE_CANDIDATE_FAILURE:
       return { ...state, error: action.payload };
 
     default:

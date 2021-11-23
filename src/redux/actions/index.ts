@@ -9,3 +9,4 @@ export * from './jobFunctions';
 export * from './positions';
 export * from './priorities';
 export * from './positionStatuses';
+export * from './candidates';

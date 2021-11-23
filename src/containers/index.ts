@@ -13,3 +13,5 @@ export * from './positions/list';
 export * from './positions/create';
 export * from './positions/view';
 export * from './positions/edit';
+export * from './positions/possibleCandidates';
+export * from './positions/candidates';

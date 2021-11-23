@@ -15,7 +15,7 @@ interface IParams {
 }
 
 export const Project: React.FC<IProps> = ({
-  project: { id, name, startDate, endDate, scopes },
+  project: { id, name, startDate, endDate, scopes, positions },
 }) => {
   const { userId } = useParams<IParams>();
 
@@ -29,7 +29,7 @@ export const Project: React.FC<IProps> = ({
         {isStatusIsOpened ? 'Открыт' : 'Закрыт'}
       </ProjectStatus>
       <p>{`Дата старта: ${formatDateString(startDate)}`}</p>
-      <p>Количество позиций: 3</p>
+      <p>{`Количество позиций: ${positions.length}`}</p>
       {scopes.length > 0 && (
         <ProjectScopes>
           {scopes.map(({ id, name }) => (

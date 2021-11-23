@@ -13,3 +13,8 @@ export const getCreatePositionLink = (userId) => `/positions/${userId}/new`;
 export const getViewPositionLink = (userId, positionId) => `/positions/${userId}/${positionId}`;
 export const getEditPositionLink = (userId, positionId) =>
   `/positions/${userId}/${positionId}/edit`;
+
+export const getPossibleCandidatesLink = (userId, positionId) =>
+  `/positions/${userId}/${positionId}/possible-candidates`;
+export const getCandidatesLink = (userId, positionId) =>
+  `/positions/${userId}/${positionId}/candidates`;

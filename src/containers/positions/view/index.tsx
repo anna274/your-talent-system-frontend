@@ -14,6 +14,9 @@ import {
   sortRequirementsByPriority,
   getViewPositionLink,
   getViewProjectLink,
+  getPossibleCandidatesLink,
+  getCandidatesLink,
+  getViewProfileLink,
 } from 'helpers';
 import { goTo } from 'customHistory';
 import {
@@ -40,6 +43,7 @@ export const PositionPage: React.FC = () => {
     duties,
     applicationDate,
     closeDate,
+    profile,
   } = useSelector((state: IRootState) => state.positions.position);
   const { loading } = useSelector((state: IRootState) => state.loader);
 
@@ -78,9 +82,11 @@ export const PositionPage: React.FC = () => {
           >
             Редактировать позицию
           </Button>
-          <Button variant="contained" onClick={() => goTo('#')}>
-            Подобрать кандидата
-          </Button>
+          {isOpen && (
+            <Button variant="contained" onClick={() => goTo(getPossibleCandidatesLink(userId, id))}>
+              Подобрать кандидата
+            </Button>
+          )}
         </ControllersGroup>
       </ControllersContainer>
       {positionId === id && !loading && (
@@ -107,13 +113,27 @@ export const PositionPage: React.FC = () => {
               Посмотреть проект
             </CustomLink>
           </p>
-          <p>
-            <strong>Количество кандидатов: </strong>
-            {profiles.length}
-            <CustomLink to="#" classes="inline_link">
-              Посмотреть кандидатов
-            </CustomLink>
-          </p>
+          {isOpen && (
+            <p>
+              <strong>Количество кандидатов: </strong>
+              {profiles.length}
+              <CustomLink to={getCandidatesLink(userId, positionId)} classes="inline_link">
+                Посмотреть кандидатов
+              </CustomLink>
+            </p>
+          )}
+          {!isOpen && (
+            <p>
+              <strong>Специалист: </strong>
+              {`${profile.surname} ${profile.name}`}
+              <CustomLink
+                to={`${getViewProfileLink(userId, profile.id)}${returnToParam}`}
+                classes="inline_link"
+              >
+                Посмотреть профиль
+              </CustomLink>
+            </p>
+          )}
           {requirements.length > 0 && (
             <>
               <PageSection>Требования</PageSection>
