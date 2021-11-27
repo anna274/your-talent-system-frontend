@@ -69,8 +69,8 @@ export const Candidate: React.FC<IProps> = ({
           </RequirementsColumn>
           <SkillsColumn>
             <ColumnHeader>Навыки</ColumnHeader>
-            {/* @ts-ignore */}
             {requirementsMatches.map((reqMatch) =>
+              // @ts-ignore
               reqMatch.notIncluded ? <SkillsPlaceholder /> : <SkillView skill={reqMatch.skill} />,
             )}
             {notIncludedSkills.map((skill) => (

@@ -1,5 +1,5 @@
 import { profilesTypes, loaderTypes } from 'redux/types';
-import { IProfile, IUser } from 'declarations/interfaces';
+import { showAlert } from 'redux/actions';
 import {
   getProfilesInfo,
   getProfileInfo,
@@ -70,7 +70,8 @@ export const createProfile = (accountData: any, profileData: any, userId: string
         payload: newProfile.data,
       });
       goTo(getViewProfileLink(userId, newProfile.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: profilesTypes.CREATE_PROFILE_FAILURE,
         payload: e,

@@ -152,6 +152,23 @@ export interface ICandidate {
   positionId: string;
 }
 
+export interface IAlert {
+  type: string;
+  severity?: string;
+  text: string;
+  [k: string]: any;
+}
+
+export interface IAlertPayload {
+  type: string;
+  severity?: string;
+  text: string;
+  props: {
+    onClose?: () => void;
+    [k: string]: any;
+  };
+}
+
 // states
 
 interface ILoaderState {
@@ -206,6 +223,10 @@ export interface IPositionsState {
   position: IPosition;
 }
 
+export interface IAlertState {
+  data: IAlert[];
+}
+
 export interface IRootState {
   authorizedUser: {
     data: IUser;
@@ -226,4 +247,5 @@ export interface IRootState {
   positionStatuses: IPositionStatusesState;
   priorities: IPrioritiesState;
   candidates: ICandidatesState;
+  alerts: IAlertState;
 }

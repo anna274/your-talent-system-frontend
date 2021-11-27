@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { authenticateUser } from 'redux/actions';
 import { addAxiosResponseInterceptor } from 'services';
 import { Loader } from 'components/shared';
+import { Alert } from 'components/alert';
 import Routes from 'routes';
 
 class App extends React.Component {
@@ -19,6 +20,7 @@ class App extends React.Component {
     return localStorage.getItem('jwtToken') && !isAuthenticated ? null : (
       <>
         <Routes />
+        <Alert />
         {loading && <Loader />}
       </>
     );

@@ -18,3 +18,4 @@ export * from './string-helpers';
 export * from './isLimitAchieved';
 export * from './roles-helper';
 export * from './requirements-helper';
+export * from './random-helpers';

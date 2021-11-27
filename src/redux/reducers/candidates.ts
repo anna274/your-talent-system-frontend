@@ -24,7 +24,6 @@ const initialState: ICandidatesState = {
 };
 
 export const candidatesReducer = (state = initialState, action: CandidatesActionsType) => {
-  console.log(action.payload);
   switch (action.type) {
     case candidatesTypes.GET_CANDIDATES_REQUEST:
       return { ...state, requested: true };

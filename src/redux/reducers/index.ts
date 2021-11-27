@@ -12,6 +12,7 @@ import { positionStatusesReducer } from 'redux/reducers/positionStatuses';
 import { prioritiesReducer } from 'redux/reducers/priorities';
 import { positionsReducer } from 'redux/reducers/positions';
 import { candidatesReducer } from 'redux/reducers/candidates';
+import { alertReducer } from 'redux/reducers/alert';
 
 const rootReducer = combineReducers({
   authorizedUser: authorizedUserReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   priorities: prioritiesReducer,
   positions: positionsReducer,
   candidates: candidatesReducer,
+  alerts: alertReducer,
 });
 
 export default rootReducer;

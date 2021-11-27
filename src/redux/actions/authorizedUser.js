@@ -1,4 +1,5 @@
 import jwt_decode from 'jwt-decode';
+import { showAlert } from 'redux/actions';
 import { authorizedUserTypes, loaderTypes } from 'redux/types';
 import {
   loginUserInfo,
@@ -28,6 +29,7 @@ function loginUser(userData) {
         payload: account,
       });
     } catch (e) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: authorizedUserTypes.LOGIN_USER_FAILURE,
         payload: '',
