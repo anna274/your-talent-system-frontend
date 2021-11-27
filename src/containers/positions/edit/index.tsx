@@ -11,14 +11,7 @@ import {
   getPosition,
   updatePosition,
 } from 'redux/actions';
-import {
-  IRootState,
-  IProject,
-  IJobFunction,
-  IRequirement,
-  IDuty,
-  IPosition,
-} from 'declarations/interfaces';
+import { IRootState, IProject, IJobFunction, IRequirement, IDuty } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
@@ -59,7 +52,7 @@ export const EditPositionPage: React.FC = () => {
     dispatch(getLevels());
     dispatch(getTechnologies());
     dispatch(getPriorities());
-    dispatch(getProjects());
+    dispatch(getProjects({ filters: { isOpen: true } }));
     dispatch(getJobFunctions());
   }, [dispatch]);
 

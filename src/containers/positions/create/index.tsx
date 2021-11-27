@@ -52,7 +52,7 @@ export const CreatePositionPage: React.FC = () => {
     dispatch(getLevels());
     dispatch(getTechnologies());
     dispatch(getPriorities());
-    dispatch(getProjects());
+    dispatch(getProjects({ filters: { isOpen: true } }));
     dispatch(getJobFunctions());
   }, [dispatch]);
 

@@ -1,8 +1,8 @@
 import axios from 'services/axios';
 import { IProject } from 'declarations/interfaces';
 
-export const getProjectsInfo = () => {
-  return axios.get(`/projects`);
+export const getProjectsInfo = (query: string) => {
+  return axios.get(`/projects/${query}`);
 };
 
 export const getProjectInfo = (id: string) => {

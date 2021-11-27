@@ -7,16 +7,16 @@ import {
   updateProjectInfo,
   deleteProjectInfo,
 } from 'services';
-import { getViewProjectLink, getProjectsLink } from 'helpers';
+import { getViewProjectLink, getProjectsLink, getQueryString } from 'helpers';
 import { goTo } from 'customHistory';
 
-export const getProjects = () => {
+export const getProjects = (filters: any = {}) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const { data: projects } = await getProjectsInfo();
+      const { data: projects } = await getProjectsInfo(getQueryString(filters));
       dispatch({
         type: projectsTypes.GET_ALL_PROJECTS_SUCCESS,
         payload: projects,
