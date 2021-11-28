@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { getPosition } from 'redux/actions';
-import { getViewPositionLink, getPossibleCandidatesLink } from 'helpers';
+import {
+  getViewPositionLink,
+  getPossibleCandidatesLink,
+  getReturnToUrl,
+  getCandidatesLink,
+} from 'helpers';
 import { IRootState } from 'declarations/interfaces';
 import { CustomLink } from 'components/shared';
-import { PageTitle, PageSubtitle } from 'components/shared/page';
+import { PageTitle, PageSubtitle, ControllersContainer } from 'components/shared/page';
 import { Candidate } from './sections/Candidate';
 
 interface IParams {
@@ -20,6 +25,7 @@ export const CandidatesPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const { positionId, userId } = useParams<IParams>();
+  const { search } = useLocation();
 
   useEffect(() => {
     if (positionId !== position.id) {
@@ -28,10 +34,16 @@ export const CandidatesPage: React.FC = () => {
   }, [dispatch]);
 
   const returnToParam =
-    '?returnTo=' + encodeURIComponent(getPossibleCandidatesLink(userId, positionId));
+    '?returnTo=' + encodeURIComponent(`${getCandidatesLink(userId, positionId)}${search}`);
 
   return (
     <main>
+      <ControllersContainer>
+        <CustomLink to={getReturnToUrl(search) || getViewPositionLink(userId, positionId)}>
+          Вернуться назад
+        </CustomLink>
+      </ControllersContainer>
+
       <PageTitle>Кандидаты на позицию</PageTitle>
       {!!position.id && (
         <>

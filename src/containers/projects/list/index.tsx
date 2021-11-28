@@ -97,7 +97,7 @@ export const ProjectsPage: React.FC = () => {
     dispatch(getProjects({ filters: { ...filters, scopes: scopes.map(({ id }) => id) } }));
   };
 
-  const handleFiltersReset = (filters: IFilters) => {
+  const handleFiltersReset = () => {
     dispatch(getProjects());
   };
 

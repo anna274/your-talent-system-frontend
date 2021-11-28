@@ -52,7 +52,8 @@ export const PositionPage: React.FC = () => {
   const { positionId, userId } = useParams<IParams>();
   const { search } = useLocation();
 
-  const returnToParam = '?returnTo=' + encodeURIComponent(getViewPositionLink(userId, positionId));
+  const returnToParam =
+    '?returnTo=' + encodeURIComponent(`${getViewPositionLink(userId, positionId)}${search}`);
 
   useEffect(() => {
     if ((!id || positionId !== id) && !loading) {
@@ -117,7 +118,10 @@ export const PositionPage: React.FC = () => {
             <p>
               <strong>Количество кандидатов: </strong>
               {profiles.length}
-              <CustomLink to={getCandidatesLink(userId, positionId)} classes="inline_link">
+              <CustomLink
+                to={`${getCandidatesLink(userId, positionId)}${returnToParam}`}
+                classes="inline_link"
+              >
                 Посмотреть кандидатов
               </CustomLink>
             </p>

@@ -1,8 +1,8 @@
 import axios from 'services/axios';
 import { IPosition } from 'declarations/interfaces';
 
-export const getPositionsInfo = () => {
-  return axios.get(`/positions`);
+export const getPositionsInfo = (query: string) => {
+  return axios.get(`/positions/${query}`);
 };
 
 export const getPositionInfo = (id: string) => {

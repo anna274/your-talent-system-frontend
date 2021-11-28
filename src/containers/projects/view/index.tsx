@@ -12,6 +12,7 @@ import {
   getProjectsLink,
   getEditProjectLink,
   getCreatePositionLink,
+  getPositionsLink,
 } from 'helpers';
 import { goTo } from 'customHistory';
 import {
@@ -103,7 +104,10 @@ export const ProjectPage: React.FC = () => {
           )}
           <p>
             <strong>Количество позиций: </strong> {`${positions.length}`}
-            <CustomLink to="#" classes="inline_link">
+            <CustomLink
+              to={getPositionsLink(userId, { projects: [projectId] })}
+              classes="inline_link"
+            >
               Посмотреть позиции
             </CustomLink>
           </p>

@@ -9,16 +9,16 @@ import {
   deleteCandidateInfo,
   setSpecialistInfo,
 } from 'services';
-import { getViewPositionLink, getPositionsLink } from 'helpers';
+import { getViewPositionLink, getPositionsLink, getQueryString } from 'helpers';
 import { goTo } from 'customHistory';
 
-export const getPositions = () => {
+export const getPositions = (filters: any = {}) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const { data: positions } = await getPositionsInfo();
+      const { data: positions } = await getPositionsInfo(getQueryString(filters));
       dispatch({
         type: positionsTypes.GET_ALL_POSITIONS_SUCCESS,
         payload: positions,
