@@ -7,9 +7,16 @@ interface IProps {
   label: string;
   options: any[];
   getOptionLabel: (option: any) => string;
+  withClean?: boolean;
 }
 
-export const SelectField: React.FC<IProps> = ({ name, label, getOptionLabel, options }) => {
+export const SelectField: React.FC<IProps> = ({
+  name,
+  label,
+  getOptionLabel,
+  options,
+  withClean,
+}) => {
   return (
     <Field name={name}>
       {({
@@ -28,6 +35,7 @@ export const SelectField: React.FC<IProps> = ({ name, label, getOptionLabel, opt
           }}
           error={getIn(touched, name) ? getIn(errors, name) : null}
           helperText={getIn(touched, name) ? getIn(errors, name) : null}
+          withClean={withClean}
         />
       )}
     </Field>

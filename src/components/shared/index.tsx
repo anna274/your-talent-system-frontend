@@ -11,3 +11,5 @@ export * from './requirementView';
 export * from './priorityArrow';
 export * from './rating';
 export * from './skillView';
+export * from './filtersForm';
+export * from './multiselect';

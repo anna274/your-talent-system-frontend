@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import MuiSelect from '@material-ui/core/Select';
@@ -16,20 +16,18 @@ interface IProps {
   error?: any;
   helperText?: string;
   classes?: string;
-  withClean?: boolean;
 }
 
-export const Select: React.FC<IProps> = ({
+export const MultiSelect: React.FC<IProps> = ({
   id,
   label,
   value,
   onChange,
   options,
   getOptionLabel,
-  error,
   helperText,
   classes = '',
-  withClean = false,
+  error,
 }) => {
   return (
     <FormControl variant="filled" className={classNames('custom', { [classes]: classes })}>
@@ -39,15 +37,12 @@ export const Select: React.FC<IProps> = ({
       <MuiSelect
         labelId={label}
         id={id}
+        // value={value.map((option: any) => getOptionLabel(option))}
         value={value}
         onChange={onChange}
-        renderValue={(value: any) => getOptionLabel(value)}
+        renderValue={(value: any) => value.map((option: any) => getOptionLabel(option)).join(',')}
+        multiple
       >
-        {withClean && (
-          <MenuItem value="">
-            <em> - </em>
-          </MenuItem>
-        )}
         {options.map((option) => (
           <MenuItem key={option.id} value={option}>
             {getOptionLabel(option)}

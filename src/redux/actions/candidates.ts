@@ -11,14 +11,11 @@ export const getCandidates = (positionId: string) => {
     });
     try {
       const response = await getCandidatesInfo(positionId);
-      console.log('response', response.data);
       dispatch({
         type: candidatesTypes.GET_CANDIDATES_SUCCESS,
         payload: response.data,
       });
     } catch (e) {
-      console.log('vze');
-      console.log(e);
       dispatch({
         type: candidatesTypes.GET_CANDIDATES_FAILURE,
         payload: e,

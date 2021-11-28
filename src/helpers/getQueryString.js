@@ -7,10 +7,14 @@ const getQueryString = (queryParams = {}) => {
   }
   if (queryParams.filters) {
     for (let [key, value] of Object.entries(queryParams.filters)) {
-      if (Array.isArray(value) && value.length) {
-        queriesArray.push(`filters[${key}]=${JSON.stringify(value)}`);
+      if (Array.isArray(value)) {
+        if (value.length !== 0) {
+          queriesArray.push(`filters[${key}]=${JSON.stringify(value)}`);
+        }
       } else {
-        queriesArray.push(`filters[${key}]=${value}`);
+        if (value !== null && value !== '') {
+          queriesArray.push(`filters[${key}]=${value}`);
+        }
       }
     }
   }
