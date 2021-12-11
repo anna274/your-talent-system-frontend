@@ -77,6 +77,11 @@ interface IActionDeleteCandidateSuccess {
   payload: IPosition;
 }
 
+interface IActionSetSpecialistSuccess {
+  type: positionsTypes.SET_SPECIALIST_SUCCESS;
+  payload: IPosition;
+}
+
 interface IActionDeleteCAndidateFailure {
   type: positionsTypes.DELETE_CANDIDATE_FAILURE;
   payload: Error;
@@ -105,7 +110,8 @@ type UnreadChatActionsType =
   | IActionAddCandidateSuccess
   | IActionAddCAndidateFailure
   | IActionDeleteCandidateSuccess
-  | IActionDeleteCAndidateFailure;
+  | IActionDeleteCAndidateFailure
+  | IActionSetSpecialistSuccess;
 
 const initialState: IPositionsState = {
   positions: [],
@@ -155,6 +161,10 @@ export const positionsReducer = (state = initialState, action: UnreadChatActions
     }
     case positionsTypes.DELETE_CANDIDATE_FAILURE:
       return { ...state, error: action.payload };
+
+    case positionsTypes.SET_SPECIALIST_SUCCESS: {
+      return { ...state, position: action.payload };
+    }
 
     default:
       return state;
