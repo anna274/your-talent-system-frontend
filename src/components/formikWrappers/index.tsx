@@ -7,3 +7,4 @@ export * from './skillsInputField';
 export * from './requirementInputField';
 export * from './textAddInstanceField';
 export * from './multiSelectField';
+export * from './imagePreviewField';

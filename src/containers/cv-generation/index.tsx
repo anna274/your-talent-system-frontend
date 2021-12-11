@@ -76,14 +76,6 @@ export const GenerateCVPage: React.FC = () => {
         },
       },
       {
-        id: '5',
-        type: 'textField',
-        props: {
-          name: 'patronymic',
-          label: 'Отчество',
-        },
-      },
-      {
         id: '5.75',
         type: 'select',
         props: {
@@ -140,6 +132,15 @@ export const GenerateCVPage: React.FC = () => {
           name: 'skills',
           levels,
           technologies,
+        },
+      },
+      {
+        id: '12',
+        type: 'imagePreview',
+        props: {
+          name: 'photoLink',
+          label: 'Фото',
+          imageURL: profile.photoLink,
         },
       },
     ];

@@ -1,0 +1,44 @@
+@import 'assets/styles/index.scss';
+
+.input_file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  z-index: -1;
+
+  &__label {
+    display: flex;
+    width: 25rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+    color: $color-text-bright;
+    border: 0.3rem solid $color-text-bright;
+    border-radius: 2rem;
+    @include font($size: 1.8rem, $height: 2.6rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.6s;
+    &:hover {
+      color: $color-text-dim;
+      border-color: $color-text-dim;
+    }
+    @include media-mobile {
+      width: auto;
+    }
+  }
+
+  &__icon {
+    fill: $color-text-bright;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 1rem;
+    transition: 0.6s;
+  }
+
+  &__label:hover &__icon {
+    fill: $color-text-dim;
+  }
+}

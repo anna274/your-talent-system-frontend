@@ -13,3 +13,5 @@ export * from './rating';
 export * from './skillView';
 export * from './filtersForm';
 export * from './multiselect';
+export * from './fileInput';
+export * from './imagePreview';

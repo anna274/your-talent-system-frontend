@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Document, Font, Page, StyleSheet, Text, View } from '@react-pdf/renderer';
+import { Document, Font, Page, StyleSheet, Text, View, Image } from '@react-pdf/renderer';
 import { getExperienceText, getMainSkills, sortSkillsByLevels } from 'helpers';
+import defaultAvatar from 'assets/images/defaults/default-avatar.jpg';
 
 export const styles = StyleSheet.create({
   body: {
@@ -41,6 +42,14 @@ export const styles = StyleSheet.create({
     marginBottom: 3,
     paddingLeft: 10,
   },
+  avatar: {
+    position: 'absolute',
+    top: 30,
+    right: 20,
+    width: 90,
+    height: 'auto',
+    borderRadius: '50%',
+  },
 });
 
 Font.register({
@@ -52,6 +61,10 @@ export const CvDocument = ({ profile }: any) => {
   return (
     <Document>
       <Page size="A4" style={styles.body}>
+        <Image
+          src={profile.photoLink ? URL.createObjectURL(profile.photoLink) : defaultAvatar}
+          style={styles.avatar}
+        />
         <View>
           <Text style={styles.header}>{`${profile.surname} ${profile.name}`}</Text>
           <Text>{profile.job_function.name}</Text>

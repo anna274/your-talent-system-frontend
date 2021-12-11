@@ -15,11 +15,10 @@ export const areSameDates = (dateStr1?: string, dateStr2?: string) => {
   return date1.setHours(0, 0, 0, 0) === date2.setHours(0, 0, 0, 0);
 };
 
-export const getExperienceText = (startDate: Date) => {
+export const getExperienceText = (startDate: Date | string) => {
   const current = new Date();
-  //@ts-ignore
-  const diffTime = Math.abs(current - startDate);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  const date = new Date(startDate);
+  const diffTime = Math.abs(current.getTime() - date.getTime());
   const diffMonths = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30));
   const diffYears = Math.ceil(diffTime / (1000 * 60 * 60 * 24 * 30 * 12));
   if (diffYears >= 1) {

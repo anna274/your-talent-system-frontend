@@ -1,0 +1,51 @@
+@import 'assets/styles/index.scss';
+
+.image-preview {
+  &__container {
+    position: relative;
+    width: 100%;
+    min-height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.3rem solid $color-text-dim;
+    border-radius: 2rem;
+    color: $color-text-dim;
+    overflow: hidden;
+  }
+  &__image {
+    width: 20rem;
+    height: auto;
+  }
+
+  &__rm-button {
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    background-color: $color-white;
+    color: $color-text-dim;
+    border-radius: 50%;
+    border: 0.4rem solid $color-text-dim;
+    font-size: 2.5rem;
+    transition: 0.3s;
+
+    &::before {
+      content: '✖';
+    }
+
+    &:hover {
+      border-color: $color-dark-primary;
+      color: $color-dark-primary;
+    }
+  }
+}
+
+.input_file-container {
+  margin-bottom: 1rem;
+}

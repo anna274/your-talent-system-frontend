@@ -14,7 +14,8 @@ export const Form = styled(LibraryForm)`
     }
   }
 
-  .MuiTextField-root {
+  .MuiTextField-root,
+  .image-preview {
     width: 30rem;
     margin-bottom: 2rem;
   }
