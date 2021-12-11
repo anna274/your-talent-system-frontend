@@ -19,3 +19,4 @@ export * from './isLimitAchieved';
 export * from './roles-helper';
 export * from './requirements-helper';
 export * from './random-helpers';
+export * from './skills-helper';

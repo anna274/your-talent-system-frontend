@@ -15,3 +15,4 @@ export * from './positions/view';
 export * from './positions/edit';
 export * from './positions/possibleCandidates';
 export * from './positions/candidates';
+export * from './cv-generation';

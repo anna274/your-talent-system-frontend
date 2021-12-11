@@ -1,19 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { pdf } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver';
 import { Button } from '@material-ui/core';
-import {
-  getLevels,
-  getTechnologies,
-  updateProfile,
-  getDepartments,
-  getJobFunctions,
-  getProfile,
-} from 'redux/actions';
+import { getLevels, getTechnologies, getJobFunctions, getProfile } from 'redux/actions';
 import { IRootState, IDepartment, ISkill, IJobFunction } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
-import { goBack } from 'customHistory';
+import { getViewProfileLink } from 'helpers';
+import { goBack, goTo } from 'customHistory';
+import { CvDocument } from './document';
 
 interface IParams {
   userId: string;
@@ -37,11 +34,10 @@ interface IValues {
   summary: string;
 }
 
-export const EditProfilePage: React.FC = () => {
+export const GenerateCVPage: React.FC = () => {
   const profile = useSelector((state: IRootState) => state.profiles.profile);
   const levels = useSelector((state: IRootState) => state.levels.data);
   const technologies = useSelector((state: IRootState) => state.technologies.data);
-  const departments = useSelector((state: IRootState) => state.departments.data);
   const jobFunctions = useSelector((state: IRootState) => state.jobFunctions.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
 
@@ -52,7 +48,6 @@ export const EditProfilePage: React.FC = () => {
   useEffect(() => {
     dispatch(getLevels());
     dispatch(getTechnologies());
-    dispatch(getDepartments());
     dispatch(getJobFunctions());
   }, [dispatch]);
 
@@ -89,16 +84,6 @@ export const EditProfilePage: React.FC = () => {
         },
       },
       {
-        id: '5.5',
-        type: 'select',
-        props: {
-          name: 'department',
-          label: 'Департамент',
-          options: departments,
-          getOptionLabel: (option: IDepartment) => option.name,
-        },
-      },
-      {
         id: '5.75',
         type: 'select',
         props: {
@@ -106,14 +91,6 @@ export const EditProfilePage: React.FC = () => {
           label: 'Должность',
           options: jobFunctions,
           getOptionLabel: (option: IJobFunction) => option.name,
-        },
-      },
-      {
-        id: '6',
-        type: 'datePicker',
-        props: {
-          name: 'careerStartDate',
-          label: 'Начала работы в сфере',
         },
       },
       {
@@ -145,7 +122,15 @@ export const EditProfilePage: React.FC = () => {
         type: 'textBox',
         props: {
           name: 'summary',
-          label: 'Описание',
+          label: 'Характеристика',
+        },
+      },
+      {
+        id: '10.2',
+        type: 'textField',
+        props: {
+          name: 'education',
+          label: 'Образование',
         },
       },
       {
@@ -158,10 +143,16 @@ export const EditProfilePage: React.FC = () => {
         },
       },
     ];
-  }, [levels, departments, technologies, jobFunctions]);
+  }, [levels, technologies, jobFunctions]);
 
-  const onSubmit = (values: IValues) => {
-    dispatch(updateProfile(profileId, values, userId));
+  const onSubmit = async (values: IValues) => {
+    console.log(values);
+    const doc = <CvDocument profile={values} />;
+    const asPdf = pdf();
+    asPdf.updateContainer(doc);
+    const blob = await asPdf.toBlob();
+    await saveAs(blob, `${values.name}${values.surname}_CV.pdf`);
+    // goTo(getViewProfileLink(userId, profileId))
   };
 
   const validate = async (values: IValues) => {
@@ -171,21 +162,6 @@ export const EditProfilePage: React.FC = () => {
     }
     if (!values.surname) {
       errors.surname = 'Обязательное поле';
-    }
-    if (!values.patronymic) {
-      errors.patronymic = 'Обязательное поле';
-    }
-    if (!values.mobilePhone) {
-      errors.mobilePhone = 'Обязательное поле';
-    }
-    if (!values.email) {
-      errors.email = 'Обязательное поле';
-    }
-    if (!values.companyStartDate) {
-      errors.companyStartDate = 'Обязательное поле';
-    }
-    if (!values.department.id) {
-      errors.department = 'Обязательное поле';
     }
     return errors;
   };
@@ -203,7 +179,8 @@ export const EditProfilePage: React.FC = () => {
           fields={fields}
           onSubmit={onSubmit}
           validate={validate}
-          formTitle="Редактирование профиля"
+          formTitle="Генерация CV"
+          saveBtnText="Сгенерировать"
         />
       )}
     </main>

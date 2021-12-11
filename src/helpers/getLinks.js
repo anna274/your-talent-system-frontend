@@ -9,6 +9,7 @@ export const getProfilesLink = (userId) => `/profiles/${userId}`;
 export const getCreateProfileLink = (userId) => `/profiles/${userId}/new`;
 export const getViewProfileLink = (userId, profileId) => `/profiles/${userId}/${profileId}`;
 export const getEditProfileLink = (userId, profileId) => `/profiles/${userId}/${profileId}/edit`;
+export const getGenerateCVLink = (userId, profileId) => `/profiles/${userId}/${profileId}/cv`;
 
 export const getPositionsLink = (userId, filters = {}) =>
   `/positions/${userId}${getQueryString(filters)}`;

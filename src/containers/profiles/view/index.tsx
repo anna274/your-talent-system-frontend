@@ -7,7 +7,13 @@ import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup } from 'components/shared/page';
 import { CustomLink } from 'components/shared';
 import { Rating } from 'components/shared/rating';
-import { formatDateString, getReturnToUrl, getProfilesLink, getEditProfileLink } from 'helpers';
+import {
+  formatDateString,
+  getReturnToUrl,
+  getProfilesLink,
+  getEditProfileLink,
+  getGenerateCVLink,
+} from 'helpers';
 import { goTo } from 'customHistory';
 import {
   Container,
@@ -74,8 +80,8 @@ export const ProfilePage: React.FC = () => {
           >
             Редактироваь профиль
           </Button>
-          <Button variant="contained" onClick={() => goTo('#')}>
-            Подобрать позицию
+          <Button variant="contained" onClick={() => goTo(getGenerateCVLink(userId, profileId))}>
+            Создать CV
           </Button>
         </ControllersGroup>
       </ControllersContainer>
@@ -96,12 +102,6 @@ export const ProfilePage: React.FC = () => {
               <p>
                 <strong>Должность: </strong>
                 {job_function?.name || 'Не указана'}
-              </p>
-              <p>
-                <strong>Текущая позиция: </strong> Инженер-программист - CoverWallet
-                <CustomLink to="#" classes="inline_link">
-                  Смотреть подробнее
-                </CustomLink>
               </p>
               <p>
                 <strong>Мобильный телефон: </strong>

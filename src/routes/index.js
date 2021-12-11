@@ -21,6 +21,7 @@ import {
   EditPositionPage,
   PossibleCandidatesPage,
   CandidatesPage,
+  GenerateCVPage,
 } from 'containers';
 
 function Routes() {
@@ -49,6 +50,7 @@ function Routes() {
           component={PossibleCandidatesPage}
         />
         <PrivateRoute path={PATHS.positions_candidates} exact component={CandidatesPage} />
+        <PrivateRoute path={PATHS.generate_cv} exact component={GenerateCVPage} />
       </Switch>
     </Router>
   );

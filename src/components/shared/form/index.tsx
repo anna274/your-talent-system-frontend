@@ -27,6 +27,7 @@ interface IProps {
   formTitle: string;
   validate: (values: any) => void;
   initialValues: object;
+  saveBtnText?: string;
 }
 
 const FIELDS_MAPPING = {
@@ -52,6 +53,7 @@ export const GeneralForm: React.FC<IProps> = ({
   onSubmit,
   formTitle,
   initialValues,
+  saveBtnText,
 }) => {
   return (
     <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
@@ -60,7 +62,7 @@ export const GeneralForm: React.FC<IProps> = ({
         {fields.map((field) => getField(field))}
         <ControllersGroup>
           <Button type="submit" variant="contained">
-            Сохранить
+            {saveBtnText || 'Сохранить'}
           </Button>
           <Button onClick={goBack} variant="contained" color="secondary">
             Отмена

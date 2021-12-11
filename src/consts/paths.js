@@ -15,6 +15,7 @@ const PATHS = {
   positions_edit: '/positions/:userId/:positionId/edit',
   positions_possible_candidates: '/positions/:userId/:positionId/possible-candidates',
   positions_candidates: '/positions/:userId/:positionId/candidates',
+  generate_cv: '/profiles/:userId/:profileId/cv',
 };
 
 export default PATHS;
