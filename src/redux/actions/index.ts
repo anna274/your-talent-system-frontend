@@ -11,3 +11,5 @@ export * from './priorities';
 export * from './positionStatuses';
 export * from './candidates';
 export * from './alert';
+export * from './statistics';
+export * from './statisticsTypes';

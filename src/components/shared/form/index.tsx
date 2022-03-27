@@ -12,6 +12,7 @@ import {
   RequirementsInputField,
   TextAddInstanceField,
   ImagePreviewField,
+  MultiSelectField,
 } from 'components/formikWrappers';
 import { goBack } from 'customHistory';
 import { Form } from './styled';
@@ -41,6 +42,7 @@ const FIELDS_MAPPING = {
   requirementInput: RequirementsInputField,
   textAddInstance: TextAddInstanceField,
   imagePreview: ImagePreviewField,
+  multiSelect: MultiSelectField,
 };
 
 const getField = ({ id, type, props }: IField) => {

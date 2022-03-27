@@ -152,6 +152,32 @@ export interface ICandidate {
   positionId: string;
 }
 
+export interface IStatisticsType {
+  id: string;
+  name: string;
+}
+
+export interface IStatistics {
+  id: string;
+  statistics_type: IStatisticsType;
+  label: string;
+  additionalInfo: string;
+  isPublic: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface ITechnologyStatistics extends IStatistics {
+  startDate: Date;
+  endDate: Date;
+  position?: IPosition;
+}
+
+export interface ISkillsStatistics extends IStatistics {
+  department?: IDepartment;
+  position?: IPosition;
+}
+
 export interface IAlert {
   type: string;
   severity?: string;
@@ -227,6 +253,15 @@ export interface IAlertState {
   data: IAlert[];
 }
 
+export interface IStatisticsState {
+  data: IStatistics[];
+  statistics: IStatistics;
+}
+
+export interface IStatisticsTypesState {
+  data: IStatisticsType[];
+}
+
 export interface IRootState {
   authorizedUser: {
     data: IUser;
@@ -248,4 +283,6 @@ export interface IRootState {
   priorities: IPrioritiesState;
   candidates: ICandidatesState;
   alerts: IAlertState;
+  statistics: IStatisticsState;
+  statisticsTypes: IStatisticsTypesState;
 }

@@ -8,6 +8,7 @@ interface IProps {
   options: any[];
   getOptionLabel: (option: any) => string;
   withClean?: boolean;
+  selectCallback?: (option: any) => void;
 }
 
 export const SelectField: React.FC<IProps> = ({
@@ -16,6 +17,7 @@ export const SelectField: React.FC<IProps> = ({
   getOptionLabel,
   options,
   withClean,
+  selectCallback,
 }) => {
   return (
     <Field name={name}>
@@ -32,6 +34,7 @@ export const SelectField: React.FC<IProps> = ({
           onChange={(event: React.ChangeEvent<any>) => {
             setFieldValue(name, event.target.value);
             setFieldTouched(name, false, false);
+            selectCallback && selectCallback(event.target.value);
           }}
           error={getIn(touched, name) ? getIn(errors, name) : null}
           helperText={getIn(touched, name) ? getIn(errors, name) : null}

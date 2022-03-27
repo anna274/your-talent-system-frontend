@@ -11,3 +11,5 @@ export * from './jobFunctions';
 export * from './positionsStatuses';
 export * from './priorities';
 export * from './positions';
+export * from './statistics';
+export * from './statisticsTypes';

@@ -147,7 +147,6 @@ export const GenerateCVPage: React.FC = () => {
   }, [levels, technologies, jobFunctions]);
 
   const onSubmit = async (values: IValues) => {
-    console.log(values);
     const doc = <CvDocument profile={values} />;
     const asPdf = pdf();
     asPdf.updateContainer(doc);

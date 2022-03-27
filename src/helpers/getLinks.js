@@ -22,3 +22,10 @@ export const getPossibleCandidatesLink = (userId, positionId) =>
   `/positions/${userId}/${positionId}/possible-candidates`;
 export const getCandidatesLink = (userId, positionId) =>
   `/positions/${userId}/${positionId}/candidates`;
+
+export const getStatisticsLink = (userId) => `/statistics/${userId}`;
+export const getCreateStatisticsLink = (userId) => `/statistics/${userId}/new`;
+export const getViewStatisticsLink = (userId, statisticsId) =>
+  `/statistics/${userId}/${statisticsId}`;
+export const getEditStatisticsLink = (userId, statisticsId) =>
+  `/statistics/${userId}/${statisticsId}/edit`;

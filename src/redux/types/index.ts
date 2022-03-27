@@ -12,3 +12,5 @@ export * from './priorities';
 export * from './positions';
 export * from './candidates';
 export * from './alert';
+export * from './statistics';
+export * from './statisticsTypes';

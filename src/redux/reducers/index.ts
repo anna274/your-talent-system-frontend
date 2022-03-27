@@ -13,6 +13,8 @@ import { prioritiesReducer } from 'redux/reducers/priorities';
 import { positionsReducer } from 'redux/reducers/positions';
 import { candidatesReducer } from 'redux/reducers/candidates';
 import { alertReducer } from 'redux/reducers/alert';
+import { statisticsReducer } from 'redux/reducers/statistics';
+import { statisticsTypesReducer } from 'redux/reducers/statisticsTypes';
 
 const rootReducer = combineReducers({
   authorizedUser: authorizedUserReducer,
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   positions: positionsReducer,
   candidates: candidatesReducer,
   alerts: alertReducer,
+  statistics: statisticsReducer,
+  statisticsTypes: statisticsTypesReducer,
 });
 
 export default rootReducer;
