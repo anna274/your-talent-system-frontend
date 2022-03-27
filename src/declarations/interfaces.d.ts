@@ -162,9 +162,10 @@ export interface IStatistics {
   statistics_type: IStatisticsType;
   label: string;
   additionalInfo: string;
+  data: string;
   isPublic: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ITechnologyStatistics extends IStatistics {

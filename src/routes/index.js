@@ -24,6 +24,7 @@ import {
   GenerateCVPage,
   AllStatisticsPage,
   CreateStatisticsPage,
+  StatisticsPage,
 } from 'containers';
 
 function Routes() {
@@ -55,6 +56,7 @@ function Routes() {
         <PrivateRoute path={PATHS.generate_cv} exact component={GenerateCVPage} />
         <PrivateRoute path={PATHS.statistics} exact component={AllStatisticsPage} />
         <PrivateRoute path={PATHS.statistics_new} exact component={CreateStatisticsPage} />
+        <PrivateRoute path={PATHS.statistics_view} exact component={StatisticsPage} />
       </Switch>
     </Router>
   );

@@ -18,6 +18,7 @@ const PATHS = {
   generate_cv: '/profiles/:userId/:profileId/cv',
   statistics: '/statistics/:userId',
   statistics_new: '/statistics/:userId/new',
+  statistics_view: '/statistics/:userId/:statisticsId',
 };
 
 export default PATHS;
