@@ -5,7 +5,6 @@ export * from './renewById';
 export * from './getQueryString';
 export * from './replaceCommentLikes';
 export * from './getButtonText';
-export * from './transformDate';
 export * from './debounce';
 export * from './findUserFriend';
 export * from './object-helpers';

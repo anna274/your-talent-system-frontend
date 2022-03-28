@@ -3,20 +3,27 @@ import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import * as am5exporting from '@amcharts/amcharts5/plugins/exporting';
 import am5themes_Dark from '@amcharts/amcharts5/themes/Dark';
+import { IStatisticsType } from 'declarations/interfaces';
 
 interface IProps {
   data: string;
   label: string;
+  statistics_type: IStatisticsType;
 }
 
-export const Chart: React.FC<IProps> = ({ data, label }) => {
+const LABELS_MAP: { [k: string]: string } = {
+  'Состояние компетенций': 'Количество человек, владеющих технологией',
+  'Востребованные технологии': 'Количество позиций, требующих знание технологии',
+};
+
+export const Chart: React.FC<IProps> = ({ data, label, statistics_type }) => {
   useLayoutEffect(() => {
     const parsedData = JSON.parse(data);
     let root = am5.Root.new('chartdiv');
 
     root.setThemes([am5themes_Dark.new(root)]);
 
-    let exporting = am5exporting.Exporting.new(root, {
+    am5exporting.Exporting.new(root, {
       menu: am5exporting.ExportingMenu.new(root, {}),
       dataSource: parsedData,
       filePrefix: label.replace(' ', '_'),
@@ -42,13 +49,23 @@ export const Chart: React.FC<IProps> = ({ data, label }) => {
         tooltip: am5.Tooltip.new(root, {}),
       }),
     );
-
     xAxis.data.setAll(parsedData);
 
     // Create Y-axis
     let yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: am5xy.AxisRendererY.new(root, {}),
+      }),
+    );
+
+    chart.topAxesContainer.children.push(
+      am5.Label.new(root, {
+        text: LABELS_MAP[statistics_type.name],
+        fontSize: 20,
+        fontWeight: '400',
+        x: -5,
+        marginBottom: 5,
+        // centerX: am5.p50
       }),
     );
 

@@ -19,6 +19,7 @@ const PATHS = {
   statistics: '/statistics/:userId',
   statistics_new: '/statistics/:userId/new',
   statistics_view: '/statistics/:userId/:statisticsId',
+  statistics_edit: '/statistics/:userId/:statisticsId/edit',
 };
 
 export default PATHS;

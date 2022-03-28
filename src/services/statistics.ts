@@ -14,7 +14,7 @@ export const createStatisticsInfo = (statisticsData: IStatistics) => {
 };
 
 export const updateStatisticsInfo = (id: string, statisticsData: IStatistics) => {
-  return axios.put(`/statistics/${id}`, statisticsData);
+  return axios.put(`/statistics/${id}`, { statisticsData });
 };
 
 export const deleteStatisticsInfo = (id: string) => {

@@ -25,6 +25,7 @@ import {
   AllStatisticsPage,
   CreateStatisticsPage,
   StatisticsPage,
+  EditStatisticsPage,
 } from 'containers';
 
 function Routes() {
@@ -57,6 +58,7 @@ function Routes() {
         <PrivateRoute path={PATHS.statistics} exact component={AllStatisticsPage} />
         <PrivateRoute path={PATHS.statistics_new} exact component={CreateStatisticsPage} />
         <PrivateRoute path={PATHS.statistics_view} exact component={StatisticsPage} />
+        <PrivateRoute path={PATHS.statistics_edit} exact component={EditStatisticsPage} />
       </Switch>
     </Router>
   );

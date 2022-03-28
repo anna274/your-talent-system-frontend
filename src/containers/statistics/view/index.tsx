@@ -22,7 +22,7 @@ interface IParams {
 }
 
 export const StatisticsPage: React.FC = () => {
-  const { id, label, additionalInfo, data, isPublic, createdAt } = useSelector(
+  const { id, label, additionalInfo, data, isPublic, createdAt, statistics_type } = useSelector(
     (state: IRootState) => state.statistics.statistics,
   );
   const { loading } = useSelector((state: IRootState) => state.loader);
@@ -64,13 +64,15 @@ export const StatisticsPage: React.FC = () => {
       {statisticsId === id && !loading && (
         <Container>
           <StatisticsName>{label}</StatisticsName>
-          <StatisticsStatus isPublic={isPublic}>{isPublic ? 'Открыт' : 'Закрыт'}</StatisticsStatus>
+          <StatisticsStatus isPublic={isPublic}>
+            {isPublic ? 'Открытый доступ' : 'Закрытый доступ'}
+          </StatisticsStatus>
           <p>
             <strong>Дата создания: </strong>
             {formatDateString(createdAt)}
           </p>
           <p>{additionalInfo}</p>
-          <Chart data={data} label={label} />
+          <Chart data={data} label={label} statistics_type={statistics_type} />
         </Container>
       )}
     </main>
