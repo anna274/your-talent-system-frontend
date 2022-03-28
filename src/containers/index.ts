@@ -17,3 +17,4 @@ export * from './positions/possibleCandidates';
 export * from './positions/candidates';
 export * from './cv-generation';
 export * from './statistics';
+export * from './profile';

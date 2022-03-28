@@ -6,3 +6,4 @@ export * from './signs';
 export * from './modal-types';
 export * from './settingsLinks';
 export * from './styleConsts';
+export * from './settingsLinks';

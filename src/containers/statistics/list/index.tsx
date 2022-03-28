@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { getAllStatistics, getProjects, getTechnologies, getJobFunctions } from 'redux/actions';
+import { getAllStatistics } from 'redux/actions';
 import { IJobFunction, IRootState, IStatisticsType } from 'declarations/interfaces';
-import { getCreateStatisticsLink, getSearchParamByName } from 'helpers';
+import { getCreateStatisticsLink, isAdmin } from 'helpers';
 import { PageTitle, ControllersContainer } from 'components/shared/page';
 import { FiltersForm } from 'components/shared/filtersForm';
 import { goTo } from 'customHistory';
@@ -36,7 +35,7 @@ const statuses = [
 
 export const AllStatisticsPage: React.FC = () => {
   const { data } = useSelector((state: IRootState) => state.statistics);
-  const { id: userId } = useSelector((state: IRootState) => state.authorizedUser.data);
+  const { id: userId, roles } = useSelector((state: IRootState) => state.authorizedUser.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
   // const { projects } = useSelector((state: IRootState) => state.projects);
   // const technologies = useSelector((state: IRootState) => state.technologies.data);
@@ -45,11 +44,13 @@ export const AllStatisticsPage: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getAllStatistics());
+    dispatch(getAllStatistics({ userId }));
     // dispatch(getProjects());
     // dispatch(getTechnologies());
     // dispatch(getJobFunctions());
   }, [dispatch]);
+
+  const admin = isAdmin(roles);
 
   // const initialFilters: IFilters = {
   //   access: null,
@@ -135,11 +136,13 @@ export const AllStatisticsPage: React.FC = () => {
         onSubmit={handleFiltersSubmit}
         onReset={handleFiltersReset}
       /> */}
-      <ControllersContainer>
-        <Button variant="contained" onClick={() => goTo(getCreateStatisticsLink(userId))}>
-          Создать отчёт
-        </Button>
-      </ControllersContainer>
+      {admin && (
+        <ControllersContainer>
+          <Button variant="contained" onClick={() => goTo(getCreateStatisticsLink(userId))}>
+            Создать отчёт
+          </Button>
+        </ControllersContainer>
+      )}
       {data.length === 0 && !loading && <h3>Записей нет</h3>}
       {data.map((statistics) => (
         <StatisticsItem key={statistics.id} statistics={statistics} />

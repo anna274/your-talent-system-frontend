@@ -1,8 +1,8 @@
 import axios from 'services/axios';
 import { IStatistics } from 'declarations/interfaces';
 
-export const getAllStatisticsInfo = () => {
-  return axios.get(`/statistics`);
+export const getAllStatisticsInfo = (query: string) => {
+  return axios.get(`/statistics/${query}`);
 };
 
 export const getStatisticsInfo = (id: string) => {

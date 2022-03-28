@@ -26,6 +26,7 @@ import {
   CreateStatisticsPage,
   StatisticsPage,
   EditStatisticsPage,
+  UserProfilePage,
 } from 'containers';
 
 function Routes() {
@@ -59,6 +60,7 @@ function Routes() {
         <PrivateRoute path={PATHS.statistics_new} exact component={CreateStatisticsPage} />
         <PrivateRoute path={PATHS.statistics_view} exact component={StatisticsPage} />
         <PrivateRoute path={PATHS.statistics_edit} exact component={EditStatisticsPage} />
+        <PrivateRoute path={PATHS.profile_view} exact component={UserProfilePage} />
       </Switch>
     </Router>
   );

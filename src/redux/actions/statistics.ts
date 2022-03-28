@@ -7,16 +7,16 @@ import {
   updateStatisticsInfo,
   deleteStatisticsInfo,
 } from 'services';
-import { getViewStatisticsLink, getStatisticsLink } from 'helpers';
+import { getViewStatisticsLink, getStatisticsLink, getQueryString } from 'helpers';
 import { goTo } from 'customHistory';
 
-export const getAllStatistics = () => {
+export const getAllStatistics = (filters: any = {}) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const { data: statistics } = await getAllStatisticsInfo();
+      const { data: statistics } = await getAllStatisticsInfo(getQueryString(filters));
       dispatch({
         type: statisticsTypes.GET_ALL_STATISTICS_SUCCESS,
         payload: statistics,

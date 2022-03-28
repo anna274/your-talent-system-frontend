@@ -3,6 +3,7 @@ import { showAlert } from 'redux/actions';
 import {
   getProfilesInfo,
   getProfileInfo,
+  getProfileInfoByAccount,
   createProfileInfo,
   updateProfileInfo,
   deleteProfileInfo,
@@ -41,6 +42,30 @@ export const getProfile = (id: string) => {
     });
     try {
       const { data: profile } = await getProfileInfo(id);
+      dispatch({
+        type: profilesTypes.GET_PROFILE_SUCCESS,
+        payload: profile,
+      });
+    } catch (e) {
+      dispatch({
+        type: profilesTypes.GET_PROFILE_FAILURE,
+        payload: e,
+      });
+    } finally {
+      dispatch({
+        type: loaderTypes.HIDE_LOADER,
+      });
+    }
+  };
+};
+
+export const getProfileByAccount = (id: string) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: loaderTypes.SHOW_LOADER,
+    });
+    try {
+      const { data: profile } = await getProfileInfoByAccount(id);
       dispatch({
         type: profilesTypes.GET_PROFILE_SUCCESS,
         payload: profile,

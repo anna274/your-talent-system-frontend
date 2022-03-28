@@ -29,3 +29,7 @@ export const getViewStatisticsLink = (userId, statisticsId) =>
   `/statistics/${userId}/${statisticsId}`;
 export const getEditStatisticsLink = (userId, statisticsId) =>
   `/statistics/${userId}/${statisticsId}/edit`;
+
+export const getProfileLink = (userId) => `/profile/${userId}`;
+
+export const getSettingsLink = (userId) => `/settings/${userId}`;

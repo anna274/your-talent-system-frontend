@@ -9,6 +9,7 @@ import {
   updateUserPassword,
 } from 'services';
 import customHistory, { goBack } from 'customHistory';
+import { isAdmin, getProjectsLink, getProfileLink } from 'helpers';
 
 function loginUser(userData) {
   return async function (dispatch) {
@@ -28,6 +29,9 @@ function loginUser(userData) {
         type: authorizedUserTypes.LOGIN_USER_SUCCESS,
         payload: account,
       });
+      customHistory.push(
+        isAdmin(account?.roles) ? getProjectsLink(account.id) : getProfileLink(account.id),
+      );
     } catch (e) {
       dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({

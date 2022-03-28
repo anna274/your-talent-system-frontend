@@ -9,6 +9,10 @@ export const getProfileInfo = (id: string) => {
   return axios.get(`/profiles/${id}`);
 };
 
+export const getProfileInfoByAccount = (id: string) => {
+  return axios.get(`/profiles/account/${id}`);
+};
+
 export const createProfileInfo = (accountData: IUser, profileData: IProfile) => {
   return axios.post(`/profiles`, { profileData, accountData });
 };

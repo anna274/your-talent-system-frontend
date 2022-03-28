@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-import { Button, Chip } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { getStatistics, deleteStatistics } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup } from 'components/shared/page';
@@ -11,6 +11,7 @@ import {
   getReturnToUrl,
   getStatisticsLink,
   getEditStatisticsLink,
+  isAdmin,
 } from 'helpers';
 import { goTo } from 'customHistory';
 import { Container, StatisticsName, StatisticsStatus } from './styled';
@@ -22,6 +23,7 @@ interface IParams {
 }
 
 export const StatisticsPage: React.FC = () => {
+  const { roles } = useSelector((state: IRootState) => state.authorizedUser.data);
   const { id, label, additionalInfo, data, isPublic, createdAt, statistics_type } = useSelector(
     (state: IRootState) => state.statistics.statistics,
   );
@@ -37,29 +39,33 @@ export const StatisticsPage: React.FC = () => {
     }
   }, [dispatch]);
 
+  const admin = isAdmin(roles);
+
   return (
     <main>
       <ControllersContainer>
         <CustomLink to={getReturnToUrl(search) || getStatisticsLink(userId)}>
           Вернуться назад
         </CustomLink>
-        <ControllersGroup>
-          <Button
-            variant="contained"
-            color="secondary"
-            className="danger"
-            onClick={() => dispatch(deleteStatistics(id, userId))}
-          >
-            Удалить отчёт
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => goTo(getEditStatisticsLink(userId, id))}
-          >
-            Изменить доступ
-          </Button>
-        </ControllersGroup>
+        {admin && (
+          <ControllersGroup>
+            <Button
+              variant="contained"
+              color="secondary"
+              className="danger"
+              onClick={() => dispatch(deleteStatistics(id, userId))}
+            >
+              Удалить отчёт
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => goTo(getEditStatisticsLink(userId, id))}
+            >
+              Изменить доступ
+            </Button>
+          </ControllersGroup>
+        )}
       </ControllersContainer>
       {statisticsId === id && !loading && (
         <Container>
