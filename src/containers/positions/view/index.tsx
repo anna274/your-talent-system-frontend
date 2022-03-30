@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { getPosition, deletePosition } from 'redux/actions';
+import { getPosition, deletePosition, updatePositionStatus } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup, PageSection } from 'components/shared/page';
 import { CustomLink, RequirementView } from 'components/shared';
@@ -17,6 +17,7 @@ import {
   getPossibleCandidatesLink,
   getCandidatesLink,
   getViewProfileLink,
+  isAdmin,
 } from 'helpers';
 import { goTo } from 'customHistory';
 import {
@@ -26,6 +27,7 @@ import {
   PositionRequirements,
   PositionDuties,
 } from './styled';
+import { POSITION_STATUSES } from 'consts';
 
 interface IParams {
   positionId: string;
@@ -35,7 +37,7 @@ interface IParams {
 export const PositionPage: React.FC = () => {
   const {
     id,
-    isOpen,
+    position_status,
     project,
     profiles,
     requirements,
@@ -46,7 +48,8 @@ export const PositionPage: React.FC = () => {
     profile,
   } = useSelector((state: IRootState) => state.positions.position);
   const { loading } = useSelector((state: IRootState) => state.loader);
-
+  const { roles } = useSelector((state: IRootState) => state.authorizedUser.data);
+  const admin = isAdmin(roles);
   const dispatch = useDispatch();
 
   const { positionId, userId } = useParams<IParams>();
@@ -68,24 +71,41 @@ export const PositionPage: React.FC = () => {
           Вернуться назад
         </CustomLink>
         <ControllersGroup>
-          <Button
-            variant="contained"
-            color="secondary"
-            className="danger"
-            onClick={() => dispatch(deletePosition(id, userId))}
-          >
-            Удалить позицию
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => goTo(getEditPositionLink(userId, id))}
-          >
-            Редактировать позицию
-          </Button>
-          {isOpen && (
-            <Button variant="contained" onClick={() => goTo(getPossibleCandidatesLink(userId, id))}>
-              Подобрать кандидата
+          {position_status?.value === POSITION_STATUSES.OPENED && (
+            <>
+              <Button
+                variant="contained"
+                color="secondary"
+                className="danger"
+                onClick={() => dispatch(deletePosition(id, userId))}
+              >
+                Удалить позицию
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => goTo(getEditPositionLink(userId, id))}
+              >
+                Редактировать позицию
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => goTo(getPossibleCandidatesLink(userId, id))}
+              >
+                Подобрать кандидата
+              </Button>
+            </>
+          )}
+          {admin && position_status?.value === POSITION_STATUSES.ACTIVE && (
+            <Button
+              variant="contained"
+              color="secondary"
+              className="danger"
+              onClick={() =>
+                goTo(dispatch(updatePositionStatus(id, { id, statusValue: 'inactive' }, userId)))
+              }
+            >
+              Деактивировать позицию
             </Button>
           )}
         </ControllersGroup>
@@ -93,12 +113,12 @@ export const PositionPage: React.FC = () => {
       {positionId === id && !loading && (
         <Container>
           <PositionName>{job_function.name}</PositionName>
-          <PositionStatus isOpened={isOpen}>{isOpen ? 'Открыта' : 'Закрыта'}</PositionStatus>
+          <PositionStatus positionStatus={position_status}>{position_status.label}</PositionStatus>
           <p>
             <strong>Дата подачи заявки: </strong>
             {formatDateString(applicationDate)}
           </p>
-          {!isOpen && (
+          {position_status?.value === POSITION_STATUSES.ACTIVE && (
             <p>
               <strong>Дата закрытия заявки: </strong>
               {formatDateString(closeDate)}
@@ -114,7 +134,7 @@ export const PositionPage: React.FC = () => {
               Посмотреть проект
             </CustomLink>
           </p>
-          {isOpen && (
+          {position_status?.value === POSITION_STATUSES.OPENED && (
             <p>
               <strong>Количество кандидатов: </strong>
               {profiles.length}
@@ -126,7 +146,7 @@ export const PositionPage: React.FC = () => {
               </CustomLink>
             </p>
           )}
-          {!isOpen && (
+          {position_status?.value !== POSITION_STATUSES.OPENED && (
             <p>
               <strong>Специалист: </strong>
               {`${profile.surname} ${profile.name}`}

@@ -8,6 +8,7 @@ import {
   addCandidateInfo,
   deleteCandidateInfo,
   setSpecialistInfo,
+  updatePositionStatusInfo,
 } from 'services';
 import { getViewPositionLink, getPositionsLink, getQueryString } from 'helpers';
 import { goTo } from 'customHistory';
@@ -92,6 +93,31 @@ export const updatePosition = (positionId: string, updatedData: any, userId: str
     });
     try {
       const updatedPosition = await updatePositionInfo(positionId, updatedData);
+      dispatch({
+        type: positionsTypes.UPDATE_POSITION_SUCCESS,
+        payload: updatedPosition.data,
+      });
+      goTo(getViewPositionLink(userId, updatedPosition.data.id));
+    } catch (e) {
+      dispatch({
+        type: positionsTypes.UPDATE_POSITION_FAILURE,
+        payload: e,
+      });
+    } finally {
+      dispatch({
+        type: loaderTypes.HIDE_LOADER,
+      });
+    }
+  };
+};
+
+export const updatePositionStatus = (positionId: string, updatedData: any, userId: string) => {
+  return async function (dispatch: Function) {
+    dispatch({
+      type: loaderTypes.SHOW_LOADER,
+    });
+    try {
+      const updatedPosition = await updatePositionStatusInfo(positionId, updatedData);
       dispatch({
         type: positionsTypes.UPDATE_POSITION_SUCCESS,
         payload: updatedPosition.data,

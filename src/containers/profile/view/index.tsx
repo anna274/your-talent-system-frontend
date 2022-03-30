@@ -25,7 +25,7 @@ export const UserProfilePage: React.FC = () => {
   useEffect(() => {
     dispatch(getProfileByAccount(userId));
   }, [dispatch]);
-  console.log('profile', profile);
+
   return (
     <main>
       <ControllersContainer>

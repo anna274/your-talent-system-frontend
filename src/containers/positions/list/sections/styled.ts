@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import { COLORS, DEVIСES_WIDTH } from 'consts';
 import { Chips } from 'components/shared';
+import { IPositionStatus } from 'declarations/interfaces';
+import { POSITION_STATUSES } from 'consts';
 
 interface IStatusProps {
-  isOpened: boolean;
+  positionStatus: IPositionStatus;
 }
+
+const POSITION_STATUSES_COLORS: { [key in POSITION_STATUSES]: string } = {
+  [POSITION_STATUSES.OPENED]: COLORS.color_green,
+  [POSITION_STATUSES.ACTIVE]: COLORS.color_yellow,
+  [POSITION_STATUSES.INACTIVE]: COLORS.color_red,
+};
 
 export const Container = styled.div`
   display: flex;
@@ -32,7 +40,7 @@ export const PositionName = styled.h2`
 `;
 
 export const PositionStatus = styled.p`
-  color: ${(props: IStatusProps) => (props.isOpened ? COLORS.color_green : COLORS.color_red)};
+  color: ${(props: IStatusProps) => POSITION_STATUSES_COLORS[props.positionStatus.value]};
 `;
 
 export const PositionRequirements = Chips;

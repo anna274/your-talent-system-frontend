@@ -1,18 +1,18 @@
-import { scopesTypes } from 'redux/types';
+import { positionStatusesTypes } from 'redux/types';
 import { IScope, IPositionStatusesState } from 'declarations/interfaces';
 
 interface IActionGetAllRequest {
-  type: scopesTypes.GET_ALL_SCOPES_REQUEST;
+  type: positionStatusesTypes.GET_ALL_POSITION_STATUSES_REQUEST;
   payload: { search: string };
 }
 
 interface IActionGetAllSuccess {
-  type: scopesTypes.GET_ALL_SCOPES_SUCCESS;
+  type: positionStatusesTypes.GET_ALL_POSITION_STATUSES_SUCCESS;
   payload: IScope[];
 }
 
 interface IActionGetAllFailure {
-  type: scopesTypes.GET_ALL_SCOPES_FAILURE;
+  type: positionStatusesTypes.GET_ALL_POSITION_STATUSES_FAILURE;
   payload: Error;
 }
 
@@ -24,9 +24,9 @@ const initialState: IPositionStatusesState = {
 
 export const positionStatusesReducer = (state = initialState, action: UnreadChatActionsType) => {
   switch (action.type) {
-    case scopesTypes.GET_ALL_SCOPES_SUCCESS:
+    case positionStatusesTypes.GET_ALL_POSITION_STATUSES_SUCCESS:
       return { ...state, data: action.payload };
-    case scopesTypes.GET_ALL_SCOPES_FAILURE:
+    case positionStatusesTypes.GET_ALL_POSITION_STATUSES_FAILURE:
       return { ...state, error: action.payload, data: [] };
 
     default:

@@ -15,7 +15,7 @@ interface IParams {
 }
 
 export const Position: React.FC<IProps> = ({
-  position: { id, job_function, isOpen, requirements, project },
+  position: { id, job_function, position_status, requirements, project },
 }) => {
   const { userId } = useParams<IParams>();
 
@@ -24,7 +24,7 @@ export const Position: React.FC<IProps> = ({
   return (
     <Container>
       <PositionName>{job_function.name}</PositionName>
-      <PositionStatus isOpened={isOpen}>{isOpen ? 'Открыта' : 'Закрыта'}</PositionStatus>
+      <PositionStatus positionStatus={position_status}>{position_status.label}</PositionStatus>
       <p>
         <strong>Проект: </strong>
         {project.name}

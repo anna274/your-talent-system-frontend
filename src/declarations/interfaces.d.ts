@@ -1,3 +1,5 @@
+import { POSITION_STATUSES } from 'consts';
+
 export interface IRole {
   id: string;
   name: string;
@@ -112,6 +114,14 @@ export interface IPositionStatus {
   updatedAt?: Date;
 }
 
+export interface IPositionStatus {
+  id: string;
+  label: string;
+  value: POSITION_STATUSES;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface IPosition {
   id: string;
   project: IProject;
@@ -121,8 +131,9 @@ export interface IPosition {
   applicationDate: Date;
   duties: IDuty[];
   closeDate: Date;
+  deactivationDate: Date;
   profiles: IProfile[];
-  isOpen: boolean;
+  position_status: IPositionStatus;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -143,6 +154,7 @@ export interface IProfile {
   createdAt?: Date;
   updatedAt?: Date;
   summary: string;
+  positions: IPosition[];
 }
 
 export interface ICandidate {

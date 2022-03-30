@@ -2,39 +2,32 @@ import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { getPositions, getProjects, getTechnologies, getJobFunctions } from 'redux/actions';
-import { IJobFunction, IProject, IRootState, ITechnology } from 'declarations/interfaces';
+import {
+  getPositions,
+  getProjects,
+  getTechnologies,
+  getJobFunctions,
+  getPositionStatuses,
+} from 'redux/actions';
+import {
+  IJobFunction,
+  IProject,
+  IRootState,
+  ITechnology,
+  IPositionStatus,
+} from 'declarations/interfaces';
 import { getCreatePositionLink, getSearchParamByName } from 'helpers';
 import { PageTitle, ControllersContainer } from 'components/shared/page';
 import { FiltersForm } from 'components/shared/filtersForm';
 import { goTo } from 'customHistory';
 import { Position } from './sections/Position';
 
-interface IStatus {
-  id: string;
-  name: string;
-  value: boolean;
-}
-
 interface IFilters {
-  status: IStatus | null;
+  positionStatuses: IPositionStatus[];
   jobFunctions: IJobFunction[];
   technologies: ITechnology[];
   projects: IProject[];
 }
-
-const statuses = [
-  {
-    id: 0,
-    name: 'Открыта',
-    value: true,
-  },
-  {
-    id: 1,
-    name: 'Закрыта',
-    value: false,
-  },
-];
 
 export const PositionsPage: React.FC = () => {
   const { positions } = useSelector((state: IRootState) => state.positions);
@@ -43,6 +36,7 @@ export const PositionsPage: React.FC = () => {
   const { projects } = useSelector((state: IRootState) => state.projects);
   const technologies = useSelector((state: IRootState) => state.technologies.data);
   const jobFunctions = useSelector((state: IRootState) => state.jobFunctions.data);
+  const positionStatuses = useSelector((state: IRootState) => state.positionStatuses.data);
 
   const dispatch = useDispatch();
 
@@ -54,10 +48,11 @@ export const PositionsPage: React.FC = () => {
     dispatch(getProjects());
     dispatch(getTechnologies());
     dispatch(getJobFunctions());
+    dispatch(getPositionStatuses());
   }, [dispatch]);
 
   const initialFilters: IFilters = {
-    status: null,
+    positionStatuses: [],
     jobFunctions: [],
     technologies: [],
     projects: projects.filter(({ id }) => searchProjectsIds.includes(id)),
@@ -77,13 +72,13 @@ export const PositionsPage: React.FC = () => {
       },
       {
         id: '1',
-        type: 'select',
+        type: 'multiSelect',
         props: {
-          name: 'status',
+          name: 'positionStatuses',
           label: 'Статус',
-          options: statuses,
+          options: positionStatuses,
           withClean: true,
-          getOptionLabel: (option: IStatus) => option.name,
+          getOptionLabel: (option: IPositionStatus) => option.label,
         },
       },
       {
@@ -107,15 +102,11 @@ export const PositionsPage: React.FC = () => {
         },
       },
     ];
-  }, [jobFunctions, projects, technologies]);
+  }, [jobFunctions, projects, technologies, positionStatuses]);
 
   const handleFiltersSubmit = (submittedFilters: IFilters) => {
-    let { status, technologies, projects, jobFunctions } = submittedFilters;
+    let { positionStatuses, technologies, projects, jobFunctions } = submittedFilters;
     let filters = {};
-    if (status !== null) {
-      //@ts-ignore
-      filters = { ...filters, isOpen: status.value };
-    }
     dispatch(
       getPositions({
         filters: {
@@ -123,6 +114,7 @@ export const PositionsPage: React.FC = () => {
           technologies: technologies.map(({ id }) => id),
           projects: projects.map(({ id }) => id),
           jobFunctions: jobFunctions.map(({ id }) => id),
+          positionStatuses: positionStatuses.map(({ id }) => id),
         },
       }),
     );

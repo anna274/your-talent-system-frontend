@@ -2,12 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { getPosition } from 'redux/actions';
-import {
-  getViewPositionLink,
-  getPossibleCandidatesLink,
-  getReturnToUrl,
-  getCandidatesLink,
-} from 'helpers';
+import { getViewPositionLink, getReturnToUrl, getCandidatesLink } from 'helpers';
 import { IRootState } from 'declarations/interfaces';
 import { CustomLink } from 'components/shared';
 import { PageTitle, PageSubtitle, ControllersContainer } from 'components/shared/page';

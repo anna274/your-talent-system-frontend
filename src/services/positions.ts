@@ -17,6 +17,10 @@ export const updatePositionInfo = (id: string, positionData: IPosition) => {
   return axios.put(`/positions/${id}`, { positionData });
 };
 
+export const updatePositionStatusInfo = (id: string, positionData: IPosition) => {
+  return axios.patch(`/positions/${id}/status`, { positionData });
+};
+
 export const deletePositionInfo = (id: string) => {
   return axios.delete(`/positions/${id}`);
 };

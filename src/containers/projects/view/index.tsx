@@ -13,6 +13,7 @@ import {
   getEditProjectLink,
   getCreatePositionLink,
   getPositionsLink,
+  isAdmin,
 } from 'helpers';
 import { goTo } from 'customHistory';
 import {
@@ -42,6 +43,8 @@ export const ProjectPage: React.FC = () => {
     positions,
   } = useSelector((state: IRootState) => state.projects.project);
   const { loading } = useSelector((state: IRootState) => state.loader);
+  const { roles } = useSelector((state: IRootState) => state.authorizedUser.data);
+  const admin = isAdmin(roles);
 
   const dispatch = useDispatch();
 
@@ -62,29 +65,31 @@ export const ProjectPage: React.FC = () => {
         <CustomLink to={getReturnToUrl(search) || getProjectsLink(userId)}>
           Вернуться назад
         </CustomLink>
-        <ControllersGroup>
-          <Button
-            variant="contained"
-            color="secondary"
-            className="danger"
-            onClick={() => dispatch(deleteProject(id, userId))}
-          >
-            Удалить проект
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => goTo(getEditProjectLink(userId, id))}
-          >
-            Изменить описание проекта
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => goTo(`${getCreatePositionLink(userId)}?projectId=${projectId}`)}
-          >
-            Добавить позицию
-          </Button>
-        </ControllersGroup>
+        {admin && (
+          <ControllersGroup>
+            <Button
+              variant="contained"
+              color="secondary"
+              className="danger"
+              onClick={() => dispatch(deleteProject(id, userId))}
+            >
+              Удалить проект
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => goTo(getEditProjectLink(userId, id))}
+            >
+              Изменить описание проекта
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => goTo(`${getCreatePositionLink(userId)}?projectId=${projectId}`)}
+            >
+              Добавить позицию
+            </Button>
+          </ControllersGroup>
+        )}
       </ControllersContainer>
       {projectId === id && !loading && (
         <Container>
@@ -104,12 +109,14 @@ export const ProjectPage: React.FC = () => {
           )}
           <p>
             <strong>Количество позиций: </strong> {`${positions.length}`}
-            <CustomLink
-              to={getPositionsLink(userId, { projects: [projectId] })}
-              classes="inline_link"
-            >
-              Посмотреть позиции
-            </CustomLink>
+            {admin && (
+              <CustomLink
+                to={getPositionsLink(userId, { projects: [projectId] })}
+                classes="inline_link"
+              >
+                Посмотреть позиции
+              </CustomLink>
+            )}
           </p>
           <p>
             <strong>Головной офис: </strong>
