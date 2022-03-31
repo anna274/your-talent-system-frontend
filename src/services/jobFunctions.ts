@@ -1,8 +1,8 @@
 import axios from 'services/axios';
 import { IJobFunction } from 'declarations/interfaces';
 
-export const getJobFunctionsInfo = () => {
-  return axios.get(`/jobFunctions`);
+export const getJobFunctionsInfo = (query: string) => {
+  return axios.get(`/jobFunctions${query}`);
 };
 
 export const getJobFunctionInfo = (id: string) => {

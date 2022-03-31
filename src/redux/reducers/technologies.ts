@@ -1,5 +1,5 @@
 import { technologiesTypes } from 'redux/types';
-import { IScope, ITechnologiesState } from 'declarations/interfaces';
+import { ITechnology, ITechnologiesState } from 'declarations/interfaces';
 
 interface IActionGetAllRequest {
   type: technologiesTypes.GET_ALL_TECHNOLOGIES_REQUEST;
@@ -8,7 +8,7 @@ interface IActionGetAllRequest {
 
 interface IActionGetAllSuccess {
   type: technologiesTypes.GET_ALL_TECHNOLOGIES_SUCCESS;
-  payload: IScope[];
+  payload: ITechnology[];
 }
 
 interface IActionGetAllFailure {
@@ -16,18 +16,95 @@ interface IActionGetAllFailure {
   payload: Error;
 }
 
-type UnreadChatActionsType = IActionGetAllRequest | IActionGetAllSuccess | IActionGetAllFailure;
+interface IActionAddRequest {
+  type: technologiesTypes.CREATE_TECHNOLOGY_REQUEST;
+}
+
+interface IActionAddSuccess {
+  type: technologiesTypes.CREATE_TECHNOLOGY_SUCCESS;
+  payload: ITechnology;
+}
+
+interface IActionAddFailure {
+  type: technologiesTypes.CREATE_TECHNOLOGY_FAILURE;
+  payload: Error;
+}
+
+interface IActionUpdateRequest {
+  type: technologiesTypes.UPDATE_TECHNOLOGY_REQUEST;
+}
+
+interface IActionUpdateSuccess {
+  type: technologiesTypes.UPDATE_TECHNOLOGY_SUCCESS;
+  payload: ITechnology;
+}
+
+interface IActionUpdateFailure {
+  type: technologiesTypes.UPDATE_TECHNOLOGY_FAILURE;
+  payload: Error;
+}
+
+interface IActionDeleteRequest {
+  type: technologiesTypes.DELETE_TECHNOLOGY_REQUEST;
+}
+
+interface IActionDeleteSuccess {
+  type: technologiesTypes.DELETE_TECHNOLOGY_SUCCESS;
+}
+
+interface IActionDeleteFailure {
+  type: technologiesTypes.DELETE_TECHNOLOGY_FAILURE;
+  payload: Error;
+}
+
+type UnreadChatActionsType =
+  | IActionGetAllRequest
+  | IActionGetAllSuccess
+  | IActionGetAllFailure
+  | IActionAddRequest
+  | IActionAddSuccess
+  | IActionAddFailure
+  | IActionUpdateRequest
+  | IActionUpdateSuccess
+  | IActionUpdateFailure
+  | IActionDeleteRequest
+  | IActionDeleteSuccess
+  | IActionDeleteFailure;
 
 const initialState: ITechnologiesState = {
   data: [],
+  technology: {} as ITechnology,
 };
 
 export const technologiesReducer = (state = initialState, action: UnreadChatActionsType) => {
   switch (action.type) {
+    case technologiesTypes.GET_ALL_TECHNOLOGIES_REQUEST:
+      return { ...state, filter: action.payload };
     case technologiesTypes.GET_ALL_TECHNOLOGIES_SUCCESS:
       return { ...state, data: action.payload };
     case technologiesTypes.GET_ALL_TECHNOLOGIES_FAILURE:
       return { ...state, error: action.payload, data: [] };
+
+    case technologiesTypes.CREATE_TECHNOLOGY_SUCCESS: {
+      return { ...state, technology: action.payload };
+    }
+
+    case technologiesTypes.CREATE_TECHNOLOGY_FAILURE:
+      return { ...state, error: action.payload };
+
+    case technologiesTypes.UPDATE_TECHNOLOGY_REQUEST:
+      return { ...state, actionRunning: true };
+    case technologiesTypes.UPDATE_TECHNOLOGY_SUCCESS: {
+      return { ...state, technology: action.payload };
+    }
+    case technologiesTypes.UPDATE_TECHNOLOGY_FAILURE:
+      return { ...state, error: action.payload };
+
+    case technologiesTypes.DELETE_TECHNOLOGY_SUCCESS: {
+      return { ...state, technology: {} };
+    }
+    case technologiesTypes.DELETE_TECHNOLOGY_FAILURE:
+      return { ...state, error: action.payload };
 
     default:
       return state;

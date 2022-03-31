@@ -1,8 +1,8 @@
 import axios from 'services/axios';
 import { IDepartment } from 'declarations/interfaces';
 
-export const getDepartmentsInfo = () => {
-  return axios.get(`/departments`);
+export const getDepartmentsInfo = (query: string) => {
+  return axios.get(`/departments${query}`);
 };
 
 export const getDepartmentInfo = (id: string) => {

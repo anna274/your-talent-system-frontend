@@ -230,6 +230,7 @@ export interface IScopesState {
 
 export interface ITechnologiesState {
   data: ITechnology[];
+  technology: ITechnology;
 }
 
 export interface ILevelsState {
@@ -238,10 +239,12 @@ export interface ILevelsState {
 
 export interface IDepartmentsState {
   data: IDepartment[];
+  department: IDepartment;
 }
 
 export interface IJobFunctionsState {
   data: IJobFunction[];
+  jobFunction: IJobFunction;
 }
 
 export interface IPositionStatusesState {
