@@ -1,4 +1,4 @@
-import { profilesTypes, loaderTypes } from 'redux/types';
+import { profilesTypes, loaderTypes, modalTypes } from 'redux/types';
 import { showAlert } from 'redux/actions';
 import {
   getProfilesInfo,
@@ -143,6 +143,9 @@ export const deleteProfile = (id: string, userId: string) => {
       await deleteProfileInfo(id);
       dispatch({
         type: profilesTypes.DELETE_PROFILE_SUCCESS,
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
       });
       goTo(getProfilesLink(userId));
     } catch (e) {

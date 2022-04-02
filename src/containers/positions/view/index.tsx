@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { getPosition, deletePosition, updatePositionStatus } from 'redux/actions';
+import { getPosition, deletePosition, updatePositionStatus, showModal } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup, PageSection } from 'components/shared/page';
 import { CustomLink, RequirementView } from 'components/shared';
@@ -20,6 +20,7 @@ import {
   isAdmin,
 } from 'helpers';
 import { goTo } from 'customHistory';
+import { POSITION_STATUSES, CONFIRMATION_MODAL } from 'consts';
 import {
   Container,
   PositionName,
@@ -27,7 +28,6 @@ import {
   PositionRequirements,
   PositionDuties,
 } from './styled';
-import { POSITION_STATUSES } from 'consts';
 
 interface IParams {
   positionId: string;
@@ -64,6 +64,19 @@ export const PositionPage: React.FC = () => {
     }
   }, [dispatch]);
 
+  const deleteHandler = () => {
+    dispatch(
+      showModal({
+        modalType: CONFIRMATION_MODAL,
+        modalProps: {
+          onSubmit: () => dispatch(deletePosition(id, userId)),
+          text: 'Вы уверенны, что хотите удалить запись?',
+          submitButtonText: 'Да, удалить',
+        },
+      }),
+    );
+  };
+
   return (
     <main>
       <ControllersContainer>
@@ -77,7 +90,7 @@ export const PositionPage: React.FC = () => {
                 variant="contained"
                 color="secondary"
                 className="danger"
-                onClick={() => dispatch(deletePosition(id, userId))}
+                onClick={deleteHandler}
               >
                 Удалить позицию
               </Button>

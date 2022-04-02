@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { Button, Chip } from '@material-ui/core';
-import { getProject, deleteProject } from 'redux/actions';
+import { getProject, deleteProject, showModal } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup } from 'components/shared/page';
 import { CustomLink } from 'components/shared';
@@ -16,6 +16,7 @@ import {
   isAdmin,
 } from 'helpers';
 import { goTo } from 'customHistory';
+import { CONFIRMATION_MODAL } from 'consts';
 import {
   Container,
   ProjectName,
@@ -59,6 +60,19 @@ export const ProjectPage: React.FC = () => {
     }
   }, [dispatch]);
 
+  const deleteHandler = () => {
+    dispatch(
+      showModal({
+        modalType: CONFIRMATION_MODAL,
+        modalProps: {
+          onSubmit: () => dispatch(deleteProject(id, userId)),
+          text: 'Вы уверенны, что хотите удалить запись?',
+          submitButtonText: 'Да, удалить',
+        },
+      }),
+    );
+  };
+
   return (
     <main>
       <ControllersContainer>
@@ -71,7 +85,7 @@ export const ProjectPage: React.FC = () => {
               variant="contained"
               color="secondary"
               className="danger"
-              onClick={() => dispatch(deleteProject(id, userId))}
+              onClick={deleteHandler}
             >
               Удалить проект
             </Button>

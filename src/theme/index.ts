@@ -147,12 +147,5 @@ export const theme = createTheme({
         },
       },
     },
-    MuiPaper: {
-      root: {
-        marginTop: '2rem',
-        width: '100%',
-        background: 'transparent',
-      },
-    },
   },
 });

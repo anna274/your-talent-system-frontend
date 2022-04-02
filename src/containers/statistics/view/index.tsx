@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { getStatistics, deleteStatistics } from 'redux/actions';
+import { getStatistics, deleteStatistics, showModal } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { ControllersContainer, ControllersGroup } from 'components/shared/page';
 import { CustomLink } from 'components/shared';
@@ -14,6 +14,7 @@ import {
   isAdmin,
 } from 'helpers';
 import { goTo } from 'customHistory';
+import { CONFIRMATION_MODAL } from 'consts';
 import { Container, StatisticsName, StatisticsStatus } from './styled';
 import { Chart } from './sections/Chart';
 
@@ -41,6 +42,19 @@ export const StatisticsPage: React.FC = () => {
 
   const admin = isAdmin(roles);
 
+  const deleteHandler = () => {
+    dispatch(
+      showModal({
+        modalType: CONFIRMATION_MODAL,
+        modalProps: {
+          onSubmit: () => dispatch(deleteStatistics(id, userId)),
+          text: 'Вы уверенны, что хотите удалить отчёт?',
+          submitButtonText: 'Да, удалить',
+        },
+      }),
+    );
+  };
+
   return (
     <main>
       <ControllersContainer>
@@ -53,7 +67,7 @@ export const StatisticsPage: React.FC = () => {
               variant="contained"
               color="secondary"
               className="danger"
-              onClick={() => dispatch(deleteStatistics(id, userId))}
+              onClick={deleteHandler}
             >
               Удалить отчёт
             </Button>

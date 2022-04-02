@@ -1,4 +1,4 @@
-import { statisticsTypes, loaderTypes } from 'redux/types';
+import { statisticsTypes, loaderTypes, modalTypes } from 'redux/types';
 import { showAlert } from 'redux/actions';
 import {
   getAllStatisticsInfo,
@@ -120,6 +120,9 @@ export const deleteStatistics = (id: string, userId: string) => {
         type: statisticsTypes.DELETE_STATISTICS_SUCCESS,
       });
       goTo(getStatisticsLink(userId));
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
+      });
     } catch (e) {
       dispatch({
         type: statisticsTypes.DELETE_STATISTICS_FAILURE,

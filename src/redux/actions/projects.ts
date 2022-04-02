@@ -1,4 +1,4 @@
-import { projectsTypes, loaderTypes } from 'redux/types';
+import { projectsTypes, loaderTypes, modalTypes } from 'redux/types';
 import { IProject } from 'declarations/interfaces';
 import {
   getProjectsInfo,
@@ -117,6 +117,9 @@ export const deleteProject = (id: string, userId: string) => {
       await deleteProjectInfo(id);
       dispatch({
         type: projectsTypes.DELETE_PROJECT_SUCCESS,
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
       });
       goTo(getProjectsLink(userId));
     } catch (e) {

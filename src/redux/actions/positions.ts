@@ -1,4 +1,4 @@
-import { positionsTypes, loaderTypes } from 'redux/types';
+import { positionsTypes, loaderTypes, modalTypes } from 'redux/types';
 import {
   getPositionsInfo,
   getPositionInfo,
@@ -145,6 +145,9 @@ export const deletePosition = (id: string, userId: string) => {
       await deletePositionInfo(id);
       dispatch({
         type: positionsTypes.DELETE_POSITION_SUCCESS,
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
       });
       goTo(getPositionsLink(userId));
     } catch (e) {
