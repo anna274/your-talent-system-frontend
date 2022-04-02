@@ -9,18 +9,11 @@ import {
   getDepartments,
   getJobFunctions,
 } from 'redux/actions';
-import {
-  IRootState,
-  IUser,
-  ITechnology,
-  IProfile,
-  IDepartment,
-  ISkill,
-  IJobFunction,
-} from 'declarations/interfaces';
+import { IRootState, IDepartment, ISkill, IJobFunction } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -166,14 +159,6 @@ export const CreateProfilePage: React.FC = () => {
         },
       },
       {
-        id: '8',
-        type: 'textField',
-        props: {
-          name: 'mobilePhone',
-          label: 'Мобильный телефон',
-        },
-      },
-      {
         id: '9',
         type: 'textField',
         props: {
@@ -207,41 +192,6 @@ export const CreateProfilePage: React.FC = () => {
     dispatch(createProfile(accountData, profileData, userId));
   };
 
-  const validate = async (values: IValues) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.login) {
-      errors.login = 'Обязательное поле';
-    }
-    if (!values.password) {
-      errors.password = 'Обязательное поле';
-    }
-    if (values.password !== values.repeatPassword) {
-      errors.repeatPassword = 'Значение должно совпадать с полем "Пароль"';
-    }
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-    if (!values.surname) {
-      errors.surname = 'Обязательное поле';
-    }
-    if (!values.patronymic) {
-      errors.patronymic = 'Обязательное поле';
-    }
-    if (!values.mobilePhone) {
-      errors.mobilePhone = 'Обязательное поле';
-    }
-    if (!values.email) {
-      errors.email = 'Обязательное поле';
-    }
-    if (!values.companyStartDate) {
-      errors.companyStartDate = 'Обязательное поле';
-    }
-    if (!values.department.id) {
-      errors.department = 'Обязательное поле';
-    }
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -253,7 +203,7 @@ export const CreateProfilePage: React.FC = () => {
         initialValues={initialValues}
         fields={fields}
         onSubmit={onSubmit}
-        validate={validate}
+        validationSchema={validationSchema}
         formTitle="Новый специалист"
       />
     </main>

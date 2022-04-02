@@ -8,6 +8,7 @@ import {
   getTechnologies,
   getJobFunctions,
   getPositionStatuses,
+  setPositionsInfoUpdated,
 } from 'redux/actions';
 import {
   IJobFunction,
@@ -30,7 +31,7 @@ interface IFilters {
 }
 
 export const PositionsPage: React.FC = () => {
-  const { positions } = useSelector((state: IRootState) => state.positions);
+  const { positions, isUpdated } = useSelector((state: IRootState) => state.positions);
   const { id: userId } = useSelector((state: IRootState) => state.authorizedUser.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
   const { projects } = useSelector((state: IRootState) => state.projects);
@@ -49,6 +50,9 @@ export const PositionsPage: React.FC = () => {
     dispatch(getTechnologies());
     dispatch(getJobFunctions());
     dispatch(getPositionStatuses());
+    return () => {
+      dispatch(setPositionsInfoUpdated(false));
+    };
   }, [dispatch]);
 
   const initialFilters: IFilters = {
@@ -138,7 +142,7 @@ export const PositionsPage: React.FC = () => {
           Добавить позицию
         </Button>
       </ControllersContainer>
-      {positions.length === 0 && !loading && <h3>Записей нет</h3>}
+      {positions.length === 0 && !loading && isUpdated && <h3>Записей нет</h3>}
       {positions.map((position) => (
         <Position key={position.id} position={position} />
       ))}

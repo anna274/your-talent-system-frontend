@@ -21,7 +21,8 @@ export const getAllStatistics = (filters: any = {}) => {
         type: statisticsTypes.GET_ALL_STATISTICS_SUCCESS,
         payload: statistics,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: statisticsTypes.GET_ALL_STATISTICS_FAILURE,
         payload: e,
@@ -45,7 +46,8 @@ export const getStatistics = (id: string) => {
         type: statisticsTypes.GET_STATISTICS_SUCCESS,
         payload: statistics,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: statisticsTypes.GET_STATISTICS_FAILURE,
         payload: e,
@@ -96,7 +98,8 @@ export const updateStatistics = (id: string, updatedData: any, userId: string) =
         payload: updatedStatistics.data,
       });
       goTo(getViewStatisticsLink(userId, updatedStatistics.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: statisticsTypes.UPDATE_STATISTICS_FAILURE,
         payload: e,
@@ -123,7 +126,8 @@ export const deleteStatistics = (id: string, userId: string) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: statisticsTypes.DELETE_STATISTICS_FAILURE,
         payload: e,

@@ -7,6 +7,7 @@ import { IRootState, IScope, ITechnology, IProject } from 'declarations/interfac
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -70,11 +71,19 @@ export const CreateProjectPage: React.FC = () => {
         },
       },
       {
-        id: '3',
-        type: 'datePicker',
+        id: '4',
+        type: 'textField',
         props: {
-          name: 'endDate',
-          label: 'Дата закрытия',
+          name: 'headOffice',
+          label: 'Головной офис',
+        },
+      },
+      {
+        id: '5',
+        type: 'textField',
+        props: {
+          name: 'contact',
+          label: 'Контактное лицо',
         },
       },
       {
@@ -104,18 +113,6 @@ export const CreateProjectPage: React.FC = () => {
     dispatch(createProject(values as IProject, userId));
   };
 
-  const validate = async (values: IValues) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-    if (!values.startDate) {
-      errors.startDate = 'Обязательное поле';
-    }
-
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -127,7 +124,7 @@ export const CreateProjectPage: React.FC = () => {
         initialValues={initialValues}
         fields={fields}
         onSubmit={onSubmit}
-        validate={validate}
+        validationSchema={validationSchema}
         formTitle="Новый проект"
       />
     </main>

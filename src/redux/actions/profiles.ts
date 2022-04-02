@@ -22,7 +22,8 @@ export const getProfiles = () => {
         type: profilesTypes.GET_ALL_PROFILES_SUCCESS,
         payload: profiles,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: profilesTypes.GET_ALL_PROFILES_FAILURE,
         payload: e,
@@ -46,7 +47,8 @@ export const getProfile = (id: string) => {
         type: profilesTypes.GET_PROFILE_SUCCESS,
         payload: profile,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: profilesTypes.GET_PROFILE_FAILURE,
         payload: e,
@@ -70,7 +72,8 @@ export const getProfileByAccount = (id: string) => {
         type: profilesTypes.GET_PROFILE_SUCCESS,
         payload: profile,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: profilesTypes.GET_PROFILE_FAILURE,
         payload: e,
@@ -121,7 +124,8 @@ export const updateProfile = (id: string, updatedData: any, userId: string) => {
         payload: updatedProfile.data,
       });
       goTo(getViewProfileLink(userId, updatedProfile.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: profilesTypes.UPDATE_PROFILE_FAILURE,
         payload: e,
@@ -148,7 +152,8 @@ export const deleteProfile = (id: string, userId: string) => {
         type: modalTypes.CLOSE_MODAL,
       });
       goTo(getProfilesLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: profilesTypes.DELETE_PROFILE_FAILURE,
         payload: e,

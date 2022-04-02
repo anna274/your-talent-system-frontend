@@ -14,6 +14,7 @@ import { IRootState, IDepartment, ISkill, IJobFunction } from 'declarations/inte
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -125,14 +126,6 @@ export const EditProfilePage: React.FC = () => {
         },
       },
       {
-        id: '8',
-        type: 'textField',
-        props: {
-          name: 'mobilePhone',
-          label: 'Мобильный телефон',
-        },
-      },
-      {
         id: '9',
         type: 'textField',
         props: {
@@ -161,33 +154,8 @@ export const EditProfilePage: React.FC = () => {
   }, [levels, departments, technologies, jobFunctions]);
 
   const onSubmit = (values: IValues) => {
+    console.log('values', values);
     dispatch(updateProfile(profileId, values, userId));
-  };
-
-  const validate = async (values: IValues) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-    if (!values.surname) {
-      errors.surname = 'Обязательное поле';
-    }
-    if (!values.patronymic) {
-      errors.patronymic = 'Обязательное поле';
-    }
-    if (!values.mobilePhone) {
-      errors.mobilePhone = 'Обязательное поле';
-    }
-    if (!values.email) {
-      errors.email = 'Обязательное поле';
-    }
-    if (!values.companyStartDate) {
-      errors.companyStartDate = 'Обязательное поле';
-    }
-    if (!values.department.id) {
-      errors.department = 'Обязательное поле';
-    }
-    return errors;
   };
 
   return (
@@ -202,7 +170,7 @@ export const EditProfilePage: React.FC = () => {
           initialValues={profile}
           fields={fields}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           formTitle="Редактирование профиля"
         />
       )}

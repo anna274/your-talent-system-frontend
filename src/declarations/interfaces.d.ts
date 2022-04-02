@@ -147,7 +147,7 @@ export interface IProfile {
   email: string;
   mobilePhone: string;
   photoLink?: string;
-  carrierStartDate: Date | string;
+  careerStartDate: Date | string;
   companyStartDate: Date | string;
   account: IAccount;
   department: IDepartment;

@@ -7,6 +7,7 @@ import { IRootState, IJobFunction } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -44,15 +45,6 @@ export const EditJobFunctionPage: React.FC = () => {
     dispatch(updateJobFunction(jobFunctionId, values as IJobFunction, userId));
   };
 
-  const validate = async (values: IJobFunction) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -61,12 +53,11 @@ export const EditJobFunctionPage: React.FC = () => {
         </Button>
       </ControllersContainer>
       {jobFunctionId === jobFunction.id && (
-        // @ts-ignore
         <GeneralForm
           initialValues={jobFunction}
           fields={fields}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           formTitle="Редактирование должности"
         />
       )}

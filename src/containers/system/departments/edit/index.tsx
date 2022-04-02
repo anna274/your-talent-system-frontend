@@ -7,6 +7,7 @@ import { IRootState, IDepartment } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -44,15 +45,6 @@ export const EditDepartmentPage: React.FC = () => {
     dispatch(updateDepartment(departmentId, values as IDepartment, userId));
   };
 
-  const validate = async (values: IDepartment) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -61,12 +53,11 @@ export const EditDepartmentPage: React.FC = () => {
         </Button>
       </ControllersContainer>
       {departmentId === department.id && (
-        // @ts-ignore
         <GeneralForm
           initialValues={department}
           fields={fields}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           formTitle="Редактирование департамента"
         />
       )}

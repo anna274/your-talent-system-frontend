@@ -1,4 +1,5 @@
 import { candidatesTypes, loaderTypes } from 'redux/types';
+import { showAlert } from 'redux/actions/alert';
 import { getCandidatesInfo } from 'services';
 
 export const getCandidates = (positionId: string) => {
@@ -15,7 +16,8 @@ export const getCandidates = (positionId: string) => {
         type: candidatesTypes.GET_CANDIDATES_SUCCESS,
         payload: response.data,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: candidatesTypes.GET_CANDIDATES_FAILURE,
         payload: e,

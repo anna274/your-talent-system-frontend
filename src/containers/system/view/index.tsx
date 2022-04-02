@@ -9,7 +9,7 @@ export const SystemPage: React.FC = () => {
   const { pathname } = useLocation();
   return (
     <main>
-      <PageTitle>Проекты</PageTitle>
+      <PageTitle>Система</PageTitle>
       <Container>
         <MenuList>
           {SYSTEM_LINKS.map(({ to, id, name }) => (

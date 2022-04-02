@@ -7,6 +7,7 @@ import {
   updateProjectInfo,
   deleteProjectInfo,
 } from 'services';
+import { showAlert } from 'redux/actions/alert';
 import { getViewProjectLink, getProjectsLink, getQueryString } from 'helpers';
 import { goTo } from 'customHistory';
 
@@ -21,11 +22,12 @@ export const getProjects = (filters: any = {}) => {
         type: projectsTypes.GET_ALL_PROJECTS_SUCCESS,
         payload: projects,
       });
-    } catch (e) {
+    } catch (e: any) {
       dispatch({
         type: projectsTypes.GET_ALL_PROJECTS_FAILURE,
         payload: e,
       });
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
     } finally {
       dispatch({
         type: loaderTypes.HIDE_LOADER,
@@ -45,11 +47,12 @@ export const getProject = (id: string) => {
         type: projectsTypes.GET_PROJECT_SUCCESS,
         payload: project,
       });
-    } catch (e) {
+    } catch (e: any) {
       dispatch({
         type: projectsTypes.GET_PROJECT_FAILURE,
         payload: e,
       });
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
     } finally {
       dispatch({
         type: loaderTypes.HIDE_LOADER,
@@ -70,7 +73,8 @@ export const createProject = (projectData: any, userId: string) => {
         payload: newProject.data,
       });
       goTo(getViewProjectLink(userId, newProject.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: projectsTypes.CREATE_PROJECT_FAILURE,
         payload: e,
@@ -95,7 +99,8 @@ export const updateProject = (id: string, updatedData: IProject, userId: string)
         payload: updatedProject.data,
       });
       goTo(getViewProjectLink(userId, updatedProject.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: projectsTypes.UPDATE_PROJECT_FAILURE,
         payload: e,
@@ -122,7 +127,8 @@ export const deleteProject = (id: string, userId: string) => {
         type: modalTypes.CLOSE_MODAL,
       });
       goTo(getProjectsLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: projectsTypes.DELETE_PROJECT_FAILURE,
         payload: e,

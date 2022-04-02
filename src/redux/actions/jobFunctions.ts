@@ -7,6 +7,7 @@ import {
   deleteJobFunctionInfo,
   getJobFunctionInfo,
 } from 'services';
+import { showAlert } from 'redux/actions/alert';
 import { IJobFunction } from 'declarations/interfaces';
 import { goTo } from 'customHistory';
 
@@ -21,7 +22,8 @@ export const getJobFunctions = (filters: any = {}) => {
         type: jobFunctionsTypes.GET_ALL_JOB_FUNCTIONS_SUCCESS,
         payload: jobFunctions,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: jobFunctionsTypes.GET_ALL_JOB_FUNCTIONS_FAILURE,
         payload: e,
@@ -45,7 +47,8 @@ export const getJobFunction = (id: string) => {
         type: jobFunctionsTypes.GET_JOB_FUNCTION_SUCCESS,
         payload: jobFunction,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: jobFunctionsTypes.GET_JOB_FUNCTION_FAILURE,
         payload: e,
@@ -70,7 +73,8 @@ export const createJobFunction = (jobFunctionData: any, userId: string) => {
         payload: newJobFunction.data,
       });
       goTo(getJobFunctionsLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: jobFunctionsTypes.CREATE_JOB_FUNCTION_FAILURE,
         payload: e,
@@ -95,7 +99,8 @@ export const updateJobFunction = (id: string, updatedData: IJobFunction, userId:
         payload: updatedJobFunction.data,
       });
       goTo(getJobFunctionsLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: jobFunctionsTypes.UPDATE_JOB_FUNCTION_FAILURE,
         payload: e,
@@ -122,7 +127,8 @@ export const deleteJobFunction = (id: string) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: jobFunctionsTypes.DELETE_JOB_FUNCTION_FAILURE,
         payload: e,

@@ -11,6 +11,7 @@ import {
   updatePositionStatusInfo,
 } from 'services';
 import { getViewPositionLink, getPositionsLink, getQueryString } from 'helpers';
+import { showAlert } from 'redux/actions/alert';
 import { goTo } from 'customHistory';
 
 export const getPositions = (filters: any = {}) => {
@@ -24,7 +25,8 @@ export const getPositions = (filters: any = {}) => {
         type: positionsTypes.GET_ALL_POSITIONS_SUCCESS,
         payload: positions,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.GET_ALL_POSITIONS_FAILURE,
         payload: e,
@@ -48,7 +50,8 @@ export const getPosition = (id: string) => {
         type: positionsTypes.GET_POSITION_SUCCESS,
         payload: position,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.GET_POSITION_FAILURE,
         payload: e,
@@ -73,7 +76,8 @@ export const createPosition = (positionData: any, userId: string) => {
         payload: newPosition.data,
       });
       goTo(getViewPositionLink(userId, newPosition.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.CREATE_POSITION_FAILURE,
         payload: e,
@@ -98,7 +102,8 @@ export const updatePosition = (positionId: string, updatedData: any, userId: str
         payload: updatedPosition.data,
       });
       goTo(getViewPositionLink(userId, updatedPosition.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.UPDATE_POSITION_FAILURE,
         payload: e,
@@ -123,7 +128,8 @@ export const updatePositionStatus = (positionId: string, updatedData: any, userI
         payload: updatedPosition.data,
       });
       goTo(getViewPositionLink(userId, updatedPosition.data.id));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.UPDATE_POSITION_FAILURE,
         payload: e,
@@ -150,7 +156,8 @@ export const deletePosition = (id: string, userId: string) => {
         type: modalTypes.CLOSE_MODAL,
       });
       goTo(getPositionsLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.DELETE_POSITION_FAILURE,
         payload: e,
@@ -174,7 +181,8 @@ export const addCandidate = (positionId: string, profileId: string, koef: number
         type: positionsTypes.ADD_CANDIDATE_SUCCESS,
         payload: updatedPosition,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.ADD_CANDIDATE_FAILURE,
         payload: e,
@@ -194,7 +202,8 @@ export const deleteCandidate = (positionId: string, profileId: string) => {
         type: positionsTypes.DELETE_CANDIDATE_SUCCESS,
         payload: updatedPosition,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.DELETE_CANDIDATE_FAILURE,
         payload: e,
@@ -215,7 +224,8 @@ export const setSpecialist = (positionId: string, profileId: string, userId: str
         payload: updatedPosition,
       });
       goTo(getViewPositionLink(userId, positionId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: positionsTypes.SET_SPECIALIST_FAILURE,
         payload: e,

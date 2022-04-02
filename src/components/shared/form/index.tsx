@@ -27,7 +27,8 @@ interface IProps {
   fields: IField[];
   onSubmit: (values: any) => void;
   formTitle: string;
-  validate: (values: any) => void;
+  validate?: (values: any) => void;
+  validationSchema?: any;
   initialValues: object;
   saveBtnText?: string;
 }
@@ -58,9 +59,16 @@ export const GeneralForm: React.FC<IProps> = ({
   formTitle,
   initialValues,
   saveBtnText,
+  validationSchema,
 }) => {
+  const formProps = {
+    initialValues,
+    onSubmit,
+    ...(validate ? { validate } : {}),
+    ...(validationSchema ? { validationSchema } : {}),
+  };
   return (
-    <Formik initialValues={initialValues} validate={validate} onSubmit={onSubmit}>
+    <Formik {...formProps}>
       <Form>
         <PageTitle>{formTitle}</PageTitle>
         {fields.map((field) => getField(field))}

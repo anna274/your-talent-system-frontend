@@ -7,6 +7,7 @@ import {
   deleteTechnologyInfo,
   getTechnologyInfo,
 } from 'services';
+import { showAlert } from 'redux/actions/alert';
 import { ITechnology } from 'declarations/interfaces';
 import { goTo } from 'customHistory';
 
@@ -21,7 +22,8 @@ export const getTechnologies = (filters: any = {}) => {
         type: technologiesTypes.GET_ALL_TECHNOLOGIES_SUCCESS,
         payload: technologies,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: technologiesTypes.GET_ALL_TECHNOLOGIES_FAILURE,
         payload: e,
@@ -45,7 +47,8 @@ export const getTechnology = (id: string) => {
         type: technologiesTypes.GET_TECHNOLOGY_SUCCESS,
         payload: technology,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: technologiesTypes.GET_TECHNOLOGY_FAILURE,
         payload: e,
@@ -70,7 +73,8 @@ export const createTechnology = (technologyData: any, userId: string) => {
         payload: newTechnology.data,
       });
       goTo(getTechnologiesLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: technologiesTypes.CREATE_TECHNOLOGY_FAILURE,
         payload: e,
@@ -95,7 +99,8 @@ export const updateTechnology = (id: string, updatedData: ITechnology, userId: s
         payload: updatedTechnology.data,
       });
       goTo(getTechnologiesLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: technologiesTypes.UPDATE_TECHNOLOGY_FAILURE,
         payload: e,
@@ -122,7 +127,8 @@ export const deleteTechnology = (id: string) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: technologiesTypes.DELETE_TECHNOLOGY_FAILURE,
         payload: e,

@@ -15,6 +15,7 @@ import { IRootState, IProject, IJobFunction, IRequirement, IDuty } from 'declara
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -112,20 +113,6 @@ export const EditPositionPage: React.FC = () => {
     dispatch(updatePosition(positionId, values, userId));
   };
 
-  const validate = async (values: IValues) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.project) {
-      errors.name = 'Обязательное поле';
-    }
-    if (!values.job_function) {
-      errors.startDate = 'Обязательное поле';
-    }
-    if (!values.applicationDate) {
-      errors.startDate = 'Обязательное поле';
-    }
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -138,7 +125,7 @@ export const EditPositionPage: React.FC = () => {
           initialValues={position}
           fields={fields}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           formTitle="Редактирование позиции"
         />
       )}

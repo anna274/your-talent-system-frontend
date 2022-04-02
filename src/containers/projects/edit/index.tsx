@@ -7,6 +7,7 @@ import { IRootState, IScope, ITechnology, IProject } from 'declarations/interfac
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -111,18 +112,6 @@ export const EditProjectPage: React.FC = () => {
     dispatch(updateProject(projectId, values as IProject, userId));
   };
 
-  const validate = async (values: IProject) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-    if (!values.startDate) {
-      errors.startDate = 'Обязательное поле';
-    }
-
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -131,12 +120,11 @@ export const EditProjectPage: React.FC = () => {
         </Button>
       </ControllersContainer>
       {projectId === project.id && (
-        // @ts-ignore
         <GeneralForm
           initialValues={project}
           fields={fields}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           formTitle="Редактирование проекта"
         />
       )}

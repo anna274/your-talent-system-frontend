@@ -7,6 +7,7 @@ import { ITechnology } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -42,15 +43,6 @@ export const CreateTechnologyPage: React.FC = () => {
     dispatch(createTechnology(values as ITechnology, userId));
   };
 
-  const validate = async (values: IValues) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -62,7 +54,7 @@ export const CreateTechnologyPage: React.FC = () => {
         initialValues={initialValues}
         fields={fields}
         onSubmit={onSubmit}
-        validate={validate}
+        validationSchema={validationSchema}
         formTitle="Новая технология"
       />
     </main>

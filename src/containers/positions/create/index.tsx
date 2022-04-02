@@ -10,18 +10,12 @@ import {
   getProjects,
   getJobFunctions,
 } from 'redux/actions';
-import {
-  IRootState,
-  IProject,
-  IJobFunction,
-  IRequirement,
-  IDuty,
-  IPosition,
-} from 'declarations/interfaces';
+import { IRootState, IProject, IJobFunction, IRequirement, IDuty } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { getSearchParamByName } from 'helpers';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -120,20 +114,6 @@ export const CreatePositionPage: React.FC = () => {
     dispatch(createPosition(values, userId));
   };
 
-  const validate = async (values: IValues) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.project) {
-      errors.name = 'Обязательное поле';
-    }
-    if (!values.job_function) {
-      errors.startDate = 'Обязательное поле';
-    }
-    if (!values.applicationDate) {
-      errors.startDate = 'Обязательное поле';
-    }
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -145,7 +125,7 @@ export const CreatePositionPage: React.FC = () => {
         initialValues={initialValues}
         fields={fields}
         onSubmit={onSubmit}
-        validate={validate}
+        validationSchema={validationSchema}
         formTitle="Новая позиция"
       />
     </main>

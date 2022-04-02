@@ -7,6 +7,7 @@ import {
   deleteDepartmentInfo,
   getDepartmentInfo,
 } from 'services';
+import { showAlert } from 'redux/actions/alert';
 import { IDepartment } from 'declarations/interfaces';
 import { goTo } from 'customHistory';
 
@@ -21,7 +22,8 @@ export const getDepartments = (filters: any = {}) => {
         type: departmentsTypes.GET_ALL_DEPARTMENTS_SUCCESS,
         payload: departments,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: departmentsTypes.GET_ALL_DEPARTMENTS_FAILURE,
         payload: e,
@@ -45,7 +47,8 @@ export const getDepartment = (id: string) => {
         type: departmentsTypes.GET_DEPARTMENT_SUCCESS,
         payload: department,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: departmentsTypes.GET_DEPARTMENT_FAILURE,
         payload: e,
@@ -70,7 +73,8 @@ export const createDepartment = (departmentData: any, userId: string) => {
         payload: newDepartment.data,
       });
       goTo(getDepartmentsLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: departmentsTypes.CREATE_DEPARTMENT_FAILURE,
         payload: e,
@@ -95,7 +99,8 @@ export const updateDepartment = (id: string, updatedData: IDepartment, userId: s
         payload: updatedDepartment.data,
       });
       goTo(getDepartmentsLink(userId));
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: departmentsTypes.UPDATE_DEPARTMENT_FAILURE,
         payload: e,
@@ -122,7 +127,8 @@ export const deleteDepartment = (id: string) => {
       dispatch({
         type: modalTypes.CLOSE_MODAL,
       });
-    } catch (e) {
+    } catch (e: any) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: departmentsTypes.DELETE_DEPARTMENT_FAILURE,
         payload: e,

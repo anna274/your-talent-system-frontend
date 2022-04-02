@@ -9,3 +9,7 @@ export const closeAlert = (alertType: string) => ({
   type: alertTypes.CLOSE_ALERT,
   payload: { type: alertType },
 });
+
+export const closeAllAlerts = () => ({
+  type: alertTypes.CLOSE_ALL_ALERTS,
+});

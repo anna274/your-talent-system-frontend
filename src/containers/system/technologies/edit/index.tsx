@@ -7,6 +7,7 @@ import { IRootState, ITechnology } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
+import { validationSchema } from './schema';
 
 interface IParams {
   userId: string;
@@ -44,15 +45,6 @@ export const EditTechnologyPage: React.FC = () => {
     dispatch(updateTechnology(technologyId, values as ITechnology, userId));
   };
 
-  const validate = async (values: ITechnology) => {
-    const errors: { [k: string]: string } = {};
-    if (!values.name) {
-      errors.name = 'Обязательное поле';
-    }
-
-    return errors;
-  };
-
   return (
     <main>
       <ControllersContainer>
@@ -61,12 +53,11 @@ export const EditTechnologyPage: React.FC = () => {
         </Button>
       </ControllersContainer>
       {technologyId === technology.id && (
-        // @ts-ignore
         <GeneralForm
           initialValues={technology}
           fields={fields}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           formTitle="Редактирование технологии"
         />
       )}
