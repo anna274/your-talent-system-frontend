@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { getProjects, getScopes } from 'redux/actions';
+import { getProjects, getScopes, setProjectsInfoUpdated } from 'redux/actions';
 import { IRootState, IScope } from 'declarations/interfaces';
 import { getCreateProjectLink } from 'helpers';
 import { PageTitle, ControllersContainer } from 'components/shared/page';
@@ -41,7 +41,7 @@ const statuses = [
 ];
 
 export const ProjectsPage: React.FC = () => {
-  const { projects } = useSelector((state: IRootState) => state.projects);
+  const { projects, isUpdated } = useSelector((state: IRootState) => state.projects);
   const { id: userId } = useSelector((state: IRootState) => state.authorizedUser.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
   const scopes = useSelector((state: IRootState) => state.scopes.data);
@@ -51,6 +51,9 @@ export const ProjectsPage: React.FC = () => {
   useEffect(() => {
     dispatch(getProjects());
     dispatch(getScopes());
+    return () => {
+      dispatch(setProjectsInfoUpdated(false));
+    };
   }, [dispatch]);
 
   const fields = useMemo(() => {
@@ -115,7 +118,7 @@ export const ProjectsPage: React.FC = () => {
           Добавить проект
         </Button>
       </ControllersContainer>
-      {projects.length === 0 && !loading && <h3>Записей нет</h3>}
+      {projects.length === 0 && !loading && isUpdated && <h3>Записей нет</h3>}
       {projects.map((project) => (
         <Project key={project.id} project={project} />
       ))}

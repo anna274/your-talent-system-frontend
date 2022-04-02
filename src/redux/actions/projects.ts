@@ -134,3 +134,10 @@ export const deleteProject = (id: string, userId: string) => {
     }
   };
 };
+
+export const setProjectsInfoUpdated = (isUpdated: boolean) => {
+  return {
+    type: projectsTypes.SET_INFO_UPDATED,
+    payload: { isUpdated },
+  };
+};

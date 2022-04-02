@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { getProfiles } from 'redux/actions';
+import { getProfiles, setProfilesInfoUpdated } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';
 import { getCreateProfileLink, isAdmin } from 'helpers';
 import { PageTitle, ControllersContainer } from 'components/shared/page';
@@ -9,7 +9,7 @@ import { goTo } from 'customHistory';
 import { Profile } from './sections/Profile';
 
 export const ProfilesPage: React.FC = () => {
-  const { profiles } = useSelector((state: IRootState) => state.profiles);
+  const { profiles, isUpdated } = useSelector((state: IRootState) => state.profiles);
   const { id: userId, roles } = useSelector((state: IRootState) => state.authorizedUser.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
 
@@ -17,6 +17,9 @@ export const ProfilesPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getProfiles());
+    return () => {
+      dispatch(setProfilesInfoUpdated(false));
+    };
   }, [dispatch]);
 
   const admin = isAdmin(roles);
@@ -31,7 +34,7 @@ export const ProfilesPage: React.FC = () => {
           </Button>
         </ControllersContainer>
       )}
-      {profiles.length === 0 && !loading && <h3>Записей нет</h3>}
+      {profiles.length === 0 && !loading && isUpdated && <h3>Записей нет</h3>}
       {profiles.length > 0 &&
         profiles.map((profile) => <Profile key={profile.id} profile={profile} />)}
     </main>

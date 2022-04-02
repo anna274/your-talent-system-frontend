@@ -219,11 +219,13 @@ interface ILoaderState {
 export interface IProjectsState {
   projects: IProject[];
   project: IProject;
+  isUpdated: boolean;
 }
 
 export interface IProfilesState {
   profiles: IProfile[];
   profile: IProfile;
+  isUpdated: boolean;
 }
 
 export interface IScopesState {
@@ -265,6 +267,7 @@ export interface IPrioritiesState {
 export interface IPositionsState {
   positions: IPosition[];
   position: IPosition;
+  isUpdated: boolean;
 }
 
 export interface IAlertState {
@@ -274,6 +277,7 @@ export interface IAlertState {
 export interface IStatisticsState {
   data: IStatistics[];
   statistics: IStatistics;
+  isUpdated: boolean;
 }
 
 export interface IStatisticsTypesState {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@material-ui/core';
-import { getAllStatistics } from 'redux/actions';
+import { getAllStatistics, setStatisticsInfoUpdated } from 'redux/actions';
 import { IJobFunction, IRootState, IStatisticsType } from 'declarations/interfaces';
 import { getCreateStatisticsLink, isAdmin } from 'helpers';
 import { PageTitle, ControllersContainer } from 'components/shared/page';
@@ -34,7 +34,7 @@ const statuses = [
 ];
 
 export const AllStatisticsPage: React.FC = () => {
-  const { data } = useSelector((state: IRootState) => state.statistics);
+  const { data, isUpdated } = useSelector((state: IRootState) => state.statistics);
   const { id: userId, roles } = useSelector((state: IRootState) => state.authorizedUser.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
   // const { projects } = useSelector((state: IRootState) => state.projects);
@@ -48,6 +48,9 @@ export const AllStatisticsPage: React.FC = () => {
     // dispatch(getProjects());
     // dispatch(getTechnologies());
     // dispatch(getJobFunctions());
+    return () => {
+      dispatch(setStatisticsInfoUpdated(false));
+    };
   }, [dispatch]);
 
   const admin = isAdmin(roles);
@@ -143,7 +146,7 @@ export const AllStatisticsPage: React.FC = () => {
           </Button>
         </ControllersContainer>
       )}
-      {data.length === 0 && !loading && <h3>Записей нет</h3>}
+      {data.length === 0 && !loading && isUpdated && <h3>Записей нет</h3>}
       {data.map((statistics) => (
         <StatisticsItem key={statistics.id} statistics={statistics} />
       ))}

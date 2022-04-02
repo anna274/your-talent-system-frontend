@@ -223,3 +223,10 @@ export const setSpecialist = (positionId: string, profileId: string, userId: str
     }
   };
 };
+
+export const setPositionsInfoUpdated = (isUpdated: boolean) => {
+  return {
+    type: positionsTypes.SET_INFO_UPDATED,
+    payload: { isUpdated },
+  };
+};

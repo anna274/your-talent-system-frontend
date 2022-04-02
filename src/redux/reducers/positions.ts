@@ -92,6 +92,11 @@ interface IActionAddCAndidateFailure {
   payload: Error;
 }
 
+interface IActionSetUpdated {
+  type: positionsTypes.SET_INFO_UPDATED;
+  payload: { isUpdated: boolean };
+}
+
 type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
@@ -111,11 +116,13 @@ type UnreadChatActionsType =
   | IActionAddCAndidateFailure
   | IActionDeleteCandidateSuccess
   | IActionDeleteCAndidateFailure
-  | IActionSetSpecialistSuccess;
+  | IActionSetSpecialistSuccess
+  | IActionSetUpdated;
 
 const initialState: IPositionsState = {
   positions: [],
   position: {} as IPosition,
+  isUpdated: false,
 };
 
 export const positionsReducer = (state = initialState, action: UnreadChatActionsType) => {
@@ -165,6 +172,9 @@ export const positionsReducer = (state = initialState, action: UnreadChatActions
     case positionsTypes.SET_SPECIALIST_SUCCESS: {
       return { ...state, position: action.payload };
     }
+
+    case positionsTypes.SET_INFO_UPDATED:
+      return { ...state, isUpdated: action.payload.isUpdated };
 
     default:
       return state;

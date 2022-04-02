@@ -160,3 +160,10 @@ export const deleteProfile = (id: string, userId: string) => {
     }
   };
 };
+
+export const setProfilesInfoUpdated = (isUpdated: boolean) => {
+  return {
+    type: profilesTypes.SET_INFO_UPDATED,
+    payload: { isUpdated },
+  };
+};

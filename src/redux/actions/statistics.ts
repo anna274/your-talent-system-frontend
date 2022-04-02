@@ -135,3 +135,10 @@ export const deleteStatistics = (id: string, userId: string) => {
     }
   };
 };
+
+export const setStatisticsInfoUpdated = (isUpdated: boolean) => {
+  return {
+    type: statisticsTypes.SET_INFO_UPDATED,
+    payload: { isUpdated },
+  };
+};

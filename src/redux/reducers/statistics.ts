@@ -67,6 +67,11 @@ interface IActionDeleteFailure {
   payload: Error;
 }
 
+interface IActionSetUpdated {
+  type: statisticsTypes.SET_INFO_UPDATED;
+  payload: { isUpdated: boolean };
+}
+
 type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
@@ -81,11 +86,13 @@ type UnreadChatActionsType =
   | IActionUpdateFailure
   | IActionDeleteRequest
   | IActionDeleteSuccess
-  | IActionDeleteFailure;
+  | IActionDeleteFailure
+  | IActionSetUpdated;
 
 const initialState: IStatisticsState = {
   data: [],
   statistics: {} as IStatistics,
+  isUpdated: false,
 };
 
 export const statisticsReducer = (state = initialState, action: UnreadChatActionsType) => {
@@ -119,6 +126,9 @@ export const statisticsReducer = (state = initialState, action: UnreadChatAction
     }
     case statisticsTypes.DELETE_STATISTICS_FAILURE:
       return { ...state, error: action.payload };
+
+    case statisticsTypes.SET_INFO_UPDATED:
+      return { ...state, isUpdated: action.payload.isUpdated };
 
     default:
       return state;

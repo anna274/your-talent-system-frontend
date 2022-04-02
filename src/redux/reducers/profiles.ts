@@ -67,6 +67,11 @@ interface IActionDeleteFailure {
   payload: Error;
 }
 
+interface IActionSetUpdated {
+  type: profilesTypes.SET_INFO_UPDATED;
+  payload: { isUpdated: boolean };
+}
+
 type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
@@ -81,11 +86,13 @@ type UnreadChatActionsType =
   | IActionUpdateFailure
   | IActionDeleteRequest
   | IActionDeleteSuccess
-  | IActionDeleteFailure;
+  | IActionDeleteFailure
+  | IActionSetUpdated;
 
 const initialState: IProfilesState = {
   profiles: [],
   profile: {} as IProfile,
+  isUpdated: false,
 };
 
 export const profilesReducer = (state = initialState, action: UnreadChatActionsType) => {
@@ -119,6 +126,9 @@ export const profilesReducer = (state = initialState, action: UnreadChatActionsT
     }
     case profilesTypes.DELETE_PROFILE_FAILURE:
       return { ...state, error: action.payload };
+
+    case profilesTypes.SET_INFO_UPDATED:
+      return { ...state, isUpdated: action.payload.isUpdated };
 
     default:
       return state;

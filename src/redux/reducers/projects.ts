@@ -67,6 +67,11 @@ interface IActionDeleteFailure {
   payload: Error;
 }
 
+interface IActionSetUpdated {
+  type: projectsTypes.SET_INFO_UPDATED;
+  payload: { isUpdated: boolean };
+}
+
 type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
@@ -81,11 +86,13 @@ type UnreadChatActionsType =
   | IActionUpdateFailure
   | IActionDeleteRequest
   | IActionDeleteSuccess
-  | IActionDeleteFailure;
+  | IActionDeleteFailure
+  | IActionSetUpdated;
 
 const initialState: IProjectsState = {
   projects: [],
   project: {} as IProject,
+  isUpdated: false,
 };
 
 export const projectsReducer = (state = initialState, action: UnreadChatActionsType) => {
@@ -93,7 +100,7 @@ export const projectsReducer = (state = initialState, action: UnreadChatActionsT
     case projectsTypes.GET_ALL_PROJECTS_REQUEST:
       return { ...state, filter: action.payload };
     case projectsTypes.GET_ALL_PROJECTS_SUCCESS:
-      return { ...state, projects: action.payload };
+      return { ...state, projects: action.payload, isUpdated: true };
     case projectsTypes.GET_ALL_PROJECTS_FAILURE:
       return { ...state, error: action.payload, projects: [] };
 
@@ -119,6 +126,9 @@ export const projectsReducer = (state = initialState, action: UnreadChatActionsT
     }
     case projectsTypes.DELETE_PROJECT_FAILURE:
       return { ...state, error: action.payload };
+
+    case projectsTypes.SET_INFO_UPDATED:
+      return { ...state, isUpdated: action.payload.isUpdated };
 
     default:
       return state;
