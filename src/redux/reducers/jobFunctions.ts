@@ -16,6 +16,16 @@ interface IActionGetAllFailure {
   payload: Error;
 }
 
+interface IActionGetSuccess {
+  type: jobFunctionsTypes.GET_JOB_FUNCTION_SUCCESS;
+  payload: IJobFunction;
+}
+
+interface IActionGetFailure {
+  type: jobFunctionsTypes.GET_JOB_FUNCTION_FAILURE;
+  payload: IJobFunction;
+}
+
 interface IActionAddRequest {
   type: jobFunctionsTypes.CREATE_JOB_FUNCTION_REQUEST;
 }
@@ -50,6 +60,9 @@ interface IActionDeleteRequest {
 
 interface IActionDeleteSuccess {
   type: jobFunctionsTypes.DELETE_JOB_FUNCTION_SUCCESS;
+  payload: {
+    id: string;
+  };
 }
 
 interface IActionDeleteFailure {
@@ -61,6 +74,8 @@ type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
   | IActionGetAllFailure
+  | IActionGetSuccess
+  | IActionGetFailure
   | IActionAddRequest
   | IActionAddSuccess
   | IActionAddFailure
@@ -85,10 +100,11 @@ export const jobFunctionsReducer = (state = initialState, action: UnreadChatActi
     case jobFunctionsTypes.GET_ALL_JOB_FUNCTIONS_FAILURE:
       return { ...state, error: action.payload, data: [] };
 
+    case jobFunctionsTypes.GET_JOB_FUNCTION_SUCCESS:
     case jobFunctionsTypes.CREATE_JOB_FUNCTION_SUCCESS: {
       return { ...state, jobFunction: action.payload };
     }
-
+    case jobFunctionsTypes.GET_JOB_FUNCTION_FAILURE:
     case jobFunctionsTypes.CREATE_JOB_FUNCTION_FAILURE:
       return { ...state, error: action.payload };
 
@@ -101,7 +117,11 @@ export const jobFunctionsReducer = (state = initialState, action: UnreadChatActi
       return { ...state, error: action.payload };
 
     case jobFunctionsTypes.DELETE_JOB_FUNCTION_SUCCESS: {
-      return { ...state, jobFunction: {} };
+      return {
+        ...state,
+        jobFunction: {},
+        data: state.data.filter(({ id }) => id != action.payload.id),
+      };
     }
     case jobFunctionsTypes.DELETE_JOB_FUNCTION_FAILURE:
       return { ...state, error: action.payload };

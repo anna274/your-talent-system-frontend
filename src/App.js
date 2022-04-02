@@ -4,6 +4,7 @@ import { authenticateUser } from 'redux/actions';
 import { addAxiosResponseInterceptor } from 'services';
 import { Loader } from 'components/shared';
 import { Alert } from 'components/alert';
+import { Modal } from 'components/modal';
 import Routes from 'routes';
 
 class App extends React.Component {
@@ -21,6 +22,7 @@ class App extends React.Component {
       <>
         <Routes />
         <Alert />
+        <Modal />
         {loading && <Loader />}
       </>
     );

@@ -5,6 +5,7 @@ import { ReactComponent as ProjectsIcon } from 'assets/icons/navigation/projects
 import { ReactComponent as StatisticsIcon } from 'assets/icons/navigation/statistics.svg';
 import { ReactComponent as ProfileIcon } from 'assets/icons/navigation/profile.svg';
 import { ReactComponent as SettingsIcon } from 'assets/icons/navigation/settings.svg';
+import { ReactComponent as SystemIcon } from 'assets/icons/navigation/system.svg';
 
 const NAV_LINKS = [
   {
@@ -59,10 +60,16 @@ const NAV_LINKS_ADMIN = [
     Icon: UsersIcon,
   },
   {
-    id: 2,
+    id: 4,
     to: '/statistics/',
     text: 'Статистика',
     Icon: StatisticsIcon,
+  },
+  {
+    id: 5,
+    to: '/system/',
+    text: 'Система',
+    Icon: SystemIcon,
   },
   {
     id: 6,

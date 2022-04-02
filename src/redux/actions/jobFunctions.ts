@@ -1,12 +1,14 @@
-import { jobFunctionsTypes, loaderTypes } from 'redux/types';
-import { getQueryString } from 'helpers';
+import { jobFunctionsTypes, loaderTypes, modalTypes } from 'redux/types';
+import { getQueryString, getJobFunctionsLink } from 'helpers';
 import {
   getJobFunctionsInfo,
   createJobFunctionInfo,
   updateJobFunctionInfo,
   deleteJobFunctionInfo,
+  getJobFunctionInfo,
 } from 'services';
 import { IJobFunction } from 'declarations/interfaces';
+import { goTo } from 'customHistory';
 
 export const getJobFunctions = (filters: any = {}) => {
   return async (dispatch: Function) => {
@@ -32,7 +34,31 @@ export const getJobFunctions = (filters: any = {}) => {
   };
 };
 
-export const createJobFunction = (jobFunctionData: any) => {
+export const getJobFunction = (id: string) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: loaderTypes.SHOW_LOADER,
+    });
+    try {
+      const { data: jobFunction } = await getJobFunctionInfo(id);
+      dispatch({
+        type: jobFunctionsTypes.GET_JOB_FUNCTION_SUCCESS,
+        payload: jobFunction,
+      });
+    } catch (e) {
+      dispatch({
+        type: jobFunctionsTypes.GET_JOB_FUNCTION_FAILURE,
+        payload: e,
+      });
+    } finally {
+      dispatch({
+        type: loaderTypes.HIDE_LOADER,
+      });
+    }
+  };
+};
+
+export const createJobFunction = (jobFunctionData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
@@ -43,6 +69,7 @@ export const createJobFunction = (jobFunctionData: any) => {
         type: jobFunctionsTypes.CREATE_JOB_FUNCTION_SUCCESS,
         payload: newJobFunction.data,
       });
+      goTo(getJobFunctionsLink(userId));
     } catch (e) {
       dispatch({
         type: jobFunctionsTypes.CREATE_JOB_FUNCTION_FAILURE,
@@ -67,6 +94,7 @@ export const updateJobFunction = (id: string, updatedData: IJobFunction, userId:
         type: jobFunctionsTypes.UPDATE_JOB_FUNCTION_SUCCESS,
         payload: updatedJobFunction.data,
       });
+      goTo(getJobFunctionsLink(userId));
     } catch (e) {
       dispatch({
         type: jobFunctionsTypes.UPDATE_JOB_FUNCTION_FAILURE,
@@ -80,7 +108,7 @@ export const updateJobFunction = (id: string, updatedData: IJobFunction, userId:
   };
 };
 
-export const deleteJobFunction = (id: string, userId: string) => {
+export const deleteJobFunction = (id: string) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
@@ -89,6 +117,10 @@ export const deleteJobFunction = (id: string, userId: string) => {
       await deleteJobFunctionInfo(id);
       dispatch({
         type: jobFunctionsTypes.DELETE_JOB_FUNCTION_SUCCESS,
+        payload: { id },
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
       });
     } catch (e) {
       dispatch({

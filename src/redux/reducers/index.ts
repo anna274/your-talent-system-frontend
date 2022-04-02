@@ -15,6 +15,7 @@ import { candidatesReducer } from 'redux/reducers/candidates';
 import { alertReducer } from 'redux/reducers/alert';
 import { statisticsReducer } from 'redux/reducers/statistics';
 import { statisticsTypesReducer } from 'redux/reducers/statisticsTypes';
+import { modalReducer } from 'redux/reducers/modal';
 
 const rootReducer = combineReducers({
   authorizedUser: authorizedUserReducer,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   alerts: alertReducer,
   statistics: statisticsReducer,
   statisticsTypes: statisticsTypesReducer,
+  modal: modalReducer,
 });
 
 export default rootReducer;

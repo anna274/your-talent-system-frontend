@@ -5,14 +5,18 @@ export const getTechnologiesInfo = (query: string) => {
   return axios.get(`/technologies${query}`);
 };
 
-export const createJobFunctionInfo = (jobFunctionData: ITechnology) => {
-  return axios.post(`/jobFunctions`, { jobFunctionData });
+export const getTechnologyInfo = (id: string) => {
+  return axios.get(`/technologies/${id}`);
 };
 
-export const updateJobFunctionInfo = (id: string, jobFunctionData: ITechnology) => {
-  return axios.put(`/jobFunctions/${id}`, { jobFunctionData });
+export const createTechnologyInfo = (technologyData: ITechnology) => {
+  return axios.post(`/technologies`, { technologyData });
 };
 
-export const deleteJobFunctionInfo = (id: string) => {
-  return axios.delete(`/jobFunctions/${id}`);
+export const updateTechnologyInfo = (id: string, technologyData: ITechnology) => {
+  return axios.put(`/technologies/${id}`, { technologyData });
+};
+
+export const deleteTechnologyInfo = (id: string) => {
+  return axios.delete(`/technologies/${id}`);
 };

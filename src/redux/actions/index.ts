@@ -13,3 +13,4 @@ export * from './candidates';
 export * from './alert';
 export * from './statistics';
 export * from './statisticsTypes';
+export * from './modal';

@@ -19,8 +19,10 @@ export interface IUser {
 export interface IModalPayload {
   modalType: string;
   modalProps: {
+    onSubmit: () => void;
+    text: string;
+    submitButtonText: string;
     onClose?: () => void;
-    [k: string]: any;
   };
 }
 
@@ -301,4 +303,5 @@ export interface IRootState {
   alerts: IAlertState;
   statistics: IStatisticsState;
   statisticsTypes: IStatisticsTypesState;
+  modal: IModalPayload;
 }

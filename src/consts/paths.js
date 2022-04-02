@@ -21,6 +21,16 @@ const PATHS = {
   statistics_view: '/statistics/:userId/:statisticsId',
   statistics_edit: '/statistics/:userId/:statisticsId/edit',
   profile_view: '/profile/:userId',
+  system: '/system/:userId',
+  job_functions: '/system/:userId/job-functions',
+  job_functions_new: '/system/:userId/job-functions/new',
+  job_functions_edit: '/system/:userId/job-functions/:jobFunctionId/edit',
+  departments: '/system/:userId/departments',
+  departments_new: '/system/:userId/departments/new',
+  departments_edit: '/system/:userId/departments/:departmentId/edit',
+  technologies: '/system/:userId/technologies',
+  technologies_new: '/system/:userId/technologies/new',
+  technologies_edit: '/system/:userId/technologies/:technologyId/edit',
 };
 
 export default PATHS;

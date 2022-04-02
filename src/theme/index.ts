@@ -116,5 +116,43 @@ export const theme = createTheme({
         color: '#82929B',
       },
     },
+    MuiTableBody: {
+      root: {
+        background: '#1d2a31',
+        color: '#cecece',
+      },
+    },
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: '#485864',
+        color: '#cecece',
+        fontSize: 18,
+        padding: 15,
+        paddingLeft: 8,
+      },
+      root: {
+        padding: 8,
+        fontSize: 18,
+        '& .MuiIconButton-colorPrimary .MuiSvgIcon-root': {
+          fill: '#eeb34e',
+        },
+        '& .MuiIconButton-colorPrimary:hover': {
+          backgroundColor: '#b88b3e',
+        },
+        '& .MuiIconButton-colorSecondary .MuiSvgIcon-root': {
+          fill: '#8e3825',
+        },
+        '& .MuiIconButton-colorSecondary:hover': {
+          backgroundColor: '#c65942',
+        },
+      },
+    },
+    MuiPaper: {
+      root: {
+        marginTop: '2rem',
+        width: '100%',
+        background: 'transparent',
+      },
+    },
   },
 });

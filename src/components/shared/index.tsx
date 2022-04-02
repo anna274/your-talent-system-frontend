@@ -15,3 +15,4 @@ export * from './filtersForm';
 export * from './multiselect';
 export * from './fileInput';
 export * from './imagePreview';
+export * from './table';

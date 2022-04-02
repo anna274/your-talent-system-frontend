@@ -50,6 +50,7 @@ export const TextField: React.FC<IProps> = ({
           helperText={getIn(touched, name) ? getIn(errors, name) : null}
           type={type}
           InputProps={InputProps}
+          autoComplete="off"
         />
       )}
     </Field>

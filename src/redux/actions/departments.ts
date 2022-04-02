@@ -1,12 +1,14 @@
-import { departmentsTypes, loaderTypes } from 'redux/types';
-import { getQueryString } from 'helpers';
+import { departmentsTypes, loaderTypes, modalTypes } from 'redux/types';
+import { getQueryString, getDepartmentsLink } from 'helpers';
 import {
   getDepartmentsInfo,
   createDepartmentInfo,
   updateDepartmentInfo,
   deleteDepartmentInfo,
+  getDepartmentInfo,
 } from 'services';
 import { IDepartment } from 'declarations/interfaces';
+import { goTo } from 'customHistory';
 
 export const getDepartments = (filters: any = {}) => {
   return async (dispatch: Function) => {
@@ -32,6 +34,30 @@ export const getDepartments = (filters: any = {}) => {
   };
 };
 
+export const getDepartment = (id: string) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: loaderTypes.SHOW_LOADER,
+    });
+    try {
+      const { data: department } = await getDepartmentInfo(id);
+      dispatch({
+        type: departmentsTypes.GET_DEPARTMENT_SUCCESS,
+        payload: department,
+      });
+    } catch (e) {
+      dispatch({
+        type: departmentsTypes.GET_DEPARTMENT_FAILURE,
+        payload: e,
+      });
+    } finally {
+      dispatch({
+        type: loaderTypes.HIDE_LOADER,
+      });
+    }
+  };
+};
+
 export const createDepartment = (departmentData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
@@ -43,6 +69,7 @@ export const createDepartment = (departmentData: any, userId: string) => {
         type: departmentsTypes.CREATE_DEPARTMENT_SUCCESS,
         payload: newDepartment.data,
       });
+      goTo(getDepartmentsLink(userId));
     } catch (e) {
       dispatch({
         type: departmentsTypes.CREATE_DEPARTMENT_FAILURE,
@@ -67,6 +94,7 @@ export const updateDepartment = (id: string, updatedData: IDepartment, userId: s
         type: departmentsTypes.UPDATE_DEPARTMENT_SUCCESS,
         payload: updatedDepartment.data,
       });
+      goTo(getDepartmentsLink(userId));
     } catch (e) {
       dispatch({
         type: departmentsTypes.UPDATE_DEPARTMENT_FAILURE,
@@ -80,7 +108,7 @@ export const updateDepartment = (id: string, updatedData: IDepartment, userId: s
   };
 };
 
-export const deleteDepartment = (id: string, userId: string) => {
+export const deleteDepartment = (id: string) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
@@ -89,6 +117,10 @@ export const deleteDepartment = (id: string, userId: string) => {
       await deleteDepartmentInfo(id);
       dispatch({
         type: departmentsTypes.DELETE_DEPARTMENT_SUCCESS,
+        payload: { id },
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
       });
     } catch (e) {
       dispatch({

@@ -33,3 +33,18 @@ export const getEditStatisticsLink = (userId, statisticsId) =>
 export const getProfileLink = (userId) => `/profile/${userId}`;
 
 export const getSettingsLink = (userId) => `/settings/${userId}`;
+
+export const getTechnologiesLink = (userId) => `/system/${userId}/technologies`;
+export const getCreateTechnologyLink = (userId) => `/system/${userId}/technologies/new`;
+export const getEditTechnologyLink = (userId, technologyId) =>
+  `/system/${userId}/technologies/${technologyId}/edit`;
+
+export const getDepartmentsLink = (userId) => `/system/${userId}/departments`;
+export const getCreateDepartmentLink = (userId) => `/system/${userId}/departments/new`;
+export const getEditDepartmentLink = (userId, departmentId) =>
+  `/system/${userId}/departments/${departmentId}/edit`;
+
+export const getJobFunctionsLink = (userId) => `/system/${userId}/job-functions`;
+export const getCreateJobFunctionLink = (userId) => `/system/${userId}/job-functions/new`;
+export const getEditJobFunctionLink = (userId, jobFunctionId) =>
+  `/system/${userId}/job-functions/${jobFunctionId}/edit`;

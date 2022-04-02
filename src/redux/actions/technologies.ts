@@ -1,12 +1,14 @@
-import { technologiesTypes, loaderTypes } from 'redux/types';
-import { getQueryString } from 'helpers';
+import { technologiesTypes, loaderTypes, modalTypes } from 'redux/types';
+import { getQueryString, getTechnologiesLink } from 'helpers';
 import {
   getTechnologiesInfo,
-  createJobFunctionInfo,
-  updateJobFunctionInfo,
-  deleteJobFunctionInfo,
+  createTechnologyInfo,
+  updateTechnologyInfo,
+  deleteTechnologyInfo,
+  getTechnologyInfo,
 } from 'services';
-import { IJobFunction } from 'declarations/interfaces';
+import { ITechnology } from 'declarations/interfaces';
+import { goTo } from 'customHistory';
 
 export const getTechnologies = (filters: any = {}) => {
   return async (dispatch: Function) => {
@@ -32,17 +34,42 @@ export const getTechnologies = (filters: any = {}) => {
   };
 };
 
-export const createJobFunction = (jobFunctionData: any) => {
+export const getTechnology = (id: string) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: loaderTypes.SHOW_LOADER,
+    });
+    try {
+      const { data: technology } = await getTechnologyInfo(id);
+      dispatch({
+        type: technologiesTypes.GET_TECHNOLOGY_SUCCESS,
+        payload: technology,
+      });
+    } catch (e) {
+      dispatch({
+        type: technologiesTypes.GET_TECHNOLOGY_FAILURE,
+        payload: e,
+      });
+    } finally {
+      dispatch({
+        type: loaderTypes.HIDE_LOADER,
+      });
+    }
+  };
+};
+
+export const createTechnology = (technologyData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const newJobFunction = await createJobFunctionInfo(jobFunctionData);
+      const newTechnology = await createTechnologyInfo(technologyData);
       dispatch({
         type: technologiesTypes.CREATE_TECHNOLOGY_SUCCESS,
-        payload: newJobFunction.data,
+        payload: newTechnology.data,
       });
+      goTo(getTechnologiesLink(userId));
     } catch (e) {
       dispatch({
         type: technologiesTypes.CREATE_TECHNOLOGY_FAILURE,
@@ -56,17 +83,18 @@ export const createJobFunction = (jobFunctionData: any) => {
   };
 };
 
-export const updateJobFunction = (id: string, updatedData: IJobFunction, userId: string) => {
+export const updateTechnology = (id: string, updatedData: ITechnology, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const updatedJobFunction = await updateJobFunctionInfo(id, updatedData);
+      const updatedTechnology = await updateTechnologyInfo(id, updatedData);
       dispatch({
         type: technologiesTypes.UPDATE_TECHNOLOGY_SUCCESS,
-        payload: updatedJobFunction.data,
+        payload: updatedTechnology.data,
       });
+      goTo(getTechnologiesLink(userId));
     } catch (e) {
       dispatch({
         type: technologiesTypes.UPDATE_TECHNOLOGY_FAILURE,
@@ -80,15 +108,19 @@ export const updateJobFunction = (id: string, updatedData: IJobFunction, userId:
   };
 };
 
-export const deleteJobFunction = (id: string, userId: string) => {
+export const deleteTechnology = (id: string) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      await deleteJobFunctionInfo(id);
+      await deleteTechnologyInfo(id);
       dispatch({
         type: technologiesTypes.DELETE_TECHNOLOGY_SUCCESS,
+        payload: { id },
+      });
+      dispatch({
+        type: modalTypes.CLOSE_MODAL,
       });
     } catch (e) {
       dispatch({

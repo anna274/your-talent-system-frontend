@@ -16,6 +16,16 @@ interface IActionGetAllFailure {
   payload: Error;
 }
 
+interface IActionGetSuccess {
+  type: departmentsTypes.GET_DEPARTMENT_SUCCESS;
+  payload: IDepartment;
+}
+
+interface IActionGetFailure {
+  type: departmentsTypes.GET_DEPARTMENT_FAILURE;
+  payload: IDepartment;
+}
+
 interface IActionAddRequest {
   type: departmentsTypes.CREATE_DEPARTMENT_REQUEST;
 }
@@ -50,6 +60,9 @@ interface IActionDeleteRequest {
 
 interface IActionDeleteSuccess {
   type: departmentsTypes.DELETE_DEPARTMENT_SUCCESS;
+  payload: {
+    id: string;
+  };
 }
 
 interface IActionDeleteFailure {
@@ -61,6 +74,8 @@ type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
   | IActionGetAllFailure
+  | IActionGetSuccess
+  | IActionGetFailure
   | IActionAddRequest
   | IActionAddSuccess
   | IActionAddFailure
@@ -85,10 +100,11 @@ export const departmentsReducer = (state = initialState, action: UnreadChatActio
     case departmentsTypes.GET_ALL_DEPARTMENTS_FAILURE:
       return { ...state, error: action.payload, data: [] };
 
+    case departmentsTypes.GET_DEPARTMENT_SUCCESS:
     case departmentsTypes.CREATE_DEPARTMENT_SUCCESS: {
       return { ...state, department: action.payload };
     }
-
+    case departmentsTypes.GET_DEPARTMENT_FAILURE:
     case departmentsTypes.CREATE_DEPARTMENT_FAILURE:
       return { ...state, error: action.payload };
 
@@ -101,7 +117,11 @@ export const departmentsReducer = (state = initialState, action: UnreadChatActio
       return { ...state, error: action.payload };
 
     case departmentsTypes.DELETE_DEPARTMENT_SUCCESS: {
-      return { ...state, department: {} };
+      return {
+        ...state,
+        department: {},
+        data: state.data.filter(({ id }) => id != action.payload.id),
+      };
     }
     case departmentsTypes.DELETE_DEPARTMENT_FAILURE:
       return { ...state, error: action.payload };

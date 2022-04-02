@@ -16,6 +16,16 @@ interface IActionGetAllFailure {
   payload: Error;
 }
 
+interface IActionGetSuccess {
+  type: technologiesTypes.GET_TECHNOLOGY_SUCCESS;
+  payload: ITechnology;
+}
+
+interface IActionGetFailure {
+  type: technologiesTypes.GET_TECHNOLOGY_FAILURE;
+  payload: ITechnology;
+}
+
 interface IActionAddRequest {
   type: technologiesTypes.CREATE_TECHNOLOGY_REQUEST;
 }
@@ -50,6 +60,9 @@ interface IActionDeleteRequest {
 
 interface IActionDeleteSuccess {
   type: technologiesTypes.DELETE_TECHNOLOGY_SUCCESS;
+  payload: {
+    id: string;
+  };
 }
 
 interface IActionDeleteFailure {
@@ -61,6 +74,8 @@ type UnreadChatActionsType =
   | IActionGetAllRequest
   | IActionGetAllSuccess
   | IActionGetAllFailure
+  | IActionGetSuccess
+  | IActionGetFailure
   | IActionAddRequest
   | IActionAddSuccess
   | IActionAddFailure
@@ -85,10 +100,11 @@ export const technologiesReducer = (state = initialState, action: UnreadChatActi
     case technologiesTypes.GET_ALL_TECHNOLOGIES_FAILURE:
       return { ...state, error: action.payload, data: [] };
 
+    case technologiesTypes.GET_TECHNOLOGY_SUCCESS:
     case technologiesTypes.CREATE_TECHNOLOGY_SUCCESS: {
       return { ...state, technology: action.payload };
     }
-
+    case technologiesTypes.GET_TECHNOLOGY_FAILURE:
     case technologiesTypes.CREATE_TECHNOLOGY_FAILURE:
       return { ...state, error: action.payload };
 
@@ -101,7 +117,11 @@ export const technologiesReducer = (state = initialState, action: UnreadChatActi
       return { ...state, error: action.payload };
 
     case technologiesTypes.DELETE_TECHNOLOGY_SUCCESS: {
-      return { ...state, technology: {} };
+      return {
+        ...state,
+        technology: {},
+        data: state.data.filter(({ id }) => id != action.payload.id),
+      };
     }
     case technologiesTypes.DELETE_TECHNOLOGY_FAILURE:
       return { ...state, error: action.payload };

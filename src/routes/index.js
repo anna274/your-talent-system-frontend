@@ -27,6 +27,16 @@ import {
   StatisticsPage,
   EditStatisticsPage,
   UserProfilePage,
+  SystemPage,
+  DepartmentsPage,
+  CreateDepartmentPage,
+  EditDepartmentPage,
+  JobFunctionsPage,
+  CreateJobFunctionPage,
+  EditJobFunctionPage,
+  TechnologiesPage,
+  CreateTechnologyPage,
+  EditTechnologyPage,
 } from 'containers';
 
 function Routes() {
@@ -61,6 +71,16 @@ function Routes() {
         <PrivateRoute path={PATHS.statistics_view} exact component={StatisticsPage} />
         <PrivateRoute path={PATHS.statistics_edit} exact component={EditStatisticsPage} />
         <PrivateRoute path={PATHS.profile_view} exact component={UserProfilePage} />
+        <PrivateRoute path={PATHS.system} exact component={SystemPage} />
+        <PrivateRoute path={PATHS.departments} exact component={DepartmentsPage} />
+        <PrivateRoute path={PATHS.departments_new} exact component={CreateDepartmentPage} />
+        <PrivateRoute path={PATHS.departments_edit} exact component={EditDepartmentPage} />
+        <PrivateRoute path={PATHS.job_functions} exact component={JobFunctionsPage} />
+        <PrivateRoute path={PATHS.job_functions_new} exact component={CreateJobFunctionPage} />
+        <PrivateRoute path={PATHS.job_functions_edit} exact component={EditJobFunctionPage} />
+        <PrivateRoute path={PATHS.technologies} exact component={TechnologiesPage} />
+        <PrivateRoute path={PATHS.technologies_new} exact component={CreateTechnologyPage} />
+        <PrivateRoute path={PATHS.technologies_edit} exact component={EditTechnologyPage} />
       </Switch>
     </Router>
   );
