@@ -31,6 +31,8 @@ const PATHS = {
   technologies: '/system/:userId/technologies',
   technologies_new: '/system/:userId/technologies/new',
   technologies_edit: '/system/:userId/technologies/:technologyId/edit',
+  settings: '/settings/:userId',
+  settings_password: '/settings/:userId/password-settings',
 };
 
 export default PATHS;

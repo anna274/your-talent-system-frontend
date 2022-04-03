@@ -19,3 +19,4 @@ export * from './cv-generation';
 export * from './statistics';
 export * from './profile';
 export * from './system';
+export * from './settings';

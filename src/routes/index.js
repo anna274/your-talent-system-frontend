@@ -37,6 +37,8 @@ import {
   TechnologiesPage,
   CreateTechnologyPage,
   EditTechnologyPage,
+  SettingsPage,
+  PasswordSettings,
 } from 'containers';
 
 function Routes() {
@@ -81,6 +83,8 @@ function Routes() {
         <PrivateRoute path={PATHS.technologies} exact component={TechnologiesPage} />
         <PrivateRoute path={PATHS.technologies_new} exact component={CreateTechnologyPage} />
         <PrivateRoute path={PATHS.technologies_edit} exact component={EditTechnologyPage} />
+        <PrivateRoute path={PATHS.settings} exact component={SettingsPage} />
+        <PrivateRoute path={PATHS.settings_password} exact component={PasswordSettings} />
       </Switch>
     </Router>
   );

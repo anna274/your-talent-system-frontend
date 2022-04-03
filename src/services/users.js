@@ -20,16 +20,8 @@ function deleteUserInfo(userId) {
   return axios.delete(`/users/${userId}`);
 }
 
-function addFriend(userId, friendId) {
-  return axios.put(`/users/add-friend/${userId}`, { friendId });
-}
-
-function deleteFriend(userId, friendId) {
-  return axios.put(`/users/delete-friend/${userId}`, { friendId });
-}
-
 function updateUserPassword(userId, passwordInfo) {
-  return axios.put(`/users/change-password/${userId}`, { ...passwordInfo });
+  return axios.put(`/accounts/change-password/${userId}`, { ...passwordInfo });
 }
 
 export {
@@ -38,7 +30,5 @@ export {
   createUserInfo,
   updateUserInfo,
   deleteUserInfo,
-  addFriend,
-  deleteFriend,
   updateUserPassword,
 };

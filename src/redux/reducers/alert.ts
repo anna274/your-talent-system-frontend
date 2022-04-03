@@ -17,6 +17,9 @@ export const alertReducer = (state = initialState, action: IAction) => {
     case alertTypes.CLOSE_ALERT: {
       return { data: state.data.filter(({ type }) => type !== action.payload.type) };
     }
+    case alertTypes.CLOSE_ALL_ALERTS: {
+      return { data: [] };
+    }
     default: {
       return state;
     }

@@ -6,7 +6,7 @@ import {
   setAuthToken,
   logoutUserInfo,
   getAccountInfo,
-  updateUserPassword,
+  updateAccountPassword,
 } from 'services';
 import customHistory, { goBack } from 'customHistory';
 import { isAdmin, getProjectsLink, getProfileLink } from 'helpers';
@@ -85,19 +85,27 @@ function authenticateUser() {
 function updateAuthUserPassword(userId, passwordsData) {
   return async function (dispatch) {
     dispatch({
+      type: loaderTypes.SHOW_LOADER,
+    });
+    dispatch({
       type: authorizedUserTypes.UPDATE_AUTH_USER_PASSWORD_REQUEST,
     });
     try {
-      const updatedUserPsw = await updateUserPassword(userId, passwordsData);
+      const updatedUserPsw = await updateAccountPassword(userId, passwordsData);
       dispatch({
         type: authorizedUserTypes.UPDATE_AUTH_USER_PASSWORD_SUCCESS,
         payload: updatedUserPsw.data,
       });
       goBack();
     } catch (e) {
+      dispatch(showAlert({ text: e.response.data.message, severity: 'error' }));
       dispatch({
         type: authorizedUserTypes.UPDATE_AUTH_USER_PASSWORD_FAILURE,
-        payload: new Error(''),
+        payload: e,
+      });
+    } finally {
+      dispatch({
+        type: loaderTypes.HIDE_LOADER,
       });
     }
   };
