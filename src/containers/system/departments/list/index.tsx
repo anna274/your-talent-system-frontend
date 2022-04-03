@@ -26,7 +26,7 @@ export const DepartmentsPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getDepartments());
-  }, []);
+  }, [dispatch]);
 
   const deleteHandler = (departmentId: string) => {
     dispatch(

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS, DEVIСES_WIDTH } from 'consts';
+import { COLORS } from 'consts';
 import { Chips } from 'components/shared';
 
 export const ProfileInfoContainer = styled.div`

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { getProfileByAccount } from 'redux/actions';
 import { IRootState } from 'declarations/interfaces';

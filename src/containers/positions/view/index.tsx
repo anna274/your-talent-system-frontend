@@ -115,7 +115,7 @@ export const PositionPage: React.FC = () => {
               color="secondary"
               className="danger"
               onClick={() =>
-                goTo(dispatch(updatePositionStatus(id, { id, statusValue: 'inactive' }, userId)))
+                dispatch(updatePositionStatus(id, { id, statusValue: 'inactive' }, userId))
               }
             >
               Деактивировать позицию

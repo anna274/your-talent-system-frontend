@@ -1,6 +1,6 @@
-export { default as Navigation } from './navigation';
+export * from './navigation';
 export * from './login';
-export { default as Logout } from './logout';
+export * from './logout';
 export * from './projects/list';
 export * from './projects/create';
 export * from './projects/view';

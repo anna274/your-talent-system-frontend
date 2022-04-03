@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Chip from '@material-ui/core/Chip';
 import { IProfile } from 'declarations/interfaces';
-import { formatDateString, getProfilesLink, getViewProfileLink } from 'helpers';
+import { getProfilesLink, getViewProfileLink } from 'helpers';
 import { CustomLink } from 'components/shared';
 import { Container, ProfileName, Avatar, ProfileSkills, ProfileInfo } from './styled';
 import defaultAvatar from 'assets/images/defaults/default-avatar.jpg';

@@ -1,16 +1,5 @@
 import styled from 'styled-components';
 
-const prioritiesColors = {
-  '1': '#52B792',
-  '2': '#EEB34E',
-  '3': '#C65942',
-};
-
-const getColor = (priority: number) => {
-  if (priority) {
-  }
-};
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;

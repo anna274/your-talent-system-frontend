@@ -120,7 +120,7 @@ export const departmentsReducer = (state = initialState, action: UnreadChatActio
       return {
         ...state,
         department: {},
-        data: state.data.filter(({ id }) => id != action.payload.id),
+        data: state.data.filter(({ id }) => id !== action.payload.id),
       };
     }
     case departmentsTypes.DELETE_DEPARTMENT_FAILURE:

@@ -26,7 +26,7 @@ export const JobFunctionsPage: React.FC = () => {
 
   useEffect(() => {
     dispatch(getJobFunctions());
-  }, []);
+  }, [dispatch]);
 
   const deleteHandler = (jobFunctionId: string) => {
     dispatch(

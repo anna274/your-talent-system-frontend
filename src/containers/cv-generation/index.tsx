@@ -8,8 +8,7 @@ import { getLevels, getTechnologies, getJobFunctions, getProfile } from 'redux/a
 import { IRootState, IDepartment, ISkill, IJobFunction } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
-import { getViewProfileLink } from 'helpers';
-import { goBack, goTo } from 'customHistory';
+import { goBack } from 'customHistory';
 import { CvDocument } from './document';
 
 interface IParams {
@@ -43,7 +42,7 @@ export const GenerateCVPage: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { userId, profileId } = useParams<IParams>();
+  const { profileId } = useParams<IParams>();
 
   useEffect(() => {
     dispatch(getLevels());
@@ -55,7 +54,7 @@ export const GenerateCVPage: React.FC = () => {
     if ((!profile.id || profileId !== profile.id) && !loading) {
       dispatch(getProfile(profileId));
     }
-  }, [dispatch]);
+  }, [dispatch, profile.id, profileId]);
 
   const fields = useMemo(() => {
     return [

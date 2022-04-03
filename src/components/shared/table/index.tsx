@@ -14,16 +14,6 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-// const useStyles = makeStyles({
-//   root: {
-//     marginTop: '5rem',
-//     width: '100%',
-//   },
-//   container: {
-//     maxHeight: 440,
-//   },
-// });
-
 interface IProps {
   rows: any[];
   columns: any[];

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS, DEVIСES_WIDTH } from 'consts';
+import { COLORS } from 'consts';
 import { Chips } from 'components/shared';
 import { IPositionStatus } from 'declarations/interfaces';
 import { POSITION_STATUSES } from 'consts';

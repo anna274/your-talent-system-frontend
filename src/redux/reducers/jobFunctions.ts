@@ -120,7 +120,7 @@ export const jobFunctionsReducer = (state = initialState, action: UnreadChatActi
       return {
         ...state,
         jobFunction: {},
-        data: state.data.filter(({ id }) => id != action.payload.id),
+        data: state.data.filter(({ id }) => id !== action.payload.id),
       };
     }
     case jobFunctionsTypes.DELETE_JOB_FUNCTION_FAILURE:

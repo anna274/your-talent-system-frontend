@@ -120,7 +120,7 @@ export const technologiesReducer = (state = initialState, action: UnreadChatActi
       return {
         ...state,
         technology: {},
-        data: state.data.filter(({ id }) => id != action.payload.id),
+        data: state.data.filter(({ id }) => id !== action.payload.id),
       };
     }
     case technologiesTypes.DELETE_TECHNOLOGY_FAILURE:

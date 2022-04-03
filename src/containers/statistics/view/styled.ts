@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { COLORS } from 'consts';
-import { Chips } from 'components/shared';
 
 export const Container = styled.div`
   display: flex;

@@ -65,7 +65,7 @@ export const PasswordSettings: React.FC = () => {
   }, []);
 
   const onSubmit = (values: IValues) => {
-    const { currentPassword, newPassword, confirmNewPassword } = values;
+    const { currentPassword, newPassword } = values;
     dispatch(updateAuthUserPassword(userId, { currentPassword, newPassword }));
   };
 

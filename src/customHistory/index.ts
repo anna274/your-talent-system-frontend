@@ -6,6 +6,6 @@ export const goBack = () => {
   customHistory.goBack();
 };
 
-export const goTo = (path) => {
+export const goTo = (path: string) => {
   customHistory.push(path);
-}
+};
