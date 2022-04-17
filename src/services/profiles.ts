@@ -1,7 +1,7 @@
 import axios from 'services/axios';
 
-export const getProfilesInfo = () => {
-  return axios.get(`/profiles`);
+export const getProfilesInfo = (query: string) => {
+  return axios.get(`/profiles${query}`);
 };
 
 export const getProfileInfo = (id: string) => {

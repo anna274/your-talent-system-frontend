@@ -8,16 +8,16 @@ import {
   updateProfileInfo,
   deleteProfileInfo,
 } from 'services';
-import { getViewProfileLink, getProfilesLink } from 'helpers';
+import { getViewProfileLink, getProfilesLink, getQueryString } from 'helpers';
 import { goTo } from 'customHistory';
 
-export const getProfiles = () => {
+export const getProfiles = (filters: any = {}) => {
   return async (dispatch: Function) => {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const { data: profiles } = await getProfilesInfo();
+      const { data: profiles } = await getProfilesInfo(getQueryString(filters));
       dispatch({
         type: profilesTypes.GET_ALL_PROFILES_SUCCESS,
         payload: profiles,
