@@ -58,8 +58,15 @@ export const SectionName = styled.p`
   font-weight: bold;
 `;
 
+export const AvatarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+
 export const Avatar = styled.img`
   height: 180px;
-  width: 180px;
-  border-radius: 5px;
+  width: auto;
 `;

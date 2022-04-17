@@ -57,14 +57,21 @@ Font.register({
   src: 'https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf',
 });
 
+const getProfilePhotoLink = (photoLink: any) => {
+  if (photoLink && typeof photoLink === 'string') {
+    return photoLink;
+  }
+  return photoLink ? URL.createObjectURL(photoLink) : defaultAvatar;
+};
+
 export const CvDocument = ({ profile }: any) => {
   return (
     <Document>
       <Page size="A4" style={styles.body}>
-        <Image
-          src={profile.photoLink ? URL.createObjectURL(profile.photoLink) : defaultAvatar}
+        {/* <Image
+          src={getProfilePhotoLink(profile.photoLink)}
           style={styles.avatar}
-        />
+        /> */}
         <View>
           <Text style={styles.header}>{`${profile.surname} ${profile.name}`}</Text>
           <Text>{profile.job_function.name}</Text>

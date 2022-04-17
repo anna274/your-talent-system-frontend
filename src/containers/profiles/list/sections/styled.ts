@@ -39,8 +39,15 @@ export const ProfileSkills = styled(Chips)`
   margin-top: auto;
 `;
 
+export const AvatarContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 5px;
+`;
+
 export const Avatar = styled.img`
   height: 180px;
-  width: 180px;
-  border-radius: 5px;
+  width: auto;
 `;

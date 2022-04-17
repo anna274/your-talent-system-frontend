@@ -12,6 +12,7 @@ import {
   ProfileInfo,
   SectionName,
   ProfileSkills,
+  AvatarContainer,
   Avatar,
   ProfileInfoContainer,
 } from './styled';
@@ -32,7 +33,6 @@ export const Profile: React.FC<IProps> = ({ profile }) => {
     name,
     surname,
     department,
-    mobilePhone,
     email,
     job_function,
     skills,
@@ -68,7 +68,9 @@ export const Profile: React.FC<IProps> = ({ profile }) => {
     <Container>
       <ProfileName>{`${surname} ${name}`}</ProfileName>
       <ProfileInfoContainer>
-        <Avatar src={photoLink || defaultAvatar} />
+        <AvatarContainer>
+          <Avatar src={photoLink || defaultAvatar} />
+        </AvatarContainer>
         <ProfileInfo>
           <p>
             <strong>Начало работы в компании: </strong>
@@ -81,10 +83,6 @@ export const Profile: React.FC<IProps> = ({ profile }) => {
           <p>
             <strong>Должность: </strong>
             {job_function?.name || 'Не указана'}
-          </p>
-          <p>
-            <strong>Мобильный телефон: </strong>
-            {mobilePhone || 'Не указан'}
           </p>
           <p>
             <strong>E-mail: </strong>

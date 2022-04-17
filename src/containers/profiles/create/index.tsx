@@ -11,6 +11,7 @@ import {
 } from 'redux/actions';
 import { IRootState, IDepartment, ISkill, IJobFunction } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
+import { objectToFormData } from 'helpers';
 import { GeneralForm } from 'components/shared/form';
 import { goBack } from 'customHistory';
 import { validationSchema } from './schema';
@@ -34,6 +35,7 @@ interface IValues {
   email: string;
   skills: ISkill[];
   summary: string;
+  photoLink: string;
 }
 
 const initialValues: IValues = {
@@ -51,6 +53,7 @@ const initialValues: IValues = {
   email: '',
   skills: [],
   summary: '',
+  photoLink: '',
 };
 
 export const CreateProfilePage: React.FC = () => {
@@ -183,13 +186,21 @@ export const CreateProfilePage: React.FC = () => {
           technologies,
         },
       },
+      {
+        id: '12',
+        type: 'imagePreview',
+        props: {
+          name: 'photoLink',
+          label: 'Фото',
+        },
+      },
     ];
   }, [levels, departments, technologies, jobFunctions]);
 
   const onSubmit = (values: IValues) => {
-    const { login, password, repeatPassword, ...profileData } = values;
+    const { login, password, repeatPassword, photoLink, ...profileData } = values;
     const accountData = { login, password };
-    dispatch(createProfile(accountData, profileData, userId));
+    dispatch(createProfile(objectToFormData({ accountData, profileData, photoLink }), userId));
   };
 
   return (

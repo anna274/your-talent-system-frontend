@@ -86,13 +86,13 @@ export const getProfileByAccount = (id: string) => {
   };
 };
 
-export const createProfile = (accountData: any, profileData: any, userId: string) => {
+export const createProfile = (formData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const newProfile = await createProfileInfo(accountData, profileData);
+      const newProfile = await createProfileInfo(formData);
       dispatch({
         type: profilesTypes.CREATE_PROFILE_SUCCESS,
         payload: newProfile.data,
@@ -112,13 +112,13 @@ export const createProfile = (accountData: any, profileData: any, userId: string
   };
 };
 
-export const updateProfile = (id: string, updatedData: any, userId: string) => {
+export const updateProfile = (id: string, formData: any, userId: string) => {
   return async function (dispatch: Function) {
     dispatch({
       type: loaderTypes.SHOW_LOADER,
     });
     try {
-      const updatedProfile = await updateProfileInfo(id, updatedData);
+      const updatedProfile = await updateProfileInfo(id, formData);
       dispatch({
         type: profilesTypes.UPDATE_PROFILE_SUCCESS,
         payload: updatedProfile.data,

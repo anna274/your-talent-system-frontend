@@ -8,18 +8,22 @@ interface IProps {
   imageURL: string;
   onClear: () => void;
 }
-export const ImagePreviewField: React.FC<IProps> = ({ name, ...props }) => {
+export const ImagePreviewField: React.FC<IProps> = ({ name, onClear, ...props }) => {
   return (
     <Field name={name}>
-      {({ field: { name }, form: { setFieldValue } }: FieldProps) => {
+      {({ field: { name, value }, form: { setFieldValue } }: FieldProps) => {
         return (
           <ImagePreview
             {...props}
             name={name}
+            imageURL={value}
             changeHandler={(event: React.ChangeEvent<any>) => {
               setFieldValue(name, event.target.files[0]);
             }}
-            onClear={() => setFieldValue(name, '')}
+            onClear={() => {
+              setFieldValue(name, '');
+              onClear && onClear();
+            }}
           />
         );
       }}

@@ -139,7 +139,6 @@ export const GenerateCVPage: React.FC = () => {
         props: {
           name: 'photoLink',
           label: 'Фото',
-          imageURL: profile.photoLink,
         },
       },
     ];

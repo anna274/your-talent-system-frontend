@@ -14,3 +14,4 @@ export * from './requirements-helper';
 export * from './random-helpers';
 export * from './skills-helper';
 export * from './positionStatuses-helpers';
+export * from './object-helpers';

@@ -4,7 +4,14 @@ import Chip from '@material-ui/core/Chip';
 import { IProfile } from 'declarations/interfaces';
 import { getProfilesLink, getViewProfileLink } from 'helpers';
 import { CustomLink } from 'components/shared';
-import { Container, ProfileName, Avatar, ProfileSkills, ProfileInfo } from './styled';
+import {
+  Container,
+  ProfileName,
+  Avatar,
+  ProfileSkills,
+  ProfileInfo,
+  AvatarContainer,
+} from './styled';
 import defaultAvatar from 'assets/images/defaults/default-avatar.jpg';
 
 interface IProps {
@@ -24,7 +31,9 @@ export const Profile: React.FC<IProps> = ({
 
   return (
     <Container>
-      <Avatar src={photoLink || defaultAvatar} />
+      <AvatarContainer>
+        <Avatar src={photoLink || defaultAvatar} />
+      </AvatarContainer>
       <ProfileInfo>
         <ProfileName>{`${surname} ${name}`}</ProfileName>
         <p>{job_function?.name || 'Должность не указана'}</p>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Button } from '@material-ui/core';
@@ -10,6 +10,7 @@ import {
   getJobFunctions,
   getProfile,
 } from 'redux/actions';
+import { objectToFormData } from 'helpers';
 import { IRootState, IDepartment, ISkill, IJobFunction } from 'declarations/interfaces';
 import { ControllersContainer } from 'components/shared/page';
 import { GeneralForm } from 'components/shared/form';
@@ -36,6 +37,7 @@ interface IValues {
   email: string;
   skills: ISkill[];
   summary: string;
+  photoLink: string;
 }
 
 export const EditProfilePage: React.FC = () => {
@@ -45,6 +47,8 @@ export const EditProfilePage: React.FC = () => {
   const departments = useSelector((state: IRootState) => state.departments.data);
   const jobFunctions = useSelector((state: IRootState) => state.jobFunctions.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
+
+  const [isPhotoCleaned, setIsPhotoCleaned] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -62,6 +66,10 @@ export const EditProfilePage: React.FC = () => {
       dispatch(getProfile(profileId));
     }
   }, [dispatch]);
+
+  const cleanPhoto = () => {
+    setIsPhotoCleaned(true);
+  };
 
   const fields = useMemo(() => {
     return [
@@ -150,12 +158,31 @@ export const EditProfilePage: React.FC = () => {
           technologies,
         },
       },
+      {
+        id: '12',
+        type: 'imagePreview',
+        props: {
+          name: 'photoLink',
+          label: 'Фото',
+          onClear: cleanPhoto,
+        },
+      },
     ];
   }, [levels, departments, technologies, jobFunctions]);
 
   const onSubmit = (values: IValues) => {
-    console.log('values', values);
-    dispatch(updateProfile(profileId, values, userId));
+    const { photoLink, ...rest } = values;
+    dispatch(
+      updateProfile(
+        profileId,
+        objectToFormData({
+          profileData: rest,
+          oldAvatarURL: isPhotoCleaned ? '' : profile.photoLink,
+          photoLink,
+        }),
+        userId,
+      ),
+    );
   };
 
   return (
