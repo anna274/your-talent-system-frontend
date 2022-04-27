@@ -17,7 +17,7 @@ export const sortSkillsByLevels = (requirements: ISkill[]) => requirements.sort(
 export const getMainSkills = (skills: ISkill[]) => {
   const sorted = sortSkillsByLevels(skills);
   if (sorted.length < 3) {
-    return sorted.slice(sorted.length - 1);
+    return sorted.slice(0, sorted.length - 1);
   }
-  return sorted.slice(2);
+  return sorted.slice(0, 3);
 };

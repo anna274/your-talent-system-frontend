@@ -24,13 +24,13 @@ export const styles = StyleSheet.create({
     position: 'relative',
     left: 0,
   },
-  coreCompetencies: {
+  row: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   middleText: {
-    fontSize: 105,
+    fontSize: 12,
   },
   smallText: {
     fontSize: 10,
@@ -68,22 +68,19 @@ export const CvDocument = ({ profile }: any) => {
   return (
     <Document>
       <Page size="A4" style={styles.body}>
-        {/* <Image
-          src={getProfilePhotoLink(profile.photoLink)}
-          style={styles.avatar}
-        /> */}
+        <Image src={getProfilePhotoLink(profile.photoLink)} style={styles.avatar} />
         <View>
           <Text style={styles.header}>{`${profile.surname} ${profile.name}`}</Text>
           <Text>{profile.job_function.name}</Text>
-          <Text style={styles.dimText}>{getExperienceText(profile.companyStartDate)}</Text>
+          <Text style={styles.dimText}>{getExperienceText(profile.careerStartDate)}</Text>
         </View>
         <View style={styles.dimView}>
           <Text style={styles.title}>Характеристика</Text>
           <Text style={styles.smallText}>{profile.summary}</Text>
         </View>
-        <View style={styles.coreCompetencies}>
+        <View style={styles.row}>
           <Text>Основные компетенции: </Text>
-          <Text style={styles.smallText}>
+          <Text style={styles.middleText}>
             {getMainSkills(profile.skills)
               .map((s) => s.technology.name)
               .join(', ')}
@@ -99,19 +96,43 @@ export const CvDocument = ({ profile }: any) => {
             );
           })}
         </View>
+        {profile.positions.length > 0 && (
+          <View style={styles.dimView}>
+            <Text style={styles.title}>Прошлые проекты:</Text>
+            {profile.positions.map((p: any) => {
+              return (
+                <>
+                  <Text style={styles.row}>
+                    <Text style={styles.middleText}>{p.project.name}</Text>
+                    <Text
+                      style={{ ...styles.smallText, ...styles.listItem }}
+                    >{` (${p.project.scopes.map(({ name }: any) => name).join(', ')}) - ${
+                      p.project.description
+                    }`}</Text>
+                  </Text>
+                  <Text style={styles.row}>
+                    <Text style={styles.middleText}>Выполняемые задачи: </Text>
+                    <Text style={styles.smallText}>
+                      {p.duties.map(({ text }: any) => text).join(', ')}
+                    </Text>
+                  </Text>
+                </>
+              );
+            })}
+          </View>
+        )}
         <View>
           <Text style={styles.title}>Контакты:</Text>
           <Text
             style={{ ...styles.smallText, ...styles.listItem }}
           >{`Email: ${profile.email}`}</Text>
-          <Text
-            style={{ ...styles.smallText, ...styles.listItem }}
-          >{`Мобильный телефон: ${profile.mobilePhone}`}</Text>
         </View>
-        <View style={styles.dimView}>
-          <Text style={styles.title}>Образование</Text>
-          <Text style={styles.smallText}>{profile.education}</Text>
-        </View>
+        {profile.education && (
+          <View>
+            <Text style={styles.title}>Образование</Text>
+            <Text style={styles.smallText}>{profile.education}</Text>
+          </View>
+        )}
       </Page>
     </Document>
   );

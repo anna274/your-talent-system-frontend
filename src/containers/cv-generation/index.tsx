@@ -27,7 +27,6 @@ interface IValues {
   jobFunction: IJobFunction;
   careerStartDate: Date | null;
   companyStartDate: Date | null;
-  mobilePhone: string;
   email: string;
   skills: ISkill[];
   summary: string;
@@ -39,6 +38,8 @@ export const GenerateCVPage: React.FC = () => {
   const technologies = useSelector((state: IRootState) => state.technologies.data);
   const jobFunctions = useSelector((state: IRootState) => state.jobFunctions.data);
   const { loading } = useSelector((state: IRootState) => state.loader);
+
+  console.log('profile', profile);
 
   const dispatch = useDispatch();
 
@@ -88,16 +89,8 @@ export const GenerateCVPage: React.FC = () => {
         id: '7',
         type: 'datePicker',
         props: {
-          name: 'companyStartDate',
-          label: 'Начала работы в компании',
-        },
-      },
-      {
-        id: '8',
-        type: 'textField',
-        props: {
-          name: 'mobilePhone',
-          label: 'Мобильный телефон',
+          name: 'careerStartDate',
+          label: 'Начала работы в сфере',
         },
       },
       {
@@ -146,9 +139,9 @@ export const GenerateCVPage: React.FC = () => {
 
   const onSubmit = async (values: IValues) => {
     const doc = <CvDocument profile={values} />;
-    const asPdf = pdf();
-    asPdf.updateContainer(doc);
-    const blob = await asPdf.toBlob();
+    // const asPdf = pdf();
+    // asPdf.updateContainer(doc);
+    const blob = await pdf(doc).toBlob();
     await saveAs(blob, `${values.name}${values.surname}_CV.pdf`);
     // goTo(getViewProfileLink(userId, profileId))
   };
